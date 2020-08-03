@@ -52,16 +52,19 @@ public class RightHandManager : MonoBehaviour
         //     lineVisual.reticle.SetActive(CheckIfRayHit(controller));
         // }   
 
-        // if (player != null && CheckIfActivated(controller) && !held){
-        //     held = true;
-        //     glyphRecognition.Cast();
-        //     lineVisual.enabled = true;
-        // }
+        //if (CheckIfActivated(controller)) { glyphRecognition.Cast(); }
 
-        // if (player != null && !CheckIfActivated(controller) && held) {
-        //     held = false;
-        //     player.ReleaseSpellCast();
-        // }
+        if (player != null && CheckIfActivated(controller) && !held){
+            print("try cast");
+            held = true;
+            glyphRecognition.Cast();
+            //lineVisual.enabled = true;
+        }
+
+        if (player != null && !CheckIfActivated(controller) && held) {
+            held = false;
+            player.ReleaseSpellCast();
+        }
 
         //controller.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed);
         //if (pressed) player.CastFireball(0, 0f);

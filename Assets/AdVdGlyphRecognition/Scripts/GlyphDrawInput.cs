@@ -296,6 +296,78 @@ namespace AdVd.GlyphRecognition
 			}
 		}
 		#endregion
+
+		Vector2 ReshapePosition(Vector2 position) {
+			Vector2 localPoint = position;
+			RectTransform rt =  transform as RectTransform;
+			Rect r = rt.rect;
+			localPoint-=r.center;
+			localPoint.x/=r.width*normalizedGlyphSize; localPoint.y/=r.height*normalizedGlyphSize;
+			return localPoint;
+		}
+		public void BeginCustomDrag(Vector2 pressPosition){
+			//if (eventData.button!=PointerEventData.InputButton.Left) return;
+			
+			stroke=new List<Vector2>();
+			Vector2 localPoint = ReshapePosition(pressPosition);
+			//Debug.Log("Begin Drag");
+			stroke.Add (prevPos=localPoint);
+			//Debug.Log("stroke added: "+localPoint.ToString());
+			//Debug.Log("stroke added: "+localPoint.ToString());
+			//Debug.Log("Stroke: "+stroke[0].ToString());
+		}
+
+		public void CustomDrag(Vector2 position) {
+			//if (eventData.button!=PointerEventData.InputButton.Left) return;
+			if (stroke!=null){
+				Vector2 currPos = ReshapePosition(position);
+				if (sampleDistance<Stroke.minSampleDistance){//No resample
+					stroke.Add(currPos);
+				}
+				else{ //Resample
+					Vector2 dir=(currPos-prevPos);
+					float dist=dir.magnitude;
+					if (dist>0) dir/=dist;
+					while(dist>sampleDistance){
+						Vector2 point=prevPos+dir*sampleDistance;
+						stroke.Add (point);
+						prevPos=point;
+						dist-=sampleDistance;
+					}
+				}
+				if (OnPointDraw!=null){
+					Vector2[] points=new Vector2[stroke.Count+1];
+					stroke.CopyTo(points); points[points.Length-1]=currPos;
+					OnPointDraw(points);
+				}
+				//Debug.Log("stroke length:   "+ stroke.Count);
+			} else {
+				//Debug.Log("Null Stroke  (OnDrag)");
+			}
+		}
+
+		public void EndCustomDrag (Vector2 position) {
+			//if (eventData.button!=PointerEventData.InputButton.Left) return;
+			if (stroke!=null){
+				//Debug.Log("End Drag");
+				if (stroke.Count<2){
+					stroke=null; 
+					if (OnPointDraw!=null) OnPointDraw(null);
+					return;
+				}
+				Vector2 currPos = ReshapePosition(position);
+				stroke.Add(currPos);
+				//Debug.Log("Stroke ended: "+currPos);
+				if (strokeList==null) strokeList=new List<Stroke>();
+				Stroke newStroke=new Stroke(stroke.ToArray());
+				strokeList.Add(newStroke);
+				//Debug.Log("StrokeList:   "+ strokeList);
+				stroke=null;
+				if (OnStrokeDraw!=null) OnStrokeDraw(strokeList.ToArray());
+			} else {
+				Debug.Log("Null Stroke   (OnEndDrag)");
+			}
+		}
 		
 		/// <summary>
 		/// Casts the currently drawn glyph. Return false if there is no glyph to cast. 

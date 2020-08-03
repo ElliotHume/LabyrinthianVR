@@ -16,9 +16,6 @@ public class MovementProvider : LocomotionProvider
     public float speed = 3.0f;
     public float gravityMultiplier = 1.0f;
 
-    private bool playerFound = false;
-    private bool playerParented = false;
-
     public GameObject player;
     public GameObject drawingAnchor;
 
@@ -37,7 +34,7 @@ public class MovementProvider : LocomotionProvider
         // OVRManager.useDynamicFixedFoveatedRendering = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         PositionController();
         CheckForInput();

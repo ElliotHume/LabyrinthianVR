@@ -7,17 +7,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Player : MonoBehaviour
 {
 
+    public GlyphRecognition glyphRecognition;
+
     private Vector3 startGripMove, releaseGripMove;
     public int dragMoveSpeed = 10;
     private float movementCooldown = 0f;
     public GameObject castingHand, movingHand, spellReticle, baseReticle;
     public XRController castingHandController, movingHandController;
-    public XRRayInteractor castingRay;
-    public XRInteractorLineVisual castingLineRenderer;
-    public SkinnedMeshRenderer castingHandRenderer, movementHandRenderer;
-    public Material baseMaterial, spellHandGlow, movementCooldownGlow;
-    public ParticleSystem fireParticles, lightningParticles, windParticles, royalParticles, iceParticles, damageParticles;
-    public GameObject shieldSphere, arcanoSphere;
+    // public XRRayInteractor castingRay;
+    // public XRInteractorLineVisual castingLineRenderer;
+    // public SkinnedMeshRenderer castingHandRenderer, movementHandRenderer;
+    // public Material baseMaterial, spellHandGlow, movementCooldownGlow;
+    // public ParticleSystem fireParticles, lightningParticles, windParticles, royalParticles, iceParticles, damageParticles;
+    // public GameObject shieldSphere, arcanoSphere;
 
 
 
@@ -81,5 +83,34 @@ public class Player : MonoBehaviour
         } else {
             Debug.Log("Movement on cooldown");
         }
+    }
+
+    public void ReleaseSpellCast() {
+        // TODO
+    }
+
+    public void CastFireball(int x, float y) {
+
+    }
+    public void CastShieldBack() {
+        
+    }
+    public void CastWindForward() {
+        
+    }
+    public void CastLightningNeutral() {
+        
+    }
+    public void CastArcanePulse() {
+        
+    }
+    public void CastIceSpikes() {
+        
+    }
+    public void CastRoyalFire(int x, float y) {
+        
+    }
+    public void CastFizzle() {
+        
     }
 }

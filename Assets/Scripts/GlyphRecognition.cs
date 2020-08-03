@@ -82,7 +82,7 @@ public class GlyphRecognition : MonoBehaviour {
 
 	public GlyphMatch Match(Stroke[] strokes) {
 		Glyph drawnGlyph = Glyph.CreateGlyph(strokes, glyphInput.sampleDistance);
-        if (glyphInput.Method != null && glyphInput.targetGlyphSet != null)
+        if (glyphInput.targetGlyphSet != null)
         {
 			GlyphMatch match;
 			int index = glyphInput.method.MultiMatch(drawnGlyph, glyphInput.targetGlyphSet, out match);
@@ -144,83 +144,83 @@ public class GlyphRecognition : MonoBehaviour {
 		}
 		
 		Debug.Log("match:  "+ match.target.ToString());
-		//Debug.Log("Player:   "+player.name);
+		Debug.Log("Player:   "+player.name);
 		// Make sure glyph recognition finishes and clears the stroke list
 		// through any possible errors.
-		// try {
-		// 	switch (match.target.ToString()) {
-		// 		//case "Fireball":
-		// 		//case "Fireball2":
-		// 		//case "Fireball3":
-		// 		case "Fireball4":
-		// 			StartCoroutine(Morph (match, glyphColours["fireball"]));
-		// 			if (currentCast == CastDirection.Right) {
-		// 				player.CastFireball(25, 1f);
-		// 			} else if (currentCast == CastDirection.Left) {
-		// 				player.CastFireball(-25, 1f);
-		// 			} else {
-		// 				player.CastFireball(0, 0f);
-		// 			}
-		// 			break;
-		// 		//case "Shield":
-		// 		case "Shield2":
-		// 		//case "Shield3":
-		// 			StartCoroutine(Morph (match, glyphColours["shield"]));
-		// 			player.CastShieldBack();
-		// 			break;
-		// 		case "WindSlash":
-		// 		//case "Windslash2":
-		// 		//case "Windslash3":
-		// 		//case "Windslash4":
-		// 			StartCoroutine(Morph (match, glyphColours["windslash"]));
-		// 			player.CastWindForward();
-		// 			break;
-		// 		case "Lightning":
-		// 		//case "Lightning2":
-		// 			StartCoroutine(Morph (match, glyphColours["finalSpark"]));
-		// 			player.CastLightningNeutral();
-		// 			break;
-		// 		//case "ArcanePulse":
-		// 		case "Arcanopulse":
-		// 		//case "Arcanopulse2":
-		// 		//case "Arcanopulse3":
-		// 			StartCoroutine(Morph (match, glyphColours["arcanePulse"]));
-		// 			player.CastArcanePulse();
-		// 			break;
-		// 		case "Icespike":
-		// 		//case "Icespike2":
-		// 		//case "Icespike3":
-		// 		 	StartCoroutine(Morph (match, glyphColours["iceSpikes"]));
-		// 		 	player.CastIceSpikes();
-		// 		 	break;
-		// 		//case "Royalfire":
-		// 		//case "Royalfire2":
-		// 		case "Royalfire3":
-		// 			StartCoroutine(Morph (match, glyphColours["royalFire"]));
-		// 			if (currentCast == CastDirection.Right) {
-		// 				player.CastRoyalFire(50, 0.2f);
-		// 			} else if (currentCast == CastDirection.Left) {
-		// 				player.CastRoyalFire(-50, 0.2f);
-		// 			} else {
-		// 				player.CastRoyalFire(0, 0f);
-		// 			}
-		// 			break;
-		// 		default:
-		// 			//Debug.Log("Fizzle");
-		// 			player.CastFizzle();
-		// 			ClearAll();
-		// 			//Clear(targetGlyphGraphic);
-		// 			//Clear(castedGlyphGraphic);
-		// 			//Clear(currentGlyphGraphic);
-		// 			//Clear(currentStrokeGraphic);
-		// 			//glyphInput.strokeList.Clear();
-		// 			break;
-		// 	}
-		// }
-		// catch (System.Exception e) {
-		// 	Debug.LogError("Glyph recognition " + e + " occured. Clearing strokes.");
-		// 	ClearAll();
-		// }
+		try {
+			switch (match.target.ToString()) {
+				//case "Fireball":
+				//case "Fireball2":
+				//case "Fireball3":
+				case "Fireball4":
+					StartCoroutine(Morph (match, glyphColours["fireball"]));
+					if (currentCast == CastDirection.Right) {
+						player.CastFireball(25, 1f);
+					} else if (currentCast == CastDirection.Left) {
+						player.CastFireball(-25, 1f);
+					} else {
+						player.CastFireball(0, 0f);
+					}
+					break;
+				//case "Shield":
+				case "Shield2":
+				//case "Shield3":
+					StartCoroutine(Morph (match, glyphColours["shield"]));
+					player.CastShieldBack();
+					break;
+				case "WindSlash":
+				//case "Windslash2":
+				//case "Windslash3":
+				//case "Windslash4":
+					StartCoroutine(Morph (match, glyphColours["windslash"]));
+					player.CastWindForward();
+					break;
+				case "Lightning":
+				//case "Lightning2":
+					StartCoroutine(Morph (match, glyphColours["finalSpark"]));
+					player.CastLightningNeutral();
+					break;
+				//case "ArcanePulse":
+				case "Arcanopulse":
+				//case "Arcanopulse2":
+				//case "Arcanopulse3":
+					StartCoroutine(Morph (match, glyphColours["arcanePulse"]));
+					player.CastArcanePulse();
+					break;
+				case "Icespike":
+				//case "Icespike2":
+				//case "Icespike3":
+				 	StartCoroutine(Morph (match, glyphColours["iceSpikes"]));
+				 	player.CastIceSpikes();
+				 	break;
+				//case "Royalfire":
+				//case "Royalfire2":
+				case "Royalfire3":
+					StartCoroutine(Morph (match, glyphColours["royalFire"]));
+					if (currentCast == CastDirection.Right) {
+						player.CastRoyalFire(50, 0.2f);
+					} else if (currentCast == CastDirection.Left) {
+						player.CastRoyalFire(-50, 0.2f);
+					} else {
+						player.CastRoyalFire(0, 0f);
+					}
+					break;
+				default:
+					//Debug.Log("Fizzle");
+					player.CastFizzle();
+					ClearAll();
+					//Clear(targetGlyphGraphic);
+					//Clear(castedGlyphGraphic);
+					//Clear(currentGlyphGraphic);
+					//Clear(currentStrokeGraphic);
+					//glyphInput.strokeList.Clear();
+					break;
+			}
+		}
+		catch (System.Exception e) {
+			Debug.LogError("Glyph recognition " + e + " occured. Clearing strokes.");
+			ClearAll();
+		}
 
 	}
 
