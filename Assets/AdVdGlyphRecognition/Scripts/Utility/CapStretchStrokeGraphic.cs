@@ -16,22 +16,12 @@ namespace AdVd.GlyphRecognition
         [Range(0, 0.5f)]
         public float capSize = 0.5f;//Half the width
 
-        private bool isTarget = false;
+        public bool isTarget = false;
         public float fadeSpeed = 0.5f;
-
-        private Color defaultColor = new Color(191/255f, 110/255f, 54/255f, 64/255f);
-
-        public void Start() {
-            if (gameObject.name == "TargetGlyphGraphic") {
-                isTarget = true;
-            }
-        }
 
         public void Update() {
             if (isTarget) {
                 color = new Color(color.r, color.g, color.b, color.a - Time.deltaTime * fadeSpeed);
-                if (color.a <= 0)
-                    material.color = defaultColor;
             }
         }
 

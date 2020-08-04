@@ -144,7 +144,7 @@ public class GlyphRecognition : MonoBehaviour {
 		}
 		
 		Debug.Log("match:  "+ match.target.ToString());
-		Debug.Log("Player:   "+player.name);
+		//Debug.Log("Player:   "+player.name);
 		// Make sure glyph recognition finishes and clears the stroke list
 		// through any possible errors.
 		try {
@@ -154,13 +154,7 @@ public class GlyphRecognition : MonoBehaviour {
 				//case "Fireball3":
 				case "Fireball4":
 					StartCoroutine(Morph (match, glyphColours["fireball"]));
-					if (currentCast == CastDirection.Right) {
-						player.CastFireball(25, 1f);
-					} else if (currentCast == CastDirection.Left) {
-						player.CastFireball(-25, 1f);
-					} else {
-						player.CastFireball(0, 0f);
-					}
+					player.CastFireball();
 					break;
 				//case "Shield":
 				case "Shield2":
@@ -169,7 +163,7 @@ public class GlyphRecognition : MonoBehaviour {
 					player.CastShieldBack();
 					break;
 				case "WindSlash":
-				//case "Windslash2":
+				case "Windslash2":
 				//case "Windslash3":
 				//case "Windslash4":
 					StartCoroutine(Morph (match, glyphColours["windslash"]));
@@ -197,13 +191,7 @@ public class GlyphRecognition : MonoBehaviour {
 				//case "Royalfire2":
 				case "Royalfire3":
 					StartCoroutine(Morph (match, glyphColours["royalFire"]));
-					if (currentCast == CastDirection.Right) {
-						player.CastRoyalFire(50, 0.2f);
-					} else if (currentCast == CastDirection.Left) {
-						player.CastRoyalFire(-50, 0.2f);
-					} else {
-						player.CastRoyalFire(0, 0f);
-					}
+					player.CastRoyalFire();
 					break;
 				default:
 					//Debug.Log("Fizzle");
@@ -227,7 +215,7 @@ public class GlyphRecognition : MonoBehaviour {
 	const float step=0.01f;
 
 	IEnumerator Morph(GlyphMatch match, Color color){
-		targetGlyphGraphic.color = new Color(1f, 1f, 1f, 1f);
+		//targetGlyphGraphic.color = new Color(1f, 1f, 1f, 1f);
 
 		Clear(castedGlyphGraphic);
 		Stroke[] strokes = null;
@@ -243,7 +231,7 @@ public class GlyphRecognition : MonoBehaviour {
 		while (t < 0.99f) {
 			match.SetLerpStrokes(t, ref strokes);
 			Set(targetGlyphGraphic, strokes);
-			targetGlyphGraphic.material.color = Color.Lerp(glyphColours["default"], color, t);
+			//targetGlyphGraphic.material.color = Color.Lerp(glyphColours["default"], color, t);
          	t += (1 - t) * 0.1f;
 			yield return new WaitForSeconds(step);
 		}

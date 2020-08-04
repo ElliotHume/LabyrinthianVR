@@ -24,6 +24,9 @@ public class RightHandManager : MonoBehaviour
         inputDevice = controller.inputDevice;
         rayInteractor = GetComponent<XRRayInteractor>();
         lineVisual = GetComponent<XRInteractorLineVisual>();
+
+        lineVisual.enabled = false;
+        lineVisual.reticle.SetActive(false);
     }
 
     public bool CheckIfActivated(XRController controller){
@@ -46,16 +49,15 @@ public class RightHandManager : MonoBehaviour
             }
 			
 
-        // if (rayInteractor && !held) {
-        //     lineVisual.enabled = CheckIfRayHit(controller);
-        //     //rayInteractor.enabled = CheckIfActivated(controller);
-        //     lineVisual.reticle.SetActive(CheckIfRayHit(controller));
+        // if (rayInteractor && !held && lineVisual.enabled) {
+        //     lineVisual.enabled = false;
+        //     lineVisual.reticle.SetActive(false);
         // }   
 
         //if (CheckIfActivated(controller)) { glyphRecognition.Cast(); }
 
         if (player != null && CheckIfActivated(controller) && !held){
-            print("try cast");
+            //print("try cast");
             held = true;
             glyphRecognition.Cast();
             //lineVisual.enabled = true;
@@ -64,6 +66,7 @@ public class RightHandManager : MonoBehaviour
         if (player != null && !CheckIfActivated(controller) && held) {
             held = false;
             player.ReleaseSpellCast();
+            //lineVisual.enabled = false;
         }
 
         //controller.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed);

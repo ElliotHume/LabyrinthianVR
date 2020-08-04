@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BodyPart
+  - ArcanePulse
+  - IceSpikes
+  - Shield
+  - RoyalFire
+  - Arena
+  - Wall
+  - Fireball_Interactable
   layers:
   - Default
   - TransparentFX
