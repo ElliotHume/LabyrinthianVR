@@ -49,7 +49,7 @@ public class DrawingPlane : MonoBehaviour
             Vector3 localSpacePoint = transform.InverseTransformPoint(contact.point);
             // Quaternion rotation = Quaternion.Inverse(transform.rotation);
             // localSpacePoint = rotation * localSpacePoint;
-            Vector2 twospace = new Vector2(localSpacePoint.x, localSpacePoint.y);
+            Vector2 twospace = new Vector2(-localSpacePoint.x, localSpacePoint.y);
             //print("ENTER:   "+localSpacePoint+"  "+twospace);
             try {
                 glyphDrawInput.BeginCustomDrag(twospace);
@@ -68,7 +68,7 @@ public class DrawingPlane : MonoBehaviour
             // Quaternion rotation = Quaternion.Inverse(transform.rotation);
             // localSpacePoint = rotation * localSpacePoint;
             //print("STAY:  "+localSpacePoint);
-            Vector2 twospace = new Vector2(localSpacePoint.x, localSpacePoint.y);
+            Vector2 twospace = new Vector2(-localSpacePoint.x, localSpacePoint.y);
             try {
                 glyphDrawInput.CustomDrag(twospace);
             } catch {
@@ -84,7 +84,7 @@ public class DrawingPlane : MonoBehaviour
             Vector3 localSpacePoint = transform.InverseTransformPoint(contact.point);
             // Quaternion rotation = Quaternion.Inverse(transform.rotation);
             // localSpacePoint = rotation * localSpacePoint;
-            Vector2 twospace = new Vector2(localSpacePoint.x, localSpacePoint.y);
+            Vector2 twospace = new Vector2(-localSpacePoint.x, localSpacePoint.y);
             //print("EXIT:   "+localSpacePoint+"  "+twospace);
             try {
                 glyphDrawInput.EndCustomDrag(twospace);

@@ -57,7 +57,7 @@ public class Fireball : MonoBehaviour
 
             // transform.position = new Vector3(horizontal.x, vertical, horizontal.z);
 
-            transform.position += transform.forward * travelTime;
+            transform.position += transform.forward * Time.deltaTime * travelTime;
             /*
             if (currentTime > 1f) {
                 GameObject newExplosion = Instantiate(fireballExplosion, transform.position, Quaternion.identity);

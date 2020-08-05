@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DrawingAnchor : MonoBehaviour
 {
-    public GameObject drawingPlane;
+    public GameObject drawingPlane, playerGO;
     public float planeOffsetForward, planeOffsetUp;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +16,10 @@ public class DrawingAnchor : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (Vector3.Distance(transform.position, playerGO.transform.position) > 1) {
+            transform.position = Vector3.MoveTowards(transform.position, playerGO.transform.position, 0.01f);
+        }
+
         drawingPlane.transform.position = transform.position + (planeOffsetForward * transform.forward) + (planeOffsetUp * transform.up);
     }
 }

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public GlyphRecognition glyphRecognition;
 
     public float spellVelocity = 20;
-    public string heldSpell = null;
+    public string heldSpell;
     public string lastSpellCast;
     private Vector3 startGripMove, releaseGripMove;
     public int dragMoveSpeed = 10;
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     public GameObject fizzle;
     public GameObject royalFireball;
     public List<GameObject> shields;
-    public int maxShields = 2;
+    public int maxShields = 3;
 
 
 
@@ -69,23 +69,38 @@ public class Player : MonoBehaviour
         movingHand = GameObject.Find("LeftHand Controller");
         Debug.Log("Moving Hand GameObject: "+ movingHand);
 
-        castingHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
-        Debug.Log("Casting Hand render: " + GameObject.Find("hands:Rhand"));
+        try {
+            castingHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
+            Debug.Log("Casting Hand render: " + GameObject.Find("hands:Rhand"));
 
-        movementHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
-        Debug.Log("Movement Hand render: " + GameObject.Find("hands:Lhand"));
+            movementHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
+            Debug.Log("Movement Hand render: " + GameObject.Find("hands:Lhand"));
+        } catch {
+            Debug.Log("Could not find hand renderers, will try again on FixedUpdate");
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (!castingHandRenderer) {
-            castingHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
-            Debug.Log("Casting Hand render: " + GameObject.Find("hands:Rhand"));
+            try {
+                castingHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
+                Debug.Log("Casting Hand render: " + GameObject.Find("hands:Rhand"));
+            } catch {
+                //do nothing
+            }
+            
         }
         if (!movementHandRenderer) {
-            movementHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
-            Debug.Log("Movement Hand render: " + GameObject.Find("hands:Lhand"));
+            try {
+                movementHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
+                Debug.Log("Movement Hand render: " + GameObject.Find("hands:Lhand"));
+            } catch {
+                // do nothing
+            }
         }
     }
 
@@ -98,7 +113,7 @@ public class Player : MonoBehaviour
             movingHandController = movingHand.GetComponent<XRController>();
         }
 
-        if (heldSpell != null) {
+        if (heldSpell != null && heldSpell != "") {
             castingHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.1f);
         }
     }
@@ -262,7 +277,7 @@ public class Player : MonoBehaviour
     }
 
     public void CastHeldFireball() {
-        GameObject newFireball = Instantiate(fireball, castingHand.transform.position, transform.rotation);
+        GameObject newFireball = Instantiate(fireball, castingHand.transform.position, castingHand.transform.rotation);
 
         // Get position of the casting projectile ray target hit
         RaycastHit rayHit;
@@ -296,7 +311,7 @@ public class Player : MonoBehaviour
     }
 
     public void CastHeldShield() {
-        GameObject newShield = Instantiate(shield, castingHand.transform.position + (castingHand.transform.forward*2), castingHand.transform.rotation * Quaternion.Euler(90f, 0f, 90f));
+        GameObject newShield = Instantiate(shield, castingHand.transform.position + (castingHand.transform.forward * 0.5f), castingHand.transform.rotation * Quaternion.Euler(90f, 0f, 90f));
 
         shields.Add(newShield);
         if (shields.Count > maxShields) {

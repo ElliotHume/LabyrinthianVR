@@ -24,11 +24,12 @@ public class AnchorPlacementZone : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.name == "DrawingAnchor") {
-            other.gameObject.transform.position = transform.position + new Vector3(0f, 0.45f, 0f); 
+            other.gameObject.transform.position = transform.position + new Vector3(-0.036f, 0.12f, -0.034f); 
 
             GetComponent<AudioSource>().Play();
 
-            toggleObject.SetActive(!toggleObject.activeInHierarchy);
+            toggleObject.SetActive(true);
+            print(toggleObject+" set to active "+toggleObject.activeInHierarchy+ " pos: "+toggleObject.transform.position);
         }
     }
 }

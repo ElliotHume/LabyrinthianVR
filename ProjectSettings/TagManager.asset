@@ -12,6 +12,7 @@ TagManager:
   - Arena
   - Wall
   - Fireball_Interactable
+  - Tile
   layers:
   - Default
   - TransparentFX
