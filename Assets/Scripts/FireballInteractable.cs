@@ -23,6 +23,7 @@ public class FireballInteractable : MonoBehaviour
 
     public void toggleGameObject() {
         if (toggleActiveGameObjects.Count > 0 ) {
+            Debug.Log(gameObject.name+" toggling objects: "+toggleActiveGameObjects.Count);
             foreach( GameObject go in toggleActiveGameObjects ) {
                 go.SetActive(!go.activeInHierarchy);
             }

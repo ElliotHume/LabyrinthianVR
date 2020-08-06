@@ -51,7 +51,8 @@ public class RiverPuzzle : MonoBehaviour
 
 
         if (guess1+guess2+guess3 == answer1+answer2+answer3) {
-            gameObject.SetActive(false);
+            GetComponent<AudioSource>().Play();
+            Destroy(gameObject, 0.5f);
         }
     }
 
