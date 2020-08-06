@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using AdVd.GlyphRecognition;
+using UnityEngine.SceneManagement;
 
 public class DrawingPlane : MonoBehaviour
 {
@@ -92,5 +93,10 @@ public class DrawingPlane : MonoBehaviour
                 print("failure to end drag");
             }
         }
+    }
+
+
+    public void ReloadScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

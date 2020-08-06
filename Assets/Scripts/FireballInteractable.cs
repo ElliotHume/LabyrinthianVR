@@ -19,6 +19,11 @@ public class FireballInteractable : MonoBehaviour
 
     public virtual void Trigger() {
         toggleGameObject();
+        try {
+            GetComponent<AudioSource>().Play();
+        } catch {
+            Debug.Log("No audio source");
+        }
     }
 
     public void toggleGameObject() {
