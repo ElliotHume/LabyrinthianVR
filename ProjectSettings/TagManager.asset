@@ -11,8 +11,8 @@ TagManager:
   - RoyalFire
   - Arena
   - Wall
-  - Fireball_Interactable
   - Tile
+  - Spell_Interactable
   layers:
   - Default
   - TransparentFX
@@ -23,8 +23,8 @@ TagManager:
   - 
   - 
   - DrawingPlane
-  - 
-  - 
+  - Interactables
+  - Player
   - 
   - 
   - 

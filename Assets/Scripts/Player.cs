@@ -78,7 +78,6 @@ public class Player : MonoBehaviour
         } catch {
             Debug.Log("Could not find hand renderers, will try again on FixedUpdate");
         }
-        
     }
 
     // Update is called once per frame
@@ -102,6 +101,9 @@ public class Player : MonoBehaviour
                 // do nothing
             }
         }
+        if (!drawingAnchor) {
+            drawingAnchor = GameObject.Find("DrawingAnchor");
+        }
     }
 
     void FixedUpdate() {
@@ -116,21 +118,6 @@ public class Player : MonoBehaviour
         if (heldSpell != null && heldSpell != "") {
             castingHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.1f);
         }
-    }
-
-    private void ControllerJoystickMove (Vector2 position)
-    {
-        // Apply the touch position to the head's forward Vector
-        Vector3 direction = new Vector3(position.x, 0, position.y);
-        Vector3 headRotation = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
-
-        // Rotate the input direction by the horizontal head rotation
-        direction = Quaternion.Euler(headRotation) * direction;
-
-        // Apply speed and move
-        Vector3 movement = direction * 3;
-        transform.position += movement * Time.deltaTime;
-        drawingAnchor.transform.position += movement * Time.deltaTime;
     }
 
     public void StartGripMove(Vector3 startPos){
@@ -349,9 +336,9 @@ public class Player : MonoBehaviour
             target = rayHit.point;
         }
 
-        GameObject newWindSlash = Instantiate(windslash, transform.position + (transform.forward * 2f) + Vector3.up, transform.rotation);
+        GameObject newWindSlash = Instantiate(windslash, castingHand.transform.position, castingHand.transform.rotation);
         newWindSlash.GetComponent<WindSlash>().SetOwner(gameObject);
-        newWindSlash.GetComponent<WindSlash>().SetTarget(target);
+        newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.rotation.eulerAngles);
 
         DisableProjectileLine();
         if (windParticles) windParticles.Stop();

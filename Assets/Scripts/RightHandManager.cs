@@ -26,7 +26,7 @@ public class RightHandManager : MonoBehaviour
         lineVisual = GetComponent<XRInteractorLineVisual>();
 
         lineVisual.enabled = false;
-        lineVisual.reticle.SetActive(false);
+        //lineVisual.reticle.SetActive(false);
     }
 
     public bool CheckIfActivated(XRController controller){

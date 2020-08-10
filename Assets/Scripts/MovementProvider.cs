@@ -32,6 +32,12 @@ public class MovementProvider : LocomotionProvider
         PositionController();
         // OVRManager.fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.High; // it's the maximum foveation level
         // OVRManager.useDynamicFixedFoveatedRendering = true;
+
+        Debug.Log("Cameras #: "+Camera.allCamerasCount+"   current: "+Camera.current.gameObject+"     main: "+Camera.main.gameObject);
+        foreach(Camera item in Camera.allCameras) {
+            Debug.Log("Camera: "+item.gameObject+"    isMain: "+(item == Camera.main)+ "    isCurrent: "+(item == Camera.current));
+        }
+        
     }
 
     private void Update()
@@ -49,6 +55,7 @@ public class MovementProvider : LocomotionProvider
     }
     private void PositionController()
     {
+        //Debug.Log("PRE: "+head.transform.position);
         // Get the head in local, playspace ground
         float headHeight = Mathf.Clamp(head.transform.localPosition.y, 1,2);
         characterController.height = headHeight;
@@ -64,6 +71,7 @@ public class MovementProvider : LocomotionProvider
 
         // Apply
         characterController.center = newCenter;
+        //Debug.Log("POST: "+head.transform.position);
     }
 
     private void CheckForInput()
@@ -82,18 +90,19 @@ public class MovementProvider : LocomotionProvider
         }
 
 
-        device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool goDown);
-        device.TryGetFeatureValue(CommonUsages.primaryButton, out bool goUp);
-        if (goDown){
-            characterController.Move(Vector3.down * Time.deltaTime);
-        }
-        if (goUp){
-            characterController.Move(Vector3.up * Time.deltaTime);
-        }
+        // device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool goDown);
+        // device.TryGetFeatureValue(CommonUsages.primaryButton, out bool goUp);
+        // if (goDown){
+        //     characterController.Move(Vector3.down * Time.deltaTime);
+        // }
+        // if (goUp){
+        //     characterController.Move(Vector3.up * Time.deltaTime);
+        // }
     }
 
     private void StartMove(Vector2 position)
     {
+        //print("Position: "+head.transform.position+"      Rotation: "+head.transform.eulerAngles);
         // Apply the touch position to the head's forward Vector
         Vector3 direction = new Vector3(position.x, 0, position.y);
         Vector3 headRotation = new Vector3(0, head.transform.eulerAngles.y, 0);
@@ -103,8 +112,18 @@ public class MovementProvider : LocomotionProvider
 
         // Apply speed and move
         Vector3 movement = direction * speed;
+        Vector3 prevPos = head.transform.position;
         characterController.Move(movement * Time.deltaTime);
-        
+
+
+
+        // if (movement.magnitude > 0f) {
+        //     Debug.Log("Movement, playerPos:  "+player.transform.position+"    characterControllerPos: "+characterController.transform.position+"   headPos: "+head.transform.position);
+        //     foreach(Camera item in Camera.allCameras) {
+        //         Debug.Log("Camera: "+item.gameObject+"  position: "+item.gameObject.transform.position+"             isMain: "+(item == Camera.main)+ "    isCurrent: "+(item == Camera.current));
+        //     }
+        // }
+        //drawingAnchor.transform.position += movement * Time.deltaTime;
     }
 
     private void ApplyGravity()

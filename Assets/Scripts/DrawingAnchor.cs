@@ -17,6 +17,10 @@ public class DrawingAnchor : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (!drawingPlane) {
+            drawingPlane = GameObject.Find("Drawing Plane");
+        }
+
         if (Vector3.Distance(transform.position, playerGO.transform.position) > 2) {
             transform.position = Vector3.MoveTowards(transform.position, playerGO.transform.position+anchorHeight, 0.1f);
         }

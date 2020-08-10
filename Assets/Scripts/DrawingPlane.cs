@@ -30,12 +30,15 @@ public class DrawingPlane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!playerCamera) playerCamera = Camera.main;
+
         transform.LookAt(playerCamera.transform);
         if (!isPhysical) {
             
             InputHelpers.IsPressed(controller.inputDevice, enableRayButton, out bool isActivated, activationThreshold);
             blockingPlane.SetActive(!isActivated);
         }
+        
         
         // float distance = Vector3.Distance( anchor.transform.position, player.transform.position );
         // if (distance > 2.0f) {

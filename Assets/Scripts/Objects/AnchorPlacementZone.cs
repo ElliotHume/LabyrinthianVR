@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnchorPlacementZone : MonoBehaviour
 {
-    public GameObject toggleObject;
+    public List<GameObject> toggleObjects;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +25,13 @@ public class AnchorPlacementZone : MonoBehaviour
     {
         if (other.name == "DrawingAnchor") {
             other.gameObject.transform.position = transform.position + new Vector3(-0.036f, 0.12f, -0.034f); 
+            
+            foreach (GameObject go in toggleObjects) {
+                go.SetActive(true);
+            }
 
             GetComponent<AudioSource>().Play();
-
-            toggleObject.SetActive(true);
-            print(toggleObject+" set to active "+toggleObject.activeInHierarchy+ " pos: "+toggleObject.transform.position);
+            //print(toggleObject+" set to active "+toggleObject.activeInHierarchy+ " pos: "+toggleObject.transform.position);
         }
     }
 }

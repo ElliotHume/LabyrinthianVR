@@ -32,14 +32,12 @@ public class FireballExplosion : MonoBehaviour
         if (other.tag == "Shield") {
             other.GetComponent<Shield>().Break();
             Destroy(GetComponent<SphereCollider>(), 0);
-        } else if (other.tag == "Fireball_Interactable") {
-            try {
-                other.GetComponent<FireballInteractable>().Trigger();
-                Destroy(GetComponent<SphereCollider>(), 0);
-            } catch (System.Exception e) {
-                print("error with hitting fireball interactable: "+e);
-            }
-            
+        } else if (other.tag == "Spell_Interactable") {
+            SpellInteractable si = other.GetComponent<SpellInteractable>();
+            Burnable b = other.GetComponent<Burnable>();
+            if (si != null) si.Trigger("fireball");
+            if (b != null) b.Burn();
+            Destroy(GetComponent<SphereCollider>(), 0);
         }
     }
 }

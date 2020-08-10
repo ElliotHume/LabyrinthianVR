@@ -18,7 +18,7 @@ public class Fireball : MonoBehaviour
     public GameObject fireballExplosion;
 
     public GameObject ownerGO;
-    private bool wasReflected = false;
+    // private bool wasReflected = false;
     public bool playerThrown; // TODO
 
     private float verticalSpeed;
