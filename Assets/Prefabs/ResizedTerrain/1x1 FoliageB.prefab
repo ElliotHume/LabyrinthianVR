@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3558482163566237342
 Transform:
@@ -144,6 +144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_flatShort (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: aaf31759d7020ac46837d02e2539cea2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaf31759d7020ac46837d02e2539cea2, type: 3}
 --- !u!4 &4944274480363078310 stripped
@@ -239,6 +244,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_bushLarge
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 90ad05586f791d34089b824d2ac2e7fe,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90ad05586f791d34089b824d2ac2e7fe, type: 3}
 --- !u!4 &4638153151421081511 stripped
@@ -318,6 +328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: platform_beach
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2e5c34281a7590343aa6a64f84d63bb3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e5c34281a7590343aa6a64f84d63bb3, type: 3}
@@ -414,6 +429,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_bush
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2243157a5f0c03b49b177c2610144142,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2243157a5f0c03b49b177c2610144142, type: 3}
 --- !u!4 &5232604057581356530 stripped
@@ -509,6 +529,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: mushroom_redGroup
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 4132ea80a36ec6646a5cb2da98119652,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4132ea80a36ec6646a5cb2da98119652, type: 3}
 --- !u!4 &6870900919244669124 stripped
@@ -588,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plant_bushLargeTriangle
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 68a13dab786bc7c4895b7d9c8e980b28,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68a13dab786bc7c4895b7d9c8e980b28, type: 3}
@@ -684,6 +714,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_bushTriangle
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: a0dabc764e2786f4ea0c5b4c42a8cbe9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0dabc764e2786f4ea0c5b4c42a8cbe9, type: 3}
 --- !u!4 &7960059021546251467 stripped
@@ -778,6 +813,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plant_bushDetailed
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9fcfdd0dee8c0bb4b9ece5cb07f511f9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fcfdd0dee8c0bb4b9ece5cb07f511f9, type: 3}
@@ -874,6 +914,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_flatShort
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: aaf31759d7020ac46837d02e2539cea2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaf31759d7020ac46837d02e2539cea2, type: 3}
 --- !u!4 &409197736684263274 stripped
@@ -969,6 +1014,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_bushTriangle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: a0dabc764e2786f4ea0c5b4c42a8cbe9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0dabc764e2786f4ea0c5b4c42a8cbe9, type: 3}
 --- !u!4 &539713759022872070 stripped
@@ -1048,6 +1098,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plant_bushSmall
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 64619d332645060409745d070debf8b0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64619d332645060409745d070debf8b0, type: 3}
@@ -1129,6 +1184,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_flatTall
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e7b9d2a2d0d2f104a83a89e9392ee2ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7b9d2a2d0d2f104a83a89e9392ee2ed, type: 3}
 --- !u!4 &2902908515186103108 stripped
@@ -1208,6 +1268,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: platform_stone
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 22992de51eea2a34a8b175816793a456,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22992de51eea2a34a8b175816793a456, type: 3}

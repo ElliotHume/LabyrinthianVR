@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5579955773044830279}
   - component: {fileID: 3030484087559374503}
   - component: {fileID: 202541944819462853}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: WindForceField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4765,7 +4765,7 @@ GameObject:
   - component: {fileID: 478949869704766766}
   - component: {fileID: 2238619380805580859}
   - component: {fileID: 9125954758115572975}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: WindTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9525,7 +9525,7 @@ GameObject:
   - component: {fileID: -925781731411642213}
   - component: {fileID: 8796090225840088580}
   - component: {fileID: -5654505231897321898}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: WindSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9574,9 +9574,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  target: {x: 0, y: 0, z: 0}
+  speed: 20
+  duration: 0.65
+  direction: {x: 0, y: 0, z: 0}
   owner: {fileID: 0}
-  hitParticle: {fileID: 1095205682116791563}
+  hitParticle: {fileID: 3089659636743016930, guid: c2d5c47cb61e0fd4dbf8a0af36ed29d0,
+    type: 3}
 --- !u!54 &-7671147775005059409
 Rigidbody:
   m_ObjectHideFlags: 0

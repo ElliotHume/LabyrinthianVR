@@ -338,7 +338,7 @@ public class Player : MonoBehaviour
 
         GameObject newWindSlash = Instantiate(windslash, castingHand.transform.position, castingHand.transform.rotation);
         newWindSlash.GetComponent<WindSlash>().SetOwner(gameObject);
-        newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.rotation.eulerAngles);
+        newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.forward);
 
         DisableProjectileLine();
         if (windParticles) windParticles.Stop();

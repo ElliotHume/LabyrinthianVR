@@ -46419,6 +46419,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2018758
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 1fca26726d8f37a46af1bf0b3644b8b1,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 1fca26726d8f37a46af1bf0b3644b8b1,
         type: 3}
       propertyPath: m_Name
@@ -58250,6 +58255,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ground_grass
       objectReference: {fileID: 0}
+    - target: {fileID: 1413726379581488995, guid: b04898d2a73e46c499a020912e14ed39,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2721803092937624944, guid: b04898d2a73e46c499a020912e14ed39,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -59961,6 +59971,11 @@ PrefabInstance:
       propertyPath: drawingAnchor
       value: 
       objectReference: {fileID: 700420902}
+    - target: {fileID: 8464667460322246989, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: m_SlopeLimit
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8464667460322246990, guid: cdb7afb950e7c2a48821e8e3cb18de93,
         type: 3}
       propertyPath: drawingAnchor

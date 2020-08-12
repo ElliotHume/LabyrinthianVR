@@ -25,8 +25,8 @@ TagManager:
   - DrawingPlane
   - Interactables
   - Player
-  - 
-  - 
+  - SpellPassthrough
+  - Spell
   - 
   - 
   - 

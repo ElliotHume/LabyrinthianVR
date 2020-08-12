@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5317969433495400772
 Transform:
@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone_smallB
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2c277cc54d988a242ba503df8364b087,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c277cc54d988a242ba503df8364b087, type: 3}
 --- !u!4 &916356941722505395 stripped
@@ -218,6 +223,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: stump_oldTall
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 30ff279cc2cde2b40847e2a80aef7cdd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30ff279cc2cde2b40847e2a80aef7cdd, type: 3}
@@ -314,6 +324,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_bushTriangle
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: a0dabc764e2786f4ea0c5b4c42a8cbe9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0dabc764e2786f4ea0c5b4c42a8cbe9, type: 3}
 --- !u!4 &916356942619377454 stripped
@@ -409,6 +424,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone_smallF
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d63344f81c1e4d543b59e95780ca8a62,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d63344f81c1e4d543b59e95780ca8a62, type: 3}
 --- !u!4 &916356942834647308 stripped
@@ -488,6 +508,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rock_smallTopB
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d4e3767815194c045957c8222ac00e4a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4e3767815194c045957c8222ac00e4a, type: 3}
@@ -584,6 +609,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant_flatTall
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e7b9d2a2d0d2f104a83a89e9392ee2ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7b9d2a2d0d2f104a83a89e9392ee2ed, type: 3}
 --- !u!4 &916356943067292180 stripped
@@ -679,6 +709,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: stump_squareDetailedWide
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8b2ed8d44844fc749896ebd2d7dab54b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b2ed8d44844fc749896ebd2d7dab54b, type: 3}
 --- !u!4 &916356943525853213 stripped
@@ -773,6 +808,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plant_bush
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2243157a5f0c03b49b177c2610144142,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2243157a5f0c03b49b177c2610144142, type: 3}
