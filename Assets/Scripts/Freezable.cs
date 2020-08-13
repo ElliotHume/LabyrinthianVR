@@ -17,7 +17,7 @@ public class Freezable : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (frozen) transform.position = frozenPosition;
+        //if (frozen) transform.position = frozenPosition;
     }
 
     public void Freeze() {
