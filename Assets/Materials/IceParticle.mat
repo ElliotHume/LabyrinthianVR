@@ -23,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: df121b1f79976b0408df4285a088cb57, type: 3}
+        m_Texture: {fileID: 2800000, guid: e094dd609adad76479913a8d59e7b77f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -102,7 +102,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.43040225, g: 0.6449413, b: 0.8773585, a: 1}
+    - _BaseColor: {r: 0.6263795, g: 0.7854828, b: 0.9622642, a: 1}
     - _BaseColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1.8106018, g: 2.763873, b: 3.8002741, a: 1}

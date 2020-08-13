@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     public GameObject lightningChargeObj;
     public GameObject lightning;
     public GameObject arcanePulse;
-    public GameObject iceSpikeProjectile;
+    public GameObject iceSpikeProjectile, iceSpray;
     public GameObject fizzle;
     public GameObject royalFireball;
     public List<GameObject> shields;
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
 		handColours.Add("lightning", new Color(1f, 247/255f, 103/255f));
 		handColours.Add("arcanopulse", new Color(214/255f, 135/255f, 1f));
 		handColours.Add("icespikes", new Color(50/255f, 50/255f, 1f));
+        handColours.Add("icespray", new Color(50/255f, 50/255f, 1f));
 		handColours.Add("royalfire", new Color(156/255f, 0f, 1f));
 
 
@@ -216,6 +217,9 @@ public class Player : MonoBehaviour
                         break;
                     case "icespikes":
                         CastHeldIceSpikes();
+                        break;
+                    case "icespray":
+                        CastHeldIceSpray();
                         break;
                     case "arcanopulse":
                         CastHeldArcanoPulse();
@@ -428,6 +432,26 @@ public class Player : MonoBehaviour
         Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
         Vector3 startPos = new Vector3(castingHand.transform.position.x, 0f, castingHand.transform.position.z) + castingHand.transform.forward*2f;
         GameObject newIceSpikes = Instantiate(iceSpikeProjectile, startPos, dir);
+
+        if (iceParticles) iceParticles.Stop();
+    }
+
+
+
+
+    //  ------------- ICE SPRAY ------------------
+    public void CastIceSpray() {
+        heldSpell = "icespray";
+        SetHandGlow(heldSpell);
+        if (iceParticles) {
+            //print("ice particles play");
+            iceParticles.Play();
+        }
+    }
+
+    public void CastHeldIceSpray() {
+        GameObject newIceSpray = Instantiate(iceSpray, castingHand.transform.position, castingHand.transform.rotation);
+        newIceSpray.transform.SetParent(castingHand.transform);
 
         if (iceParticles) iceParticles.Stop();
     }

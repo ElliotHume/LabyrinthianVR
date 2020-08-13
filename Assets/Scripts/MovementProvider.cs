@@ -114,6 +114,7 @@ public class MovementProvider : LocomotionProvider
         Vector3 movement = direction * speed;
         Vector3 prevPos = head.transform.position;
         characterController.Move(movement * Time.deltaTime);
+        //drawingAnchor.transform.position += movement * Time.deltaTime;
 
 
 
@@ -123,7 +124,6 @@ public class MovementProvider : LocomotionProvider
         //         Debug.Log("Camera: "+item.gameObject+"  position: "+item.gameObject.transform.position+"             isMain: "+(item == Camera.main)+ "    isCurrent: "+(item == Camera.current));
         //     }
         // }
-        //drawingAnchor.transform.position += movement * Time.deltaTime;
     }
 
     private void ApplyGravity()

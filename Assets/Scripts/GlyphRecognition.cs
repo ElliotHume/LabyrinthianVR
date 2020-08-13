@@ -50,6 +50,7 @@ public class GlyphRecognition : MonoBehaviour {
 		glyphColours.Add("finalSpark", new Color(1f, 247/255f, 103/255f));
 		glyphColours.Add("arcanePulse", new Color(214/255f, 135/255f, 1f));
 		glyphColours.Add("iceSpikes", new Color(127/255f, 126/255f, 253/255f));
+		glyphColours.Add("iceSpray", new Color(127/255f, 126/255f, 253/255f));
 		glyphColours.Add("royalFire", new Color(143/255f, 111/255f, 1f));
 		glyphColours.Add("default", new Color(191 / 255f, 110 / 255f, 54 / 255f, 64 / 255f));
 
@@ -186,6 +187,10 @@ public class GlyphRecognition : MonoBehaviour {
 				//case "Icespike3":
 				 	StartCoroutine(Morph (match, glyphColours["iceSpikes"]));
 				 	player.CastIceSpikes();
+				 	break;
+				case "Icespray":
+				 	StartCoroutine(Morph (match, glyphColours["iceSpray"]));
+				 	player.CastIceSpray();
 				 	break;
 				//case "Royalfire":
 				//case "Royalfire2":

@@ -103,6 +103,8 @@ MonoBehaviour:
     type: 3}
   iceSpikeProjectile: {fileID: 2964162197209181304, guid: 1a73b49924b38f5488fc5cecaa0127e1,
     type: 3}
+  iceSpray: {fileID: 6836790295150975013, guid: cc4711bdab5632641b61fed9d4c3700d,
+    type: 3}
   fizzle: {fileID: 6837901161223021719, guid: 4a242d0aec185414c9702054795bc107, type: 3}
   royalFireball: {fileID: 8105898572971341154, guid: badacfe54bda0334391c56df817217ab,
     type: 3}
