@@ -38,10 +38,15 @@ public class MovingPlatform : MonoBehaviour
         }
 
         StartCoroutine(UnFreeze());
+
+        ParticleSystem[] particles = GetComponents<ParticleSystem>();
+        foreach (ParticleSystem ps in particles) {
+            ps.Play();
+        }
     }
 
     IEnumerator UnFreeze() {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(15);
         StartCoroutine(MoveToAnchor1());
     }
 

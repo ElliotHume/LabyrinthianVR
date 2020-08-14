@@ -21,8 +21,13 @@ public class Freezable : MonoBehaviour
     }
 
     public void Freeze() {
+        Debug.Log("Freezing: "+gameObject);
+
         frozenPosition = transform.position;
         frozen = true;
+        
+        gameObject.GetComponent<MeshRenderer>().material = freezeMaterial;
+        if (duration > 0) StartCoroutine(Unfreeze());
 
         ParticleSystem ps = GetComponent<ParticleSystem>();
         if (ps != null ) ps.Play();
@@ -30,8 +35,7 @@ public class Freezable : MonoBehaviour
         AudioSource asrce = GetComponent<AudioSource>();
         if (asrce != null) asrce.Play();
 
-        gameObject.GetComponent<MeshRenderer>().material = freezeMaterial;
-        if (duration > 0) StartCoroutine(Unfreeze());
+        
     }
 
     IEnumerator Unfreeze() {
