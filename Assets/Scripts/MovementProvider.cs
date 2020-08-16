@@ -126,11 +126,12 @@ public class MovementProvider : LocomotionProvider
         // }
     }
 
-    private void ApplyGravity()
-    {
-        Vector3 gravity = new Vector3(0, Physics.gravity.y * gravityMultiplier, 0);
-        gravity.y *= Time.deltaTime;
+    private void ApplyGravity() {
+        if (!characterController.isGrounded) {
+            Vector3 gravity = new Vector3(0, Physics.gravity.y * gravityMultiplier, 0);
+            gravity.y *= Time.deltaTime;
 
-        characterController.Move(gravity * Time.deltaTime);
+            characterController.Move(gravity * Time.deltaTime);
+        }
     }
 }

@@ -9,8 +9,7 @@ public class MovingPlatform : MonoBehaviour
     public bool waitAtAnchor;
     public float waitDuration;
 
-    bool atAnchor1 = false, atAnchor2 = false;
-
+    bool frozen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,28 +24,28 @@ public class MovingPlatform : MonoBehaviour
     }
 
     public void Freeze(){
-        try {
-            StopCoroutine("MoveToAnchor1");
-        } catch {
-            //do nothing
-        }
-        
-        try {
-            StopCoroutine("MoveToAnchor2");
-        } catch {
-            //do nothing
-        }
+        if (!frozen) {
+            frozen = true;
+            try {
+                StopAllCoroutines();
+            } catch {
+                print("Failed to stop moving");
+            }
 
-        StartCoroutine(UnFreeze());
+            StartCoroutine(UnFreeze());
 
-        ParticleSystem[] particles = GetComponents<ParticleSystem>();
-        foreach (ParticleSystem ps in particles) {
-            ps.Play();
+            ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>();
+            foreach (ParticleSystem ps in particles) {
+                ps.Play();
+            }
+            Debug.Log("Freeze platform: "+gameObject);
         }
     }
 
     IEnumerator UnFreeze() {
         yield return new WaitForSeconds(15);
+        Debug.Log("Unfreeze platform: "+gameObject);
+        frozen = false;
         StartCoroutine(MoveToAnchor1());
     }
 

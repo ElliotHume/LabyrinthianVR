@@ -7,7 +7,7 @@ public class Freezable : MonoBehaviour
     public Material freezeMaterial, baseMaterial;
     public float duration=0f;
     private Vector3 frozenPosition;
-    bool frozen = false;
+    //bool frozen = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,6 @@ public class Freezable : MonoBehaviour
         Debug.Log("Freezing: "+gameObject);
 
         frozenPosition = transform.position;
-        frozen = true;
         
         gameObject.GetComponent<MeshRenderer>().material = freezeMaterial;
         if (duration > 0) StartCoroutine(Unfreeze());
@@ -45,6 +44,6 @@ public class Freezable : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         gameObject.GetComponent<MeshRenderer>().material = baseMaterial;
-        frozen = false;
+        //frozen = false;
     }
 }

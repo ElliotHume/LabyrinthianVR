@@ -36,7 +36,7 @@ public class WindSlash : MonoBehaviour
     void Update()
     {
         // Should counter gravity so that the player can cross gaps
-        Vector3 gravity = new Vector3(0, Physics.gravity.y * 0.15f * Time.deltaTime, 0);
+        Vector3 gravity = new Vector3(0, Physics.gravity.y * 0.35f * Time.deltaTime, 0);
 
         owner.transform.position += (direction * Time.deltaTime * speed) - gravity ;
         transform.position = owner.transform.position + (direction * 0.5f) + Vector3.up;

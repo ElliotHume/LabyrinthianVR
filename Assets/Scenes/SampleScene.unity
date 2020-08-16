@@ -18428,7 +18428,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8464667461127745511}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8464667461127745513}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ae26e19cd956134bbdf3c6f65bf393a, type: 3}
@@ -33520,6 +33520,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 705eac045cacf4a4591a6a4b3c8b3403, type: 3}
+--- !u!1 &1312669135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 705eac045cacf4a4591a6a4b3c8b3403,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312669134}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1312669136
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312669135}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.23091199
+  m_Center: {x: 0.000005722046, y: 0.20369351, z: 0.0000014305115}
+--- !u!114 &1312669137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312669135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f850228c98c9c574b98ec82a39e0c7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerObjects:
+  - {fileID: 607889173}
+  - {fileID: 8464667461127745513}
+  - {fileID: 8464667461127745512}
+  player: {fileID: 1342402214}
+  teleportAnchor: {fileID: 0}
+  sceneChanger: 1
+  sceneName: ArcaneZone0
+  toggleObjects: []
 --- !u!1001 &1315075353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57932,12 +57972,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "\tWelcome Godling\n\n\t\tthis is the labyrinth\n\nHere you will find
-        knowledge enough to \n\tgrant you your place in the\n\t pantheon as a fully
-        blooded god\n\n          \t        To help you first touch\n\t    your powers
-        the labyrinth gifts \n\t\t\t\ta runic tablet bound\n\t\tby a spacial anchor
-        so you may\n\t\t\tbring it with you\n\n\t  draw the runes of power on it\n\t\tto
-        cast spells as you grow\n\t\t\tinto your magic\n\n\t     Knowledge comes
-        at a price of skill,\n\t\t         no information is given \n\t\tto the unworthy"
+        knowledge enough to light\n\tthe fire in your sould and grant you\n                
+        your place in the pantheon\n            as a fully blooded god\n\n         
+        \t        To help you first touch\n\t    your powers the labyrinth gifts
+        \n\t\t\t\ta runic tablet bound\n\t\tby a spacial anchor so you may\n\t\t\tbring
+        it with you\n\n\t  draw the runes of power on it\n\t\tto cast spells as you
+        grow\n\t\t\tinto your magic\n\n\t     Knowledge comes at a price of skill,\n\t\t        
+        no information is given \n\t\tto the unworthy"
       objectReference: {fileID: 0}
     - target: {fileID: 8628212017231631412, guid: 09aa09679edcf8a4d87f99be18107537,
         type: 3}
@@ -57984,6 +58025,16 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 8628212017231631412, guid: 09aa09679edcf8a4d87f99be18107537,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628212017231631412, guid: 09aa09679edcf8a4d87f99be18107537,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 65535
+      objectReference: {fileID: 0}
     - target: {fileID: 8628212017231631413, guid: 09aa09679edcf8a4d87f99be18107537,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -57997,7 +58048,7 @@ PrefabInstance:
     - target: {fileID: 8628212017231631413, guid: 09aa09679edcf8a4d87f99be18107537,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.2
+      value: 2.88
       objectReference: {fileID: 0}
     - target: {fileID: 8628212017231631413, guid: 09aa09679edcf8a4d87f99be18107537,
         type: 3}
@@ -59981,6 +60032,18 @@ PrefabInstance:
       objectReference: {fileID: 966350089}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb7afb950e7c2a48821e8e3cb18de93, type: 3}
+--- !u!1 &8464667461127745512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8464667460992748163, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+    type: 3}
+  m_PrefabInstance: {fileID: 8464667461127745511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8464667461127745513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8464667461682054355, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+    type: 3}
+  m_PrefabInstance: {fileID: 8464667461127745511}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8628212017610145338
 RectTransform:
   m_ObjectHideFlags: 0
