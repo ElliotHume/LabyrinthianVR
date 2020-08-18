@@ -17,6 +17,11 @@ public class RightHandManager : MonoBehaviour
     public float activationThreshold = 0.1f;
     public Player player;
 
+    public GameObject drawingSphere;
+
+    public LineRenderer lineRenderer;
+    //private float lineWidth = 0.1f; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +29,14 @@ public class RightHandManager : MonoBehaviour
         inputDevice = controller.inputDevice;
         rayInteractor = GetComponent<XRRayInteractor>();
         lineVisual = GetComponent<XRInteractorLineVisual>();
-
         lineVisual.enabled = false;
+
+
+        if (lineRenderer == null) lineRenderer = GetComponent<LineRenderer>();
+        Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPositions( initLaserPositions );
+        //lineRenderer.SetWidth(lineWidth, lineWidth);
         //lineVisual.reticle.SetActive(false);
     }
 
@@ -59,17 +70,35 @@ public class RightHandManager : MonoBehaviour
         if (player != null && CheckIfActivated(controller) && !held){
             //print("try cast");
             held = true;
+            drawingSphere.SetActive(false);
             glyphRecognition.Cast();
-            //lineVisual.enabled = true;
+            ShowRay(50f);
+            lineRenderer.enabled = true;
         }
 
         if (player != null && !CheckIfActivated(controller) && held) {
             held = false;
+            drawingSphere.SetActive(true);
+            lineRenderer.enabled = false;
             player.ReleaseSpellCast();
-            //lineVisual.enabled = false;
+            
         }
 
         //controller.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed);
         //if (pressed) player.CastFireball(0, 0f);
     }
+
+    void ShowRay( float length ) {
+         Ray ray = new Ray( transform.position, transform.eulerAngles );
+         RaycastHit raycastHit;
+         Vector3 endPosition = transform.position + ( length * transform.eulerAngles );
+ 
+         if( Physics.Raycast( ray, out raycastHit, length ) ) {
+             endPosition = raycastHit.point;
+         }
+ 
+         print("here");
+         lineRenderer.SetPosition( 0, transform.position );
+         lineRenderer.SetPosition( 1, endPosition );
+     }
 }

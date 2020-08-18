@@ -19,7 +19,7 @@ public class IceSpray : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Ice Spray hit "+other.gameObject);
+        //Debug.Log("Ice Spray hit "+other.gameObject);
         if (other.tag == "Spell_Interactable") {
             SpellInteractable si = other.GetComponent<SpellInteractable>();
             Freezable b = other.GetComponent<Freezable>();

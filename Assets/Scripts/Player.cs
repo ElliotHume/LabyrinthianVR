@@ -259,7 +259,7 @@ public class Player : MonoBehaviour
     public virtual void CastFireball() {
         heldSpell = "fireball";
         SetHandGlow(heldSpell);
-        EnableProjectileLine();
+        //EnableProjectileLine();
         if (fireParticles) {
             //print("fire particles play");
             fireParticles.Play();
@@ -271,16 +271,18 @@ public class Player : MonoBehaviour
         GameObject newFireball = Instantiate(fireball, castingHand.transform.position, castingHand.transform.rotation);
 
         // Get position of the casting projectile ray target hit
-        RaycastHit rayHit;
-        Vector3 target = Vector3.zero;
-        if (castingRay.GetCurrentRaycastHit(out rayHit)) {
-            target = rayHit.point;
+        Ray ray = new Ray( castingHand.transform.position, castingHand.transform.eulerAngles );
+        RaycastHit raycastHit;
+        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.eulerAngles );
+ 
+        if( Physics.Raycast( ray, out raycastHit, 50f ) ) {
+            target = raycastHit.point;
         }
 
         newFireball.GetComponent<Fireball>().SetTarget(target);
 
         if (fireParticles) fireParticles.Stop();
-        DisableProjectileLine();
+        //DisableProjectileLine();
     }
 
 
@@ -333,13 +335,6 @@ public class Player : MonoBehaviour
     }
 
     public void CastHeldWindSlash(){
-        // Get position of the casting projectile ray target hit
-        RaycastHit rayHit;
-        Vector3 target = Vector3.zero;
-        if (castingRay.GetCurrentRaycastHit(out rayHit)) {
-            target = rayHit.point;
-        }
-
         GameObject newWindSlash = Instantiate(windslash, castingHand.transform.position, castingHand.transform.rotation);
         newWindSlash.GetComponent<WindSlash>().SetOwner(gameObject);
         newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.forward);

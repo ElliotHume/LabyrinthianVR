@@ -48,6 +48,9 @@ public class Teleporter : MonoBehaviour
                     go.SetActive(!go.activeInHierarchy);
                 }
             }
+
+            AudioSource asrce = GetComponent<AudioSource>();
+            if (asrce != null) asrce.Play();
         }
     }
 }

@@ -50,8 +50,15 @@ ShaderVariantCollection:
       variants:
       - keywords: SHADOWS_DEPTH
         passType: 8
+      - keywords: SHADOWS_DEPTH _ALPHAPREMULTIPLY_ON
+        passType: 8
       - keywords: 
         passType: 11
+  - first: {fileID: 103, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
   - first: {fileID: 104, guid: 0000000000000000f000000000000000, type: 0}
     second:
       variants:
@@ -65,6 +72,11 @@ ShaderVariantCollection:
       - keywords: _SUNDISK_SIMPLE
         passType: 0
       - keywords: _SUNDISK_HIGH_QUALITY
+        passType: 0
+  - first: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
         passType: 0
   - first: {fileID: 207, guid: 0000000000000000f000000000000000, type: 0}
     second:
@@ -134,6 +146,11 @@ ShaderVariantCollection:
         passType: 8
       - keywords: INSTANCING_ON SHADOWS_DEPTH
         passType: 8
+  - first: {fileID: 10700, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
   - first: {fileID: 10720, guid: 0000000000000000f000000000000000, type: 0}
     second:
       variants:
@@ -145,6 +162,11 @@ ShaderVariantCollection:
       - keywords: 
         passType: 0
       - keywords: FOG_EXP2
+        passType: 0
+  - first: {fileID: 10757, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
         passType: 0
   - first: {fileID: 10760, guid: 0000000000000000f000000000000000, type: 0}
     second:
@@ -192,6 +214,11 @@ ShaderVariantCollection:
       - keywords: 
         passType: 0
       - keywords: _BLOOM_LQ _TONEMAP_ACES
+        passType: 0
+  - first: {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
+    second:
+      variants:
+      - keywords: 
         passType: 0
   - first: {fileID: 4800000, guid: 5f1864addb451f54bae8c86d230f736e, type: 3}
     second:
@@ -262,6 +289,10 @@ ShaderVariantCollection:
         passType: 13
       - keywords: LIGHTMAP_ON _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
+      - keywords: FOG_LINEAR _MIXED_LIGHTING_SUBTRACTIVE
+        passType: 13
+      - keywords: FOG_EXP2 _MIXED_LIGHTING_SUBTRACTIVE
+        passType: 13
       - keywords: _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
       - keywords: LIGHTMAP_ON _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
@@ -273,6 +304,8 @@ ShaderVariantCollection:
       - keywords: _ADDITIONAL_LIGHTS_VERTEX
         passType: 13
       - keywords: LIGHTMAP_ON _ADDITIONAL_LIGHTS_VERTEX
+        passType: 13
+      - keywords: FOG_LINEAR _ADDITIONAL_LIGHTS_VERTEX
         passType: 13
       - keywords: FOG_EXP2 _ADDITIONAL_LIGHTS_VERTEX
         passType: 13
@@ -384,13 +417,31 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS _RECEIVE_SHADOWS_OFF _SPECULAR_SETUP
         passType: 13
+      - keywords: _ADDITIONAL_LIGHTS _ENVIRONMENTREFLECTIONS_OFF _RECEIVE_SHADOWS_OFF
+          _SPECULAR_SETUP
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS _RECEIVE_SHADOWS_OFF _SPECULARHIGHLIGHTS_OFF
+          _SPECULAR_SETUP
+        passType: 13
+      - keywords: _ENVIRONMENTREFLECTIONS_OFF _RECEIVE_SHADOWS_OFF _SPECULARHIGHLIGHTS_OFF
           _SPECULAR_SETUP
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS _ENVIRONMENTREFLECTIONS_OFF _RECEIVE_SHADOWS_OFF
           _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
         passType: 13
       - keywords: _ENVIRONMENTREFLECTIONS_OFF _MAIN_LIGHT_SHADOWS _RECEIVE_SHADOWS_OFF
+          _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
+        passType: 13
+      - keywords: _ENVIRONMENTREFLECTIONS_OFF _MIXED_LIGHTING_SUBTRACTIVE _RECEIVE_SHADOWS_OFF
+          _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
+        passType: 13
+      - keywords: FOG_LINEAR _ENVIRONMENTREFLECTIONS_OFF _MIXED_LIGHTING_SUBTRACTIVE
+          _RECEIVE_SHADOWS_OFF _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
+        passType: 13
+      - keywords: INSTANCING_ON _ENVIRONMENTREFLECTIONS_OFF _MIXED_LIGHTING_SUBTRACTIVE
+          _RECEIVE_SHADOWS_OFF _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX _ENVIRONMENTREFLECTIONS_OFF _RECEIVE_SHADOWS_OFF
           _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
         passType: 13
   - first: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
@@ -400,12 +451,18 @@ ShaderVariantCollection:
         passType: 0
       - keywords: _ALPHATEST_ON
         passType: 0
+      - keywords: FOG_LINEAR _ALPHATEST_ON
+        passType: 0
+      - keywords: FOG_EXP2 _ALPHATEST_ON
+        passType: 0
       - keywords: _DISTORTION_ON
         passType: 0
   - first: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
     second:
       variants:
       - keywords: 
+        passType: 0
+      - keywords: FOG_LINEAR
         passType: 0
       - keywords: FOG_EXP2
         passType: 0
@@ -440,6 +497,16 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _GLOSSINESS_FROM_BASE_ALPHA _SPECULAR_COLOR
         passType: 13
+  - first: {fileID: 4800000, guid: 85187c2149c549c5b33f0cdb02836b17, type: 3}
+    second:
+      variants:
+      - keywords: SHADOWS_DEPTH
+        passType: 8
+  - first: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
   - first: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
     second:
       variants:
@@ -463,6 +530,10 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS
         passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
   - first: {fileID: -6465566751694194690, guid: 7f093a0fecbb9f242891fafede7b4999,
@@ -475,7 +546,11 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS
         passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
   - first: {fileID: -6465566751694194690, guid: feaf90990ef33714292f9f32ea3c8fbd,
       type: 3}
@@ -484,6 +559,8 @@ ShaderVariantCollection:
       - keywords: 
         passType: 8
       - keywords: 
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
@@ -509,6 +586,8 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS
         passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
@@ -525,6 +604,8 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS
         passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
   - first: {fileID: -6465566751694194690, guid: f0326c0496fc32c419c0757a55ff496d,
@@ -534,6 +615,10 @@ ShaderVariantCollection:
       - keywords: 
         passType: 0
       - keywords: LIGHTMAP_ON
+        passType: 0
+      - keywords: FOG_LINEAR
+        passType: 0
+      - keywords: FOG_EXP2
         passType: 0
       - keywords: 
         passType: 8
@@ -565,7 +650,11 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS
         passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
   - first: {fileID: -6465566751694194690, guid: beb1c9c5d8696e54a84fca4edf64c3de,
       type: 3}
@@ -583,6 +672,8 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS
         passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX _MIXED_LIGHTING_SUBTRACTIVE
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13
       - keywords: LIGHTMAP_ON _ADDITIONAL_LIGHTS_VERTEX _MAIN_LIGHT_SHADOWS _MIXED_LIGHTING_SUBTRACTIVE
@@ -593,7 +684,11 @@ ShaderVariantCollection:
       variants:
       - keywords: 
         passType: 8
+      - keywords: 
+        passType: 13
       - keywords: _ADDITIONAL_LIGHTS
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS_VERTEX
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS_VERTEX _MIXED_LIGHTING_SUBTRACTIVE
         passType: 13

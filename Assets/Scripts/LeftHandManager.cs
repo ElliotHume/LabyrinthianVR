@@ -16,6 +16,8 @@ public class LeftHandManager : MonoBehaviour
     public Player player;
     public bool held = false;
 
+    public GameObject drawingSphere;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,18 +42,14 @@ public class LeftHandManager : MonoBehaviour
                 // do nothing
             }
 
-        // if (player != null && CheckIfActivated(controller) && !held){
-        //     held = true;
-        //     if (interactor.selectTarget == null) {
-        //         player.StartGripMove(transform.position);
-        //     }
-        // }
+        if (drawingSphere != null && CheckIfActivated(controller) && !held){
+            held = true;
+            drawingSphere.SetActive(false);
+        }
 
-        // if (player != null && !CheckIfActivated(controller) && held) {
-        //     held = false;
-        //     if (interactor.selectTarget == null) {
-        //         player.ReleaseGripMove(transform.position);
-        //     }
-        // }
+        if (drawingSphere != null && !CheckIfActivated(controller) && held) {
+            held = false;
+            drawingSphere.SetActive(true);
+        }
     }
 }
