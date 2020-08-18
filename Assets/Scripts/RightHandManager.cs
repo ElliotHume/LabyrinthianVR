@@ -8,8 +8,8 @@ public class RightHandManager : MonoBehaviour
 {
     public XRController controller;
     private InputDevice inputDevice;
-    private XRRayInteractor rayInteractor;
-    private XRInteractorLineVisual lineVisual;
+    // private XRRayInteractor rayInteractor;
+    // private XRInteractorLineVisual lineVisual;
 
     public bool held = false;
     public InputHelpers.Button grip; 
@@ -19,7 +19,8 @@ public class RightHandManager : MonoBehaviour
 
     public GameObject drawingSphere;
 
-    public LineRenderer lineRenderer;
+    public GameObject castingLine;
+    public XRDirectInteractor interactor;
     //private float lineWidth = 0.1f; 
 
     // Start is called before the first frame update
@@ -27,16 +28,10 @@ public class RightHandManager : MonoBehaviour
     {
         controller = GetComponent<XRController>();
         inputDevice = controller.inputDevice;
-        rayInteractor = GetComponent<XRRayInteractor>();
-        lineVisual = GetComponent<XRInteractorLineVisual>();
-        lineVisual.enabled = false;
-
-
-        if (lineRenderer == null) lineRenderer = GetComponent<LineRenderer>();
-        Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
-        lineRenderer.positionCount = 2;
-        lineRenderer.SetPositions( initLaserPositions );
-        //lineRenderer.SetWidth(lineWidth, lineWidth);
+        interactor = GetComponent<XRDirectInteractor>();
+        // rayInteractor = GetComponent<XRRayInteractor>();
+        // lineVisual = GetComponent<XRInteractorLineVisual>();
+        // lineVisual.enabled = false;
         //lineVisual.reticle.SetActive(false);
     }
 
@@ -45,9 +40,9 @@ public class RightHandManager : MonoBehaviour
         return (isGripped);
     }
 
-    public bool CheckIfRayHit(XRController controller){
-        return rayInteractor.GetCurrentRaycastHit(out RaycastHit rayhit);
-    }
+    // public bool CheckIfRayHit(XRController controller){
+    //     return rayInteractor.GetCurrentRaycastHit(out RaycastHit rayhit);
+    // }
 
     // Update is called once per frame
     void Update()
@@ -71,34 +66,22 @@ public class RightHandManager : MonoBehaviour
             //print("try cast");
             held = true;
             drawingSphere.SetActive(false);
-            glyphRecognition.Cast();
-            ShowRay(50f);
-            lineRenderer.enabled = true;
+            if (interactor.selectTarget == null) {
+                castingLine.SetActive(true);
+                glyphRecognition.Cast();
+            }
         }
 
         if (player != null && !CheckIfActivated(controller) && held) {
             held = false;
             drawingSphere.SetActive(true);
-            lineRenderer.enabled = false;
-            player.ReleaseSpellCast();
-            
+            castingLine.SetActive(false);
+            if (interactor.selectTarget == null) {
+                player.ReleaseSpellCast();
+            }
         }
 
         //controller.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed);
         //if (pressed) player.CastFireball(0, 0f);
     }
-
-    void ShowRay( float length ) {
-         Ray ray = new Ray( transform.position, transform.eulerAngles );
-         RaycastHit raycastHit;
-         Vector3 endPosition = transform.position + ( length * transform.eulerAngles );
- 
-         if( Physics.Raycast( ray, out raycastHit, length ) ) {
-             endPosition = raycastHit.point;
-         }
- 
-         print("here");
-         lineRenderer.SetPosition( 0, transform.position );
-         lineRenderer.SetPosition( 1, endPosition );
-     }
 }

@@ -15,10 +15,8 @@ public class Player : MonoBehaviour
     private Vector3 startGripMove, releaseGripMove;
     public int dragMoveSpeed = 10;
     private float movementCooldown = 0f;
-    public GameObject castingHand, movingHand, spellReticle, baseReticle, drawingAnchor;
+    public GameObject castingHand, movingHand, drawingAnchor;
     public XRController castingHandController, movingHandController;
-    public XRRayInteractor castingRay;
-    public XRInteractorLineVisual castingLineRenderer;
     private SkinnedMeshRenderer castingHandRenderer, movementHandRenderer;
     public Material baseMaterial, spellHandGlow, movementCooldownGlow;
     public ParticleSystem fireParticles, lightningParticles, windParticles, royalParticles, iceParticles, damageParticles;
@@ -57,15 +55,7 @@ public class Player : MonoBehaviour
         castingHand = GameObject.Find("RightHand Controller");
         Debug.Log("Casting Hand GameObject: "+ castingHand);
 
-        try {
-            castingRay = castingHand.GetComponent<XRRayInteractor>();
-            castingLineRenderer = castingHand.GetComponent<XRInteractorLineVisual>();
-        } catch {
-            Debug.Log("Could not get: casting ray and/or casting line renderer");
-        }
         
-        //spellReticle = GameObject.Find("TargetingReticle");
-        //baseReticle = GameObject.Find("Reticle");
 
         movingHand = GameObject.Find("LeftHand Controller");
         Debug.Log("Moving Hand GameObject: "+ movingHand);
@@ -165,36 +155,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void EnableProjectileLine(float maxHeight, float sVelocity) {
-        castingLineRenderer.enabled = true;
-        castingRay.lineType = XRRayInteractor.LineType.ProjectileCurve;
-        castingRay.controlPointHeight = maxHeight;
-        castingRay.Velocity = sVelocity != 0 ? sVelocity : spellVelocity;
-        
-
-        // Swap to spell reticle and enable it.
-        //castingLineRenderer.reticle = spellReticle;
-        //castingLineRenderer.reticle.SetActive(true);
-    }
-    public void EnableProjectileLine() {
-        castingLineRenderer.enabled = true;
-
-        // Swap to spell reticle and enable it.
-        //castingLineRenderer.reticle = spellReticle;
-        //castingLineRenderer.reticle.SetActive(true);
-    }
-
-    public void DisableProjectileLine() {
-        castingRay.lineType = XRRayInteractor.LineType.StraightLine;
-        castingLineRenderer.enabled = false;
-
-        // Disable the spell reticle so that it doesnt persist
-        //castingLineRenderer.reticle.SetActive(false);
-
-        // Swap back to small sphere reticle
-        //castingLineRenderer.reticle = baseReticle;
-    }
-
     public void ReleaseSpellCast() {
         if (heldSpell != null) {
             Debug.Log("Player Cast Held Spell: "+heldSpell);
@@ -259,7 +219,6 @@ public class Player : MonoBehaviour
     public virtual void CastFireball() {
         heldSpell = "fireball";
         SetHandGlow(heldSpell);
-        //EnableProjectileLine();
         if (fireParticles) {
             //print("fire particles play");
             fireParticles.Play();
@@ -269,20 +228,7 @@ public class Player : MonoBehaviour
 
     public void CastHeldFireball() {
         GameObject newFireball = Instantiate(fireball, castingHand.transform.position, castingHand.transform.rotation);
-
-        // Get position of the casting projectile ray target hit
-        Ray ray = new Ray( castingHand.transform.position, castingHand.transform.eulerAngles );
-        RaycastHit raycastHit;
-        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.eulerAngles );
- 
-        if( Physics.Raycast( ray, out raycastHit, 50f ) ) {
-            target = raycastHit.point;
-        }
-
-        newFireball.GetComponent<Fireball>().SetTarget(target);
-
         if (fireParticles) fireParticles.Stop();
-        //DisableProjectileLine();
     }
 
 
@@ -324,7 +270,6 @@ public class Player : MonoBehaviour
 
     //  ------------- WIND SLASH ------------------
     public void CastWindForward() {
-        EnableProjectileLine();
         heldSpell = "windslash";
         SetHandGlow(heldSpell);
         if (windParticles) {
@@ -339,7 +284,6 @@ public class Player : MonoBehaviour
         newWindSlash.GetComponent<WindSlash>().SetOwner(gameObject);
         newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.forward);
 
-        DisableProjectileLine();
         if (windParticles) windParticles.Stop();
     }
 
@@ -354,7 +298,6 @@ public class Player : MonoBehaviour
 
     //  ------------- LIGHTNING ------------------
     public void CastLightningNeutral() {
-        EnableProjectileLine();
         heldSpell = "lightning";
         SetHandGlow("lightning");
         if (lightningParticles) {
@@ -364,18 +307,18 @@ public class Player : MonoBehaviour
     }
 
     public void CastHeldLightning() {
+
         // Get position of the casting projectile ray target hit
-        RaycastHit rayHit;
-        Vector3 target = Vector3.zero;
-        if (castingRay.GetCurrentRaycastHit(out rayHit)) {
-            target = rayHit.point;
+        RaycastHit raycastHit;
+        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
+        if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f ) ) {
+            target = raycastHit.point;
         }
 
         GameObject newLightning = Instantiate(lightning, castingHand.transform.position, transform.rotation);
         newLightning.GetComponent<Lightning>().SetOwner(gameObject);
         newLightning.GetComponent<Lightning>().SetTarget(target);
 
-        DisableProjectileLine();
         if (lightningParticles) lightningParticles.Stop();
     }
 
@@ -460,7 +403,6 @@ public class Player : MonoBehaviour
     public void CastRoyalFire() {
         heldSpell = "royalfire";
         SetHandGlow(heldSpell);
-        EnableProjectileLine(6f, 16f);
         if (royalParticles) {
             //print("royal particles play");
             royalParticles.Play();
@@ -472,16 +414,15 @@ public class Player : MonoBehaviour
         GameObject newRoyalFireball = Instantiate(royalFireball, castingHand.transform.position, transform.rotation);
 
         // Get position of the casting projectile ray target hit
-        RaycastHit rayHit;
-        Vector3 target = Vector3.zero;
-        if (castingRay.GetCurrentRaycastHit(out rayHit)) {
-            target = rayHit.point;
+        RaycastHit raycastHit;
+        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
+        if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f ) ) {
+            target = raycastHit.point;
         }
 
         newRoyalFireball.GetComponent<Royalfireball>().SetTarget(target);
 
         if (royalParticles) royalParticles.Stop();
-        DisableProjectileLine();
     }
 
 
