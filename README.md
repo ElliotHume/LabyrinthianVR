@@ -1,4 +1,12 @@
-Labyrinthian
+# Labyrinthian
+
+### Setting ###
+
+
+### Gameplay ###
+
+
+### Screenshots ###
 ![Starting room of the Labyrinth](Images/FirstZone.PNG)
 ![First zone of the Elemental Path](Images/ElementalZone0.PNG)
 ![First zone of the Arcane Path](Images/ArcaneZone0.PNG)
