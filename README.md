@@ -1,2 +1,2 @@
 Labyrinthian
-![alt text](images/ElementalZone0.png)
+![First zone of the Elemental Path](Images/ElementalZone0.PNG)
