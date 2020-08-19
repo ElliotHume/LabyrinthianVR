@@ -75,11 +75,7 @@ public class Gate : MonoBehaviour
     }
 
     IEnumerator TimeToggle(float duration) {
-        float currentTime = 0f;
-        while (currentTime < duration) {
-            currentTime += Time.deltaTime;
-            yield return new WaitForFixedUpdate();
-        }
+        yield return new WaitForSeconds(duration);
         
         
         if (doneMoving) {
