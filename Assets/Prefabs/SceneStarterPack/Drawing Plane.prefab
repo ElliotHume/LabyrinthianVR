@@ -314,8 +314,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 2.9705963}
+  m_Center: {x: 0.0000000017013014, y: 0, z: -0.98529667}
 --- !u!114 &8984145002424487322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 08338c2d8f2308a409a7e5575a723f27, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: -10998.135}
+  m_Color: {r: 1, g: 1, b: 1, a: -11005.069}
   m_RaycastTarget: 1
   relativeWidth: 0.05
   capSize: 0.4

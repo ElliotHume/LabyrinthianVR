@@ -12,6 +12,8 @@ public class WindSlash : MonoBehaviour
     public Vector3 direction;
 
     public GameObject owner;
+    private GameObject hand;
+    private CharacterController characterController;
 
     public GameObject hitParticle;
 
@@ -28,18 +30,25 @@ public class WindSlash : MonoBehaviour
         direction = new Vector3(g.x, 0, g.z).normalized;
     }
 
-    public void SetOwner(GameObject g) {
-        owner = g;
+    public void SetOwner(GameObject originHand, GameObject player) {
+        hand = originHand;
+        owner = player;
+        characterController = owner.GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Should counter gravity so that the player can cross gaps
-        Vector3 gravity = new Vector3(0, Physics.gravity.y * 0.35f * Time.deltaTime, 0);
+        Vector3 gravity = new Vector3(0, Physics.gravity.y * 0.55f * Time.deltaTime, 0);
 
-        owner.transform.position += (direction * Time.deltaTime * speed) - gravity ;
-        transform.position = owner.transform.position + (direction * 0.5f) + Vector3.up;
+        if (characterController != null) {
+            characterController.Move((direction * Time.deltaTime * speed) - gravity );
+        } else {
+            owner.transform.position += (direction * Time.deltaTime * speed) - gravity ;
+        }
+        
+        transform.position = hand.transform.position;
     }
 
     void OnTriggerEnter(Collider other) {

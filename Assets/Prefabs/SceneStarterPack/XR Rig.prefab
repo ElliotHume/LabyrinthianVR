@@ -235,7 +235,7 @@ MonoBehaviour:
   drawPanel: {fileID: 0}
   glyphRecognition: {fileID: 0}
   speed: 4
-  gravityMultiplier: 30
+  gravityMultiplier: 50
   player: {fileID: 8464667460322246977}
   drawingAnchor: {fileID: 0}
 --- !u!1 &8464667460665223730

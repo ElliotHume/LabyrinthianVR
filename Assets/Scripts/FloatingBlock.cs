@@ -10,7 +10,10 @@ public class FloatingBlock : MonoBehaviour
     private Vector3 Zdirection = new Vector3(0,0,1);
 
     public Rigidbody rigidBody;
+    public float bobbingHeight = 0.1f;
+    public float bobbingSpeed = 0.1f;
     private Vector3 moveDirection;
+    private bool moving = false;
     void Start()
     {
         resetPosition = transform.position;
@@ -20,7 +23,12 @@ public class FloatingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // BOB UP AND DOWN
+
+        //calculate what the new Y position will be
+        float newY = Mathf.Sin(Time.time * bobbingSpeed) * bobbingHeight + resetPosition.y;
+        //set the object's Y to the new calculated Y
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z) ;
     }
 
     public void Move(string dir){
@@ -41,7 +49,8 @@ public class FloatingBlock : MonoBehaviour
         }
 
         RaycastHit rayHit;
-        if (!rigidBody.SweepTest(moveDirection, out rayHit, 3f, QueryTriggerInteraction.Ignore)) {
+        if (!rigidBody.SweepTest(moveDirection, out rayHit, 3f, QueryTriggerInteraction.Ignore) && !moving) {
+            moving = true;
             StartCoroutine(Slide());
         } else {
             print("Cannot move block, would hit: "+rayHit.transform.gameObject);
@@ -72,9 +81,13 @@ public class FloatingBlock : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         transform.position = endPos;
+        moving = false;
     }
 
     public void ResetPosition() {
+        StopAllCoroutines();
         transform.position = resetPosition;
+        moving = false;
     }
+
 }

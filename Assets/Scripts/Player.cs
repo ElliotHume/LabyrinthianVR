@@ -281,7 +281,7 @@ public class Player : MonoBehaviour
 
     public void CastHeldWindSlash(){
         GameObject newWindSlash = Instantiate(windslash, castingHand.transform.position, castingHand.transform.rotation);
-        newWindSlash.GetComponent<WindSlash>().SetOwner(gameObject);
+        newWindSlash.GetComponent<WindSlash>().SetOwner(castingHand, gameObject);
         newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.forward);
 
         if (windParticles) windParticles.Stop();

@@ -13,7 +13,7 @@ public class GlyphRecognition : MonoBehaviour {
 
 	public StrokeGraphic targetGlyphGraphic, castedGlyphGraphic, currentGlyphGraphic, currentStrokeGraphic, storedGlyphGraphic;
 
-	float costThreshold = 0.4f;
+	float costThreshold = 0.2f;
 	public float CostThreshold {get{ return costThreshold; } set{
 		costThreshold = value;
 		//Debug.Log(value);
