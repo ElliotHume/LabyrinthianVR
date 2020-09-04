@@ -2,6 +2,8 @@
 “Knowledge comes at a price of skill, no information is given to the unworthy” 
 
 
+### [Video trailer of the most recent development build](https://drive.google.com/file/d/1mNEqmbB7N3NgcfvjMQDKSJ-hcn0eGVX3/view?usp=sharing) ###
+
 ## Premise ##
 A mage apprentice is sent to the labyrinth by a wrongly cast portal spell. The labyrinth is a place from myth where godlings go to find their powers and become full blooded gods. When godlings come they are given a guiding light and a runic tablet, but as a human your guiding light has not been summoned. You are to find a way through the labyrinth alone with the promise of powerful knowledge and a hope to return home.
 
