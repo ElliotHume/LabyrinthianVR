@@ -18,7 +18,7 @@ public class Lightning : MonoBehaviour
 
     void Start()
     {
-        startPos = owner.transform.position + Vector3.up;
+        startPos = owner.transform.position;
         Vector3 direction = target - startPos;
 
         Debug.DrawRay(startPos, direction, Color.red, 5f);
@@ -26,22 +26,15 @@ public class Lightning : MonoBehaviour
         RaycastHit[] rayhits = Physics.RaycastAll(startPos, direction, 100f);
         IEnumerable<RaycastHit> rayhitsOrdered = rayhits.OrderBy(rh => rh.distance);
 
-        foreach (RaycastHit rh in rayhitsOrdered) {
-            Debug.DrawLine(rh.point, rh.point + Vector3.up * 50f, Color.green, 5f);
-        }
+        // foreach (RaycastHit rh in rayhitsOrdered) {
+        //     Debug.DrawLine(rh.point, rh.point + Vector3.up * 50f, Color.green, 5f);
+        // }
 
         foreach (RaycastHit rh in rayhitsOrdered) {
             if (rh.collider.tag == "Shield") {
                 rh.collider.GetComponent<Shield>().Break();
                 endPos = rh.point;
                 //lineRenderer.SetPosition(1, rh.point);
-                break;
-            }
-            else if (rh.collider.tag == "ArcanePulse") {
-                startPos = rh.point;
-                endPos = owner.transform.position + Vector3.up;
-                // owner.GetComponent<CharacterBehaviour>().TakeDamage(damage);
-                // owner.GetComponent<CharacterBehaviour>().TargetShowDamageEffects(owner.GetComponent<NetworkIdentity>().connectionToClient);
                 break;
             }
             else if (rh.collider.tag != "Player" && rh.collider.tag != "BodyPart"){

@@ -44,12 +44,12 @@ public class LeftHandManager : MonoBehaviour
 
         if (drawingSphere != null && CheckIfActivated(controller) && !held){
             held = true;
-            drawingSphere.SetActive(false);
+            drawingSphere.SetActive(true);
         }
 
         if (drawingSphere != null && !CheckIfActivated(controller) && held) {
             held = false;
-            drawingSphere.SetActive(true);
+            drawingSphere.SetActive(false);
         }
     }
 }

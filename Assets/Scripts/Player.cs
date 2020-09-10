@@ -10,17 +10,14 @@ public class Player : MonoBehaviour
     public GlyphRecognition glyphRecognition;
 
     public float spellVelocity = 20;
-    public string heldSpell;
+    public string rightHandSpell, leftHandSpell;
     public string lastSpellCast;
-    private Vector3 startGripMove, releaseGripMove;
-    public int dragMoveSpeed = 10;
-    private float movementCooldown = 0f;
-    public GameObject castingHand, movingHand, drawingAnchor;
-    public XRController castingHandController, movingHandController;
-    private SkinnedMeshRenderer castingHandRenderer, movementHandRenderer;
+    public GameObject rightHand, leftHand, drawingAnchor;
+    public XRController rightHandController, leftHandController;
+    private SkinnedMeshRenderer rightHandRenderer, leftHandRenderer;
     public Material baseMaterial, spellHandGlow, movementCooldownGlow;
     public ParticleSystem fireParticles, lightningParticles, windParticles, royalParticles, iceParticles, damageParticles;
-    public GameObject shieldSphere, arcanoSphere;
+    public GameObject shieldSphere, arcanoSphere, missileEmitter;
     private Dictionary<string, Color> handColours = new Dictionary<string, Color>();
 
     // SPELL PREFABS
@@ -33,6 +30,7 @@ public class Player : MonoBehaviour
     public GameObject iceSpikeProjectile, iceSpray;
     public GameObject fizzle;
     public GameObject royalFireball;
+    public GameObject magicMissile;
     public List<GameObject> shields;
     public int maxShields = 3;
 
@@ -50,22 +48,21 @@ public class Player : MonoBehaviour
 		handColours.Add("icespikes", new Color(50/255f, 50/255f, 1f));
         handColours.Add("icespray", new Color(50/255f, 50/255f, 1f));
 		handColours.Add("royalfire", new Color(156/255f, 0f, 1f));
+        handColours.Add("magicmissile", new Color(156/255f, 0f, 1f));
 
 
-        castingHand = GameObject.Find("RightHand Controller");
-        Debug.Log("Casting Hand GameObject: "+ castingHand);
+        rightHand = GameObject.Find("RightHand Controller");
+        Debug.Log("right Hand GameObject: "+ rightHand);
 
-        
-
-        movingHand = GameObject.Find("LeftHand Controller");
-        Debug.Log("Moving Hand GameObject: "+ movingHand);
+        leftHand = GameObject.Find("LeftHand Controller");
+        Debug.Log("left Hand GameObject: "+ leftHand);
 
         try {
-            castingHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
-            Debug.Log("Casting Hand render: " + GameObject.Find("hands:Rhand"));
+            rightHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
+            Debug.Log("Right Hand render: " + GameObject.Find("hands:Rhand"));
 
-            movementHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
-            Debug.Log("Movement Hand render: " + GameObject.Find("hands:Lhand"));
+            leftHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
+            Debug.Log("Left Hand render: " + GameObject.Find("hands:Lhand"));
         } catch {
             Debug.Log("Could not find hand renderers, will try again on FixedUpdate");
         }
@@ -75,19 +72,19 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-        if (!castingHandRenderer) {
+        if (!rightHandRenderer) {
             try {
-                castingHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
-                Debug.Log("Casting Hand render: " + GameObject.Find("hands:Rhand"));
+                rightHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
+                Debug.Log("Right Hand render: " + GameObject.Find("hands:Rhand"));
             } catch {
                 //do nothing
             }
             
         }
-        if (!movementHandRenderer) {
+        if (!leftHandRenderer) {
             try {
-                movementHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
-                Debug.Log("Movement Hand render: " + GameObject.Find("hands:Lhand"));
+                leftHandRenderer = GameObject.Find("hands:Lhand").GetComponent<SkinnedMeshRenderer>();
+                Debug.Log("Left Hand render: " + GameObject.Find("hands:Lhand"));
             } catch {
                 // do nothing
             }
@@ -98,104 +95,84 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (castingHandController == null) {
-            castingHandController = castingHand.GetComponent<XRController>();
+        if (rightHandController == null) {
+            rightHandController = rightHand.GetComponent<XRController>();
         }
 
-        if (movingHandController == null) {
-            movingHandController = movingHand.GetComponent<XRController>();
+        if (leftHandController == null) {
+            leftHandController = leftHand.GetComponent<XRController>();
         }
 
-        if (heldSpell != null && heldSpell != "") {
-            castingHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.1f);
+        if (rightHandSpell != null && rightHandSpell != "") {
+            rightHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.1f);
         }
-    }
 
-    public void StartGripMove(Vector3 startPos){
-        startGripMove = new Vector3(startPos.x, 0f, startPos.z);
-        //Debug.Log("StartGripMove:  "+startGripMove.ToString());
-        movingHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.3f);
-    }
-
-    public void ReleaseGripMove(Vector3 endPos) {
-        releaseGripMove = new Vector3(endPos.x, 0f, endPos.z);
-
-        if (movementCooldown == 0) {
-            Vector3 movement = startGripMove - releaseGripMove;
-            //Debug.Log("Movement: "+movement.ToString()+ "   Magnitude: "+movement.magnitude);
-
-            // Move player in direction of pull * speed
-            transform.position += movement * dragMoveSpeed;
-
-            // Set hand cooldown material
-            //movementHandRenderer.material = movementCooldownGlow;
-
-            // Set movement Cooldown
-            //movementCooldown = 2.5f;
-
-            
-            try {
-                movingHandController.inputDevice.SendHapticImpulse(0, 2f, 0.1f);
-                //movingHand.GetComponent<AudioSource>().Play();
-            } catch {
-                Debug.Log("Failure to send haptics or play sound effect");
-            }
-            
-        } else {
-            Debug.Log("Movement on cooldown");
+        if (leftHandSpell != null && leftHandSpell != "") {
+            leftHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.1f);
         }
     }
 
-    public void SetHandGlow(string spell){
-        if(castingHandRenderer && spellHandGlow){
+    public void SetHandGlow(string spell, string hand){
+        if(rightHandRenderer && leftHandRenderer && spellHandGlow){
             Debug.Log("Setting hand colour to: "+handColours[spell]);
             spellHandGlow.SetColor("Color_682024A", handColours[spell]);
             // Debug.Log("Set hand material to "+spell);
-            castingHandRenderer.material = spellHandGlow;
+
+            if (hand == "right") {
+                rightHandRenderer.material = spellHandGlow;
+            } else {
+                leftHandRenderer.material = spellHandGlow;
+            }
         }
     }
 
-    public void ReleaseSpellCast() {
+    public void ReleaseSpellCast(string hand) {
+        string heldSpell = (hand == "right") ? rightHandSpell : leftHandSpell;
+        GameObject castingHand = (hand == "right") ? rightHand : leftHand;
+
         if (heldSpell != null) {
-            Debug.Log("Player Cast Held Spell: "+heldSpell);
+            Debug.Log("Player Cast Held Spell: "+heldSpell+"    from hand: "+hand);
             try {
                 switch (heldSpell) {
                     case "fireball":
-                        CastHeldFireball();
+                        CastHeldFireball(castingHand);
                         break;
                     case "shield":
-                        CastHeldShield();
+                        CastHeldShield(castingHand);
                         break;
                     case "lightning":
-                        CastHeldLightning();
+                        CastHeldLightning(castingHand);
                         break;
                     case "windslash":
-                        CastHeldWindSlash();
+                        CastHeldWindSlash(castingHand);
                         break;
                     case "royalfire":
-                        CastHeldRoyalFire();
+                        CastHeldRoyalFire(castingHand);
                         break;
                     case "icespikes":
-                        CastHeldIceSpikes();
+                        CastHeldIceSpikes(castingHand);
                         break;
                     case "icespray":
-                        CastHeldIceSpray();
+                        CastHeldIceSpray(castingHand);
                         break;
                     case "arcanopulse":
                         CastHeldArcanoPulse();
+                        break;
+                    case "magicmissile":
+                        CastHeldMagicMissile(castingHand);
                         break;
                 }
             } catch (System.Exception e) {
                 Debug.Log("Error casting spell, error: "+e);
             }
             
-            lastSpellCast = heldSpell;
-            heldSpell = null;
-            castingHandRenderer.material = baseMaterial;
-
-            // Reset movement cooldown when a spell is cast
-            // movementCooldown = 0f;
-            // movementHandRenderer.material = baseMaterial;
+            if (hand == "right") {
+                rightHandSpell = null;
+                rightHandRenderer.material = baseMaterial;
+            } else {
+                leftHandSpell = null;
+                leftHandRenderer.material = baseMaterial;
+            }
         }
     }
 
@@ -216,9 +193,14 @@ public class Player : MonoBehaviour
 
 
     //  ------------- FIREBALL ------------------
-    public virtual void CastFireball() {
-        heldSpell = "fireball";
-        SetHandGlow(heldSpell);
+    public virtual void CastFireball(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "fireball";
+        } else {
+            leftHandSpell = "fireball";
+        }
+        
+        SetHandGlow("fireball", hand);
         if (fireParticles) {
             //print("fire particles play");
             fireParticles.Play();
@@ -226,7 +208,7 @@ public class Player : MonoBehaviour
         // Debug.Log("PLAYERFIRECAST");
     }
 
-    public void CastHeldFireball() {
+    public void CastHeldFireball(GameObject castingHand) {
         GameObject newFireball = Instantiate(fireball, castingHand.transform.position, castingHand.transform.rotation);
         if (fireParticles) fireParticles.Stop();
     }
@@ -239,9 +221,13 @@ public class Player : MonoBehaviour
 
 
     //  ------------- SHIELD ------------------
-    public void CastShieldBack() {
-        heldSpell = "shield";
-        SetHandGlow(heldSpell);
+    public void CastShieldBack(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "shield";
+        } else {
+            leftHandSpell = "shield";
+        }
+        SetHandGlow("shield", hand);
         if (shieldSphere) {
             //print("activate shield sphere");
             shieldSphere.SetActive(true);
@@ -249,7 +235,7 @@ public class Player : MonoBehaviour
         // Debug.Log("PLAYERSHIELDCAST");
     }
 
-    public void CastHeldShield() {
+    public void CastHeldShield(GameObject castingHand) {
         GameObject newShield = Instantiate(shield, castingHand.transform.position + (castingHand.transform.forward * 0.5f), castingHand.transform.rotation * Quaternion.Euler(90f, 0f, 90f));
 
         shields.Add(newShield);
@@ -269,9 +255,13 @@ public class Player : MonoBehaviour
 
 
     //  ------------- WIND SLASH ------------------
-    public void CastWindForward() {
-        heldSpell = "windslash";
-        SetHandGlow(heldSpell);
+    public void CastWindForward(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "windslash";
+        } else {
+            leftHandSpell = "windslash";
+        }
+        SetHandGlow("windslash", hand);
         if (windParticles) {
             //print("wind particles play");
             windParticles.Play();
@@ -279,7 +269,7 @@ public class Player : MonoBehaviour
         // Debug.Log("PLAYERWINDSLASHCAST");
     }
 
-    public void CastHeldWindSlash(){
+    public void CastHeldWindSlash(GameObject castingHand){
         GameObject newWindSlash = Instantiate(windslash, castingHand.transform.position, castingHand.transform.rotation);
         newWindSlash.GetComponent<WindSlash>().SetOwner(castingHand, gameObject);
         newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.forward);
@@ -297,16 +287,20 @@ public class Player : MonoBehaviour
 
 
     //  ------------- LIGHTNING ------------------
-    public void CastLightningNeutral() {
-        heldSpell = "lightning";
-        SetHandGlow("lightning");
+    public void CastLightningNeutral(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "lightning";
+        } else {
+            leftHandSpell = "lightning";
+        }
+        SetHandGlow("lightning", hand);
         if (lightningParticles) {
             lightningParticles.Play();
         }
         // Debug.Log("PLAYERLIGHTNINGCAST");
     }
 
-    public void CastHeldLightning() {
+    public void CastHeldLightning(GameObject castingHand) {
 
         // Get position of the casting projectile ray target hit
         RaycastHit raycastHit;
@@ -315,8 +309,8 @@ public class Player : MonoBehaviour
             target = raycastHit.point;
         }
 
-        GameObject newLightning = Instantiate(lightning, castingHand.transform.position, transform.rotation);
-        newLightning.GetComponent<Lightning>().SetOwner(gameObject);
+        GameObject newLightning = Instantiate(lightning, castingHand.transform.position, castingHand.transform.rotation);
+        newLightning.GetComponent<Lightning>().SetOwner(castingHand);
         newLightning.GetComponent<Lightning>().SetTarget(target);
 
         if (lightningParticles) lightningParticles.Stop();
@@ -329,9 +323,13 @@ public class Player : MonoBehaviour
 
 
     //  ------------- ARCANOPULSE ------------------
-    public void CastArcanePulse() {
-        heldSpell = "arcanopulse";
-        SetHandGlow(heldSpell);
+    public void CastArcanePulse(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "arcanopulse";
+        } else {
+            leftHandSpell = "arcanopulse";
+        }
+        SetHandGlow("arcanopulse", hand);
         if (arcanoSphere) {
             //print("activate arcano sphere");
             arcanoSphere.SetActive(true);
@@ -356,16 +354,20 @@ public class Player : MonoBehaviour
 
 
     //  ------------- ICE SPIKES ------------------
-    public void CastIceSpikes() {
-        heldSpell = "icespikes";
-        SetHandGlow(heldSpell);
+    public void CastIceSpikes(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "icespikes";
+        } else {
+            leftHandSpell = "icespikes";
+        }
+        SetHandGlow("icespikes", hand);
         if (iceParticles) {
             //print("ice particles play");
             iceParticles.Play();
         }
     }
 
-    public void CastHeldIceSpikes() {
+    public void CastHeldIceSpikes(GameObject castingHand) {
         //Ice spikes should spawn at the feet
         Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
         Vector3 startPos = new Vector3(castingHand.transform.position.x, 0f, castingHand.transform.position.z) + castingHand.transform.forward*2f;
@@ -378,16 +380,20 @@ public class Player : MonoBehaviour
 
 
     //  ------------- ICE SPRAY ------------------
-    public void CastIceSpray() {
-        heldSpell = "icespray";
-        SetHandGlow(heldSpell);
+    public void CastIceSpray(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "icespray";
+        } else {
+            leftHandSpell = "icespray";
+        }
+        SetHandGlow("icespray", hand);
         if (iceParticles) {
             //print("ice particles play");
             iceParticles.Play();
         }
     }
 
-    public void CastHeldIceSpray() {
+    public void CastHeldIceSpray(GameObject castingHand) {
         GameObject newIceSpray = Instantiate(iceSpray, castingHand.transform.position, castingHand.transform.rotation);
         newIceSpray.transform.SetParent(castingHand.transform);
 
@@ -400,9 +406,13 @@ public class Player : MonoBehaviour
 
 
     //  ------------- ROYAL FIRE ------------------
-    public void CastRoyalFire() {
-        heldSpell = "royalfire";
-        SetHandGlow(heldSpell);
+    public void CastRoyalFire(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "royalfire";
+        } else {
+            leftHandSpell = "royalfire";
+        }
+        SetHandGlow("royalfire", hand);
         if (royalParticles) {
             //print("royal particles play");
             royalParticles.Play();
@@ -410,7 +420,7 @@ public class Player : MonoBehaviour
         // Debug.Log("PLAYERROYALFIRECAST");
     }
 
-    public void CastHeldRoyalFire(){
+    public void CastHeldRoyalFire(GameObject castingHand){
         GameObject newRoyalFireball = Instantiate(royalFireball, castingHand.transform.position, transform.rotation);
 
         // Get position of the casting projectile ray target hit
@@ -430,9 +440,36 @@ public class Player : MonoBehaviour
 
 
 
+
+
+    //  ------------- Magic Missile ------------------
+    public void CastMagicMissile(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "magicmissile";
+        } else {
+            leftHandSpell = "magicmissile";
+        }
+        SetHandGlow("magicmissile", hand);
+        if (missileEmitter) missileEmitter.SetActive(true);
+    }
+
+    public void CastHeldMagicMissile(GameObject castingHand){
+        GameObject newMagicMissile = Instantiate(magicMissile, castingHand.transform.position, castingHand.transform.rotation);
+        if (missileEmitter) missileEmitter.SetActive(false);
+    }
+
+
+
+
+
+
     // ------ FIZZLE ------
-    public void CastFizzle()
+    public void CastFizzle(string hand)
     {
-        GameObject newFizzle = Instantiate(fizzle, new Vector3(castingHand.transform.position.x, 0f, castingHand.transform.position.z), transform.rotation);
+        if (hand =="right") {
+            Instantiate(fizzle, new Vector3(rightHand.transform.position.x, 0f, rightHand.transform.position.z), transform.rotation);
+        } else {
+            Instantiate(fizzle, new Vector3(leftHand.transform.position.x, 0f, leftHand.transform.position.z), transform.rotation);
+        }
     }
 }

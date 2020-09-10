@@ -6,13 +6,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class RightHandManager : MonoBehaviour
 {
+    public string handName;
     public XRController controller;
     private InputDevice inputDevice;
     // private XRRayInteractor rayInteractor;
     // private XRInteractorLineVisual lineVisual;
 
     public bool held = false;
-    public InputHelpers.Button grip; 
+    public InputHelpers.Button grip, trigger; 
     public GlyphRecognition glyphRecognition;
     public float activationThreshold = 0.1f;
     public Player player;
@@ -22,6 +23,8 @@ public class RightHandManager : MonoBehaviour
     public GameObject castingLine;
     public XRDirectInteractor interactor;
     //private float lineWidth = 0.1f; 
+
+    bool castSuccess = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +43,11 @@ public class RightHandManager : MonoBehaviour
         return (isGripped);
     }
 
+    public bool CheckIfTriggered(XRController controller){
+        InputHelpers.IsPressed(controller.inputDevice, trigger, out bool isTriggered, activationThreshold);
+        return (isTriggered);
+    }
+
     // public bool CheckIfRayHit(XRController controller){
     //     return rayInteractor.GetCurrentRaycastHit(out RaycastHit rayhit);
     // }
@@ -54,7 +62,6 @@ public class RightHandManager : MonoBehaviour
                 // do nothing
             }
 			
-
         // if (rayInteractor && !held && lineVisual.enabled) {
         //     lineVisual.enabled = false;
         //     lineVisual.reticle.SetActive(false);
@@ -65,20 +72,21 @@ public class RightHandManager : MonoBehaviour
         if (player != null && CheckIfActivated(controller) && !held){
             //print("try cast");
             held = true;
-            drawingSphere.SetActive(false);
-            if (interactor.selectTarget == null) {
+            drawingSphere.SetActive(true);
+            if (castSuccess) {
                 castingLine.SetActive(true);
-                glyphRecognition.Cast();
             }
         }
 
         if (player != null && !CheckIfActivated(controller) && held) {
             held = false;
-            drawingSphere.SetActive(true);
+            drawingSphere.SetActive(false);
             castingLine.SetActive(false);
-            if (interactor.selectTarget == null) {
-                player.ReleaseSpellCast();
+            if (castSuccess) {
+                player.ReleaseSpellCast(handName);
+                castSuccess = false;
             }
+            castSuccess = glyphRecognition.Cast();
         }
 
         //controller.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed);

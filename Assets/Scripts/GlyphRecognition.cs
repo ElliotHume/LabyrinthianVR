@@ -9,6 +9,7 @@ using AdVd.GlyphRecognition;
 /// </summary>
 public class GlyphRecognition : MonoBehaviour {
 
+	public string hand;
     public GlyphDrawInput glyphInput;
 
 	public StrokeGraphic targetGlyphGraphic, castedGlyphGraphic, currentGlyphGraphic, currentStrokeGraphic, storedGlyphGraphic;
@@ -52,6 +53,7 @@ public class GlyphRecognition : MonoBehaviour {
 		glyphColours.Add("iceSpikes", new Color(127/255f, 126/255f, 253/255f));
 		glyphColours.Add("iceSpray", new Color(127/255f, 126/255f, 253/255f));
 		glyphColours.Add("royalFire", new Color(143/255f, 111/255f, 1f));
+		glyphColours.Add("magicMissile", new Color(143/255f, 111/255f, 1f));
 		glyphColours.Add("default", new Color(191 / 255f, 110 / 255f, 54 / 255f, 64 / 255f));
 
 	}
@@ -155,52 +157,56 @@ public class GlyphRecognition : MonoBehaviour {
 				//case "Fireball3":
 				case "Fireball4":
 					StartCoroutine(Morph (match, glyphColours["fireball"]));
-					player.CastFireball();
+					player.CastFireball(hand);
 					break;
 				//case "Shield":
 				case "Shield2":
 				//case "Shield3":
 					StartCoroutine(Morph (match, glyphColours["shield"]));
-					player.CastShieldBack();
+					player.CastShieldBack(hand);
 					break;
 				case "WindSlash":
-				case "Windslash2":
+				//case "Windslash2":
 				//case "Windslash3":
 				//case "Windslash4":
 					StartCoroutine(Morph (match, glyphColours["windslash"]));
-					player.CastWindForward();
+					player.CastWindForward(hand);
 					break;
 				case "Lightning":
 				//case "Lightning2":
 					StartCoroutine(Morph (match, glyphColours["finalSpark"]));
-					player.CastLightningNeutral();
+					player.CastLightningNeutral(hand);
 					break;
 				//case "ArcanePulse":
 				case "Arcanopulse":
 				//case "Arcanopulse2":
 				//case "Arcanopulse3":
 					StartCoroutine(Morph (match, glyphColours["arcanePulse"]));
-					player.CastArcanePulse();
+					player.CastArcanePulse(hand);
 					break;
 				case "Icespike":
 				//case "Icespike2":
 				//case "Icespike3":
 				 	StartCoroutine(Morph (match, glyphColours["iceSpikes"]));
-				 	player.CastIceSpikes();
+				 	player.CastIceSpikes(hand);
 				 	break;
 				case "Icespray":
 				 	StartCoroutine(Morph (match, glyphColours["iceSpray"]));
-				 	player.CastIceSpray();
+				 	player.CastIceSpray(hand);
 				 	break;
 				//case "Royalfire":
 				//case "Royalfire2":
 				case "Royalfire3":
 					StartCoroutine(Morph (match, glyphColours["royalFire"]));
-					player.CastRoyalFire();
+					player.CastRoyalFire(hand);
+					break;
+				case "Magicmissile":
+					StartCoroutine(Morph (match, glyphColours["magicMissile"]));
+					player.CastMagicMissile(hand);
 					break;
 				default:
 					//Debug.Log("Fizzle");
-					player.CastFizzle();
+					player.CastFizzle(hand);
 					ClearAll();
 					//Clear(targetGlyphGraphic);
 					//Clear(castedGlyphGraphic);
@@ -212,9 +218,8 @@ public class GlyphRecognition : MonoBehaviour {
 		}
 		catch (System.Exception e) {
 			Debug.LogError("Glyph recognition " + e + " occured. Clearing strokes.");
-			ClearAll();
 		}
-
+		ClearAll();
 	}
 
 	const float step=0.01f;
@@ -279,10 +284,11 @@ public class GlyphRecognition : MonoBehaviour {
 		glyphInput.ClearInput();
 	}
 
-	public void Cast(){
+	public bool Cast(){
 		glyphInput.CommitStrokes();
-		glyphInput.Cast();
+		bool castSuccessful = glyphInput.Cast();
 		glyphInput.ClearInput();
+		return castSuccessful;
 	}
 
 	void getStored() {

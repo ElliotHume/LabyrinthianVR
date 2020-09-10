@@ -6,25 +6,29 @@ using UnityEngine.XR.Interaction.Toolkit;
 using AdVd.GlyphRecognition;
 using UnityEngine.SceneManagement;
 
-public class DrawingPlane : MonoBehaviour
+public class AdvancedDrawingPlane : MonoBehaviour
 {
-    public bool isPhysical = false;
+    public string handName;
+    public GameObject hand;
     public Camera playerCamera;
-    public GameObject blockingPlane;
     public GlyphDrawInput glyphDrawInput;
     public GlyphRecognition glyphRecognition;
+    public Player player;
 
     public XRController controller;
-    public InputHelpers.Button enableRayButton; 
-    public float activationThreshold = 0.1f;
+    public InputHelpers.Button drawButton; 
+    public float activationThreshold = 0.1f, planeOffsetForward = 0.15f, planeOffsetUpward = 0.1f;
 
     ContactPoint lastContactPoint;
+    MeshRenderer meshRenderer;
+    bool visible = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (player == null) player = GameObject.Find("XR Rig").GetComponent<Player>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -32,7 +36,19 @@ public class DrawingPlane : MonoBehaviour
     {
         if (!playerCamera) playerCamera = Camera.main;
 
-        transform.LookAt(playerCamera.transform);
+        if (!CheckIfActivated()) {
+            transform.LookAt((hand.transform.position + playerCamera.transform.position) / 2);
+            transform.position = hand.transform.position + (planeOffsetForward * hand.transform.forward);
+            if (visible) {
+                meshRenderer.enabled = false;
+                visible = false;
+            }
+        } else {
+            if (!visible) {
+                meshRenderer.enabled = true;
+                visible = true;
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -76,6 +92,12 @@ public class DrawingPlane : MonoBehaviour
                 print("failure to end drag");
             }
         }
+    }
+
+    public bool CheckIfActivated(){
+        InputHelpers.IsPressed(controller.inputDevice, drawButton, out bool isGripped, activationThreshold);
+        string heldSpell = (handName == "right") ? player.rightHandSpell : player.leftHandSpell;
+        return (isGripped && heldSpell == null);
     }
 
 

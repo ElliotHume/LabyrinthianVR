@@ -11,11 +11,14 @@ public class Teleporter : MonoBehaviour
     public bool sceneChanger;
     public string sceneName;
 
+    public bool playerTriggered;
+
     public List<GameObject> toggleObjects;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (player == null) player = GameObject.Find("XR Rig");
+        if (teleportAnchor == null) teleportAnchor = GameObject.Find("SpawnPoint");
     }
 
     // Update is called once per frame
@@ -25,7 +28,7 @@ public class Teleporter : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if ( triggerObjects.Contains(other.gameObject) ) {
+        if ( triggerObjects.Contains(other.gameObject) || (playerTriggered && other.tag == "Player") ) {
             Debug.Log(gameObject.name + " teleporter hit");
             Teleport();
         }
