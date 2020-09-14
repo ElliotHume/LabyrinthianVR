@@ -14,13 +14,16 @@ public class AdvancedDrawingPlane : MonoBehaviour
     public GlyphDrawInput glyphDrawInput;
     public GlyphRecognition glyphRecognition;
     public Player player;
+    public ParticleSystem edgeParticles;
 
     public XRController controller;
     public InputHelpers.Button drawButton; 
-    public float activationThreshold = 0.1f, planeOffsetForward = 0.15f, planeOffsetUpward = 0.1f;
+    public float activationThreshold = 0.1f, planeOffsetForward = 0.15f;
 
     ContactPoint lastContactPoint;
     MeshRenderer meshRenderer;
+    XRDirectInteractor interactor;
+    BoxCollider boxCollider;
     bool visible = false;
 
 
@@ -29,6 +32,8 @@ public class AdvancedDrawingPlane : MonoBehaviour
     {
         if (player == null) player = GameObject.Find("XR Rig").GetComponent<Player>();
         meshRenderer = GetComponent<MeshRenderer>();
+        interactor = hand.GetComponent<XRDirectInteractor>();
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -40,13 +45,18 @@ public class AdvancedDrawingPlane : MonoBehaviour
             transform.LookAt((hand.transform.position + playerCamera.transform.position) / 2);
             transform.position = hand.transform.position + (planeOffsetForward * hand.transform.forward);
             if (visible) {
-                meshRenderer.enabled = false;
+                boxCollider.enabled = false;
+                meshRenderer.enabled = false;  
                 visible = false;
+                if (edgeParticles) edgeParticles.Stop();
             }
         } else {
-            if (!visible) {
+            if (!visible && interactor.selectTarget == null) {
+                print(interactor.selectTarget);
+                boxCollider.enabled = true;
                 meshRenderer.enabled = true;
                 visible = true;
+                if (edgeParticles) edgeParticles.Play();
             }
         }
     }
@@ -97,7 +107,7 @@ public class AdvancedDrawingPlane : MonoBehaviour
     public bool CheckIfActivated(){
         InputHelpers.IsPressed(controller.inputDevice, drawButton, out bool isGripped, activationThreshold);
         string heldSpell = (handName == "right") ? player.rightHandSpell : player.leftHandSpell;
-        return (isGripped && heldSpell == null);
+        return (isGripped && (heldSpell == null || heldSpell == ""));
     }
 
 

@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: SpellSet
   m_EditorClassIdentifier: 
   glyphs:
-  - {fileID: 11400000, guid: b836e97f3d91d48ffa21fdfa1a9bb60b, type: 2}
-  - {fileID: 11400000, guid: a0039e101a0fa44b9bd334e356ac5826, type: 2}
-  - {fileID: 11400000, guid: bfe708bcb3a4e4ef783923c55b164057, type: 2}
   - {fileID: 11400000, guid: 2b9d40e55f27e1f409ae1c075b6dd3b1, type: 2}
   - {fileID: 11400000, guid: a0a6d9d6aa952494da249822df231338, type: 2}
   - {fileID: 11400000, guid: 5fca5914389a51c46967b7b6fbcbda1a, type: 2}
@@ -41,3 +38,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 047fbdcf700f54f73894005c360a18c5, type: 2}
   - {fileID: 11400000, guid: be5da768c9491a646a5478f05f20f41a, type: 2}
   - {fileID: 11400000, guid: 0806bc4d380bc5b44a13552c214c5e0f, type: 2}
+  - {fileID: 11400000, guid: 6ee0fceb7cde6824eb91d0357800078b, type: 2}
+  - {fileID: 11400000, guid: e5f7c91ef38bd3b4a8de22bf0c2d1c38, type: 2}

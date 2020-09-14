@@ -23,7 +23,6 @@ public class WindSlash : MonoBehaviour
         Destroy(gameObject, duration);
         int random = Random.Range(0, 5);
         //print(random);
-        GetComponents<AudioSource>()[random].Play();
     }
 
     public void SetDirection(Vector3 g) {
@@ -40,7 +39,7 @@ public class WindSlash : MonoBehaviour
     void Update()
     {
         // Should counter gravity so that the player can cross gaps
-        Vector3 gravity = new Vector3(0, Physics.gravity.y * 0.55f * Time.deltaTime, 0);
+        Vector3 gravity = new Vector3(0, Physics.gravity.y * Time.deltaTime, 0);
 
         if (characterController != null) {
             characterController.Move((direction * Time.deltaTime * speed) - gravity );

@@ -7,8 +7,8 @@ public class IceSpray : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 5.5f);
-        Destroy(GetComponent<CapsuleCollider>(), 4.5f);
+        Destroy(gameObject, 10.5f);
+        Destroy(GetComponent<CapsuleCollider>(), 5.5f);
         
     }
 

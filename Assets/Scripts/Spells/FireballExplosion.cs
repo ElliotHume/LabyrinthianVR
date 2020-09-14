@@ -13,7 +13,7 @@ public class FireballExplosion : MonoBehaviour
     // Start is called before the first frame update
     public void Start() {
         Destroy(GetComponent<SphereCollider>(), 0.05f);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 2f);
     }
 
     public void SetOwner(GameObject go, bool playerOwned) {

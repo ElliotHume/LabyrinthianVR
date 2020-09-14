@@ -204,6 +204,14 @@ public class GlyphRecognition : MonoBehaviour {
 					StartCoroutine(Morph (match, glyphColours["magicMissile"]));
 					player.CastMagicMissile(hand);
 					break;
+				case "Hammer":
+					StartCoroutine(Morph (match, glyphColours["magicMissile"]));
+					player.CastHammer(hand);
+					break;
+				case "Earthwall":
+					StartCoroutine(Morph (match, glyphColours["magicMissile"]));
+					player.CastEarthWall(hand);
+					break;
 				default:
 					//Debug.Log("Fizzle");
 					player.CastFizzle(hand);

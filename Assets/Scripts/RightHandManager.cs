@@ -32,10 +32,6 @@ public class RightHandManager : MonoBehaviour
         controller = GetComponent<XRController>();
         inputDevice = controller.inputDevice;
         interactor = GetComponent<XRDirectInteractor>();
-        // rayInteractor = GetComponent<XRRayInteractor>();
-        // lineVisual = GetComponent<XRInteractorLineVisual>();
-        // lineVisual.enabled = false;
-        //lineVisual.reticle.SetActive(false);
     }
 
     public bool CheckIfActivated(XRController controller){
@@ -48,9 +44,6 @@ public class RightHandManager : MonoBehaviour
         return (isTriggered);
     }
 
-    // public bool CheckIfRayHit(XRController controller){
-    //     return rayInteractor.GetCurrentRaycastHit(out RaycastHit rayhit);
-    // }
 
     // Update is called once per frame
     void Update()
@@ -61,21 +54,17 @@ public class RightHandManager : MonoBehaviour
             } catch {
                 // do nothing
             }
-			
-        // if (rayInteractor && !held && lineVisual.enabled) {
-        //     lineVisual.enabled = false;
-        //     lineVisual.reticle.SetActive(false);
-        // }   
-
-        //if (CheckIfActivated(controller)) { glyphRecognition.Cast(); }
 
         if (player != null && CheckIfActivated(controller) && !held){
             //print("try cast");
             held = true;
-            drawingSphere.SetActive(true);
-            if (castSuccess) {
-                castingLine.SetActive(true);
+            if (interactor.selectTarget == null) {
+                drawingSphere.SetActive(true);
+                if (castSuccess) {
+                    castingLine.SetActive(true);
+                }
             }
+            
         }
 
         if (player != null && !CheckIfActivated(controller) && held) {

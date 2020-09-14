@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Linq;
+using UnityEngine.Events;
 
 public class RiverPuzzle : MonoBehaviour
 {
     public XRSocketInteractor tile1, tile2, tile3;
     public string answer1, answer2, answer3;
     private string guess1, guess2, guess3;
+    public UnityEvent onSolve;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +54,7 @@ public class RiverPuzzle : MonoBehaviour
 
         if (guess1+guess2+guess3 == answer1+answer2+answer3) {
             GetComponent<AudioSource>().Play();
-            Destroy(gameObject, 0.5f);
+            onSolve.Invoke();
         }
     }
 

@@ -10,27 +10,30 @@ public class Player : MonoBehaviour
     public GlyphRecognition glyphRecognition;
 
     public float spellVelocity = 20;
-    public string rightHandSpell, leftHandSpell;
+    public string rightHandSpell = null, leftHandSpell = null;
     public string lastSpellCast;
     public GameObject rightHand, leftHand, drawingAnchor;
     public XRController rightHandController, leftHandController;
     private SkinnedMeshRenderer rightHandRenderer, leftHandRenderer;
-    public Material baseMaterial, spellHandGlow, movementCooldownGlow;
-    public ParticleSystem fireParticles, lightningParticles, windParticles, royalParticles, iceParticles, damageParticles;
-    public GameObject shieldSphere, arcanoSphere, missileEmitter;
+    public Material baseMaterial, spellHandGlow_r, spellHandGlow_l;
+    public ParticleSystem r_fireParticles, r_lightningParticles, r_windParticles, r_arcaneParticles, r_iceParticles;
+    public ParticleSystem l_fireParticles, l_lightningParticles, l_windParticles, l_arcaneParticles, l_iceParticles;
+    public GameObject r_shieldSphere, r_arcanoSphere, r_missileEmitter;
+    public GameObject l_shieldSphere, l_arcanoSphere, l_missileEmitter;
     private Dictionary<string, Color> handColours = new Dictionary<string, Color>();
 
     // SPELL PREFABS
     public GameObject fireball;
     public GameObject shield;
     public GameObject windslash;
-    public GameObject lightningChargeObj;
     public GameObject lightning;
     public GameObject arcanePulse;
     public GameObject iceSpikeProjectile, iceSpray;
     public GameObject fizzle;
     public GameObject royalFireball;
     public GameObject magicMissile;
+    public GameObject hammer;
+    public GameObject earthWall;
     public List<GameObject> shields;
     public int maxShields = 3;
 
@@ -49,7 +52,8 @@ public class Player : MonoBehaviour
         handColours.Add("icespray", new Color(50/255f, 50/255f, 1f));
 		handColours.Add("royalfire", new Color(156/255f, 0f, 1f));
         handColours.Add("magicmissile", new Color(156/255f, 0f, 1f));
-
+        handColours.Add("hammer", new Color(1f, 186/255f, 60/255f));
+        handColours.Add("earthwall", new Color(165/255f, 145/255f, 0f));
 
         rightHand = GameObject.Find("RightHand Controller");
         Debug.Log("right Hand GameObject: "+ rightHand);
@@ -113,15 +117,14 @@ public class Player : MonoBehaviour
     }
 
     public void SetHandGlow(string spell, string hand){
-        if(rightHandRenderer && leftHandRenderer && spellHandGlow){
+        if(rightHandRenderer && leftHandRenderer){
             Debug.Log("Setting hand colour to: "+handColours[spell]);
-            spellHandGlow.SetColor("Color_682024A", handColours[spell]);
-            // Debug.Log("Set hand material to "+spell);
-
             if (hand == "right") {
-                rightHandRenderer.material = spellHandGlow;
+                spellHandGlow_r.SetColor("Color_682024A", handColours[spell]);
+                rightHandRenderer.material = spellHandGlow_r;
             } else {
-                leftHandRenderer.material = spellHandGlow;
+                spellHandGlow_l.SetColor("Color_682024A", handColours[spell]);
+                leftHandRenderer.material = spellHandGlow_l;
             }
         }
     }
@@ -135,31 +138,37 @@ public class Player : MonoBehaviour
             try {
                 switch (heldSpell) {
                     case "fireball":
-                        CastHeldFireball(castingHand);
+                        CastHeldFireball(castingHand, hand);
                         break;
                     case "shield":
-                        CastHeldShield(castingHand);
+                        CastHeldShield(castingHand, hand);
                         break;
                     case "lightning":
-                        CastHeldLightning(castingHand);
+                        CastHeldLightning(castingHand, hand);
                         break;
                     case "windslash":
-                        CastHeldWindSlash(castingHand);
+                        CastHeldWindSlash(castingHand, hand);
                         break;
                     case "royalfire":
-                        CastHeldRoyalFire(castingHand);
+                        CastHeldRoyalFire(castingHand, hand);
                         break;
                     case "icespikes":
-                        CastHeldIceSpikes(castingHand);
+                        CastHeldIceSpikes(castingHand, hand);
                         break;
                     case "icespray":
-                        CastHeldIceSpray(castingHand);
+                        CastHeldIceSpray(castingHand, hand);
                         break;
                     case "arcanopulse":
-                        CastHeldArcanoPulse();
+                        CastHeldArcanoPulse(hand);
                         break;
                     case "magicmissile":
-                        CastHeldMagicMissile(castingHand);
+                        CastHeldMagicMissile(castingHand, hand);
+                        break;
+                    case "hammer":
+                        CastHeldHammer(castingHand, hand);
+                        break;
+                    case "earthwall":
+                        CastHeldEarthWall(castingHand, hand);
                         break;
                 }
             } catch (System.Exception e) {
@@ -193,24 +202,25 @@ public class Player : MonoBehaviour
 
 
     //  ------------- FIREBALL ------------------
-    public virtual void CastFireball(string hand) {
+    public void CastFireball(string hand) {
         if (hand == "right") {
             rightHandSpell = "fireball";
+            if (r_fireParticles) r_fireParticles.Play();
         } else {
             leftHandSpell = "fireball";
+            if (l_fireParticles) l_fireParticles.Play();
         }
-        
         SetHandGlow("fireball", hand);
-        if (fireParticles) {
-            //print("fire particles play");
-            fireParticles.Play();
-        }
         // Debug.Log("PLAYERFIRECAST");
     }
 
-    public void CastHeldFireball(GameObject castingHand) {
+    public void CastHeldFireball(GameObject castingHand, string hand) {
         GameObject newFireball = Instantiate(fireball, castingHand.transform.position, castingHand.transform.rotation);
-        if (fireParticles) fireParticles.Stop();
+        if (hand == "right") {
+            if (r_fireParticles) r_fireParticles.Stop();
+        } else {
+            if (l_fireParticles) l_fireParticles.Stop();
+        } 
     }
 
 
@@ -224,18 +234,16 @@ public class Player : MonoBehaviour
     public void CastShieldBack(string hand) {
         if (hand == "right") {
             rightHandSpell = "shield";
+            if (r_shieldSphere) r_shieldSphere.SetActive(true);
         } else {
             leftHandSpell = "shield";
+            if (l_shieldSphere) l_shieldSphere.SetActive(true);
         }
         SetHandGlow("shield", hand);
-        if (shieldSphere) {
-            //print("activate shield sphere");
-            shieldSphere.SetActive(true);
-        }
         // Debug.Log("PLAYERSHIELDCAST");
     }
 
-    public void CastHeldShield(GameObject castingHand) {
+    public void CastHeldShield(GameObject castingHand, string hand) {
         GameObject newShield = Instantiate(shield, castingHand.transform.position + (castingHand.transform.forward * 0.5f), castingHand.transform.rotation * Quaternion.Euler(90f, 0f, 90f));
 
         shields.Add(newShield);
@@ -245,7 +253,12 @@ public class Player : MonoBehaviour
             Destroy(oldShield);
         }
 
-        if (shieldSphere) shieldSphere.SetActive(false);
+        if (hand == "right") {
+            if (r_shieldSphere) r_shieldSphere.SetActive(false);
+        } else {
+            if (l_shieldSphere) l_shieldSphere.SetActive(false);
+        } 
+        
     }
 
 
@@ -258,23 +271,25 @@ public class Player : MonoBehaviour
     public void CastWindForward(string hand) {
         if (hand == "right") {
             rightHandSpell = "windslash";
+            if (r_windParticles) r_windParticles.Play();
         } else {
             leftHandSpell = "windslash";
+            if (l_windParticles) l_windParticles.Play();
         }
         SetHandGlow("windslash", hand);
-        if (windParticles) {
-            //print("wind particles play");
-            windParticles.Play();
-        }
         // Debug.Log("PLAYERWINDSLASHCAST");
     }
 
-    public void CastHeldWindSlash(GameObject castingHand){
+    public void CastHeldWindSlash(GameObject castingHand, string hand){
         GameObject newWindSlash = Instantiate(windslash, castingHand.transform.position, castingHand.transform.rotation);
         newWindSlash.GetComponent<WindSlash>().SetOwner(castingHand, gameObject);
         newWindSlash.GetComponent<WindSlash>().SetDirection(castingHand.transform.forward);
 
-        if (windParticles) windParticles.Stop();
+        if (hand == "right") {
+            if (r_windParticles) r_windParticles.Stop();
+        } else {
+            if (l_windParticles) l_windParticles.Stop();
+        } 
     }
 
 
@@ -290,17 +305,16 @@ public class Player : MonoBehaviour
     public void CastLightningNeutral(string hand) {
         if (hand == "right") {
             rightHandSpell = "lightning";
+            if (r_lightningParticles) r_lightningParticles.Play();
         } else {
             leftHandSpell = "lightning";
+            if (l_lightningParticles) l_lightningParticles.Play();
         }
         SetHandGlow("lightning", hand);
-        if (lightningParticles) {
-            lightningParticles.Play();
-        }
         // Debug.Log("PLAYERLIGHTNINGCAST");
     }
 
-    public void CastHeldLightning(GameObject castingHand) {
+    public void CastHeldLightning(GameObject castingHand, string hand) {
 
         // Get position of the casting projectile ray target hit
         RaycastHit raycastHit;
@@ -313,7 +327,11 @@ public class Player : MonoBehaviour
         newLightning.GetComponent<Lightning>().SetOwner(castingHand);
         newLightning.GetComponent<Lightning>().SetTarget(target);
 
-        if (lightningParticles) lightningParticles.Stop();
+        if (hand == "right") {
+            if (r_lightningParticles) r_lightningParticles.Stop();
+        } else {
+            if (l_lightningParticles) l_lightningParticles.Stop();
+        } 
     }
 
 
@@ -326,23 +344,25 @@ public class Player : MonoBehaviour
     public void CastArcanePulse(string hand) {
         if (hand == "right") {
             rightHandSpell = "arcanopulse";
+            if (r_arcanoSphere) r_arcanoSphere.SetActive(true);
         } else {
             leftHandSpell = "arcanopulse";
+            if (l_arcanoSphere) l_arcanoSphere.SetActive(true);
         }
         SetHandGlow("arcanopulse", hand);
-        if (arcanoSphere) {
-            //print("activate arcano sphere");
-            arcanoSphere.SetActive(true);
-        }
         // Debug.Log("PLAYERARCANOPULSECAST");
     }
 
-    public void CastHeldArcanoPulse() {
+    public void CastHeldArcanoPulse(string hand) {
         //Arcane Pulse should spawn at the feet
         GameObject newPulse = Instantiate(arcanePulse, new Vector3(transform.position.x, 0f, transform.position.z), transform.rotation);
         newPulse.GetComponent<ArcanePulse>().SetOwner(gameObject);
 
-        if (arcanoSphere) arcanoSphere.SetActive(false);
+        if (hand == "right") {
+            if (r_arcanoSphere) r_arcanoSphere.SetActive(false);
+        } else {
+            if (l_arcanoSphere) l_arcanoSphere.SetActive(false);
+        } 
     }
 
 
@@ -357,23 +377,25 @@ public class Player : MonoBehaviour
     public void CastIceSpikes(string hand) {
         if (hand == "right") {
             rightHandSpell = "icespikes";
+            if (r_iceParticles) r_iceParticles.Play();
         } else {
             leftHandSpell = "icespikes";
+            if (l_iceParticles) l_iceParticles.Play();
         }
         SetHandGlow("icespikes", hand);
-        if (iceParticles) {
-            //print("ice particles play");
-            iceParticles.Play();
-        }
     }
 
-    public void CastHeldIceSpikes(GameObject castingHand) {
+    public void CastHeldIceSpikes(GameObject castingHand, string hand) {
         //Ice spikes should spawn at the feet
         Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
         Vector3 startPos = new Vector3(castingHand.transform.position.x, 0f, castingHand.transform.position.z) + castingHand.transform.forward*2f;
         GameObject newIceSpikes = Instantiate(iceSpikeProjectile, startPos, dir);
 
-        if (iceParticles) iceParticles.Stop();
+        if (hand == "right") {
+            if (r_iceParticles) r_iceParticles.Stop();
+        } else {
+            if (l_iceParticles) l_iceParticles.Stop();
+        }
     }
 
 
@@ -383,21 +405,23 @@ public class Player : MonoBehaviour
     public void CastIceSpray(string hand) {
         if (hand == "right") {
             rightHandSpell = "icespray";
+            if (r_iceParticles) r_iceParticles.Play();
         } else {
             leftHandSpell = "icespray";
+            if (l_iceParticles) l_iceParticles.Play();
         }
         SetHandGlow("icespray", hand);
-        if (iceParticles) {
-            //print("ice particles play");
-            iceParticles.Play();
-        }
     }
 
-    public void CastHeldIceSpray(GameObject castingHand) {
+    public void CastHeldIceSpray(GameObject castingHand, string hand) {
         GameObject newIceSpray = Instantiate(iceSpray, castingHand.transform.position, castingHand.transform.rotation);
         newIceSpray.transform.SetParent(castingHand.transform);
 
-        if (iceParticles) iceParticles.Stop();
+        if (hand == "right") {
+            if (r_iceParticles) r_iceParticles.Stop();
+        } else {
+            if (l_iceParticles) l_iceParticles.Stop();
+        }
     }
 
 
@@ -409,18 +433,16 @@ public class Player : MonoBehaviour
     public void CastRoyalFire(string hand) {
         if (hand == "right") {
             rightHandSpell = "royalfire";
+            if (r_arcaneParticles) r_arcaneParticles.Play();
         } else {
             leftHandSpell = "royalfire";
+            if (l_arcaneParticles) l_arcaneParticles.Play();
         }
         SetHandGlow("royalfire", hand);
-        if (royalParticles) {
-            //print("royal particles play");
-            royalParticles.Play();
-        }
         // Debug.Log("PLAYERROYALFIRECAST");
     }
 
-    public void CastHeldRoyalFire(GameObject castingHand){
+    public void CastHeldRoyalFire(GameObject castingHand, string hand){
         GameObject newRoyalFireball = Instantiate(royalFireball, castingHand.transform.position, transform.rotation);
 
         // Get position of the casting projectile ray target hit
@@ -432,7 +454,11 @@ public class Player : MonoBehaviour
 
         newRoyalFireball.GetComponent<Royalfireball>().SetTarget(target);
 
-        if (royalParticles) royalParticles.Stop();
+        if (hand == "right") {
+            if (r_arcaneParticles) r_arcaneParticles.Stop();
+        } else {
+            if (l_arcaneParticles) l_arcaneParticles.Stop();
+        }
     }
 
 
@@ -446,16 +472,91 @@ public class Player : MonoBehaviour
     public void CastMagicMissile(string hand) {
         if (hand == "right") {
             rightHandSpell = "magicmissile";
+            if (r_missileEmitter) r_missileEmitter.SetActive(true);
         } else {
             leftHandSpell = "magicmissile";
+            if (l_missileEmitter) l_missileEmitter.SetActive(true);
         }
         SetHandGlow("magicmissile", hand);
-        if (missileEmitter) missileEmitter.SetActive(true);
     }
 
-    public void CastHeldMagicMissile(GameObject castingHand){
+    public void CastHeldMagicMissile(GameObject castingHand, string hand){
         GameObject newMagicMissile = Instantiate(magicMissile, castingHand.transform.position, castingHand.transform.rotation);
-        if (missileEmitter) missileEmitter.SetActive(false);
+        if (hand == "right") {
+            if (r_missileEmitter) r_missileEmitter.SetActive(false);
+        } else {
+            if (l_missileEmitter) l_missileEmitter.SetActive(false);
+        } 
+    }
+
+
+
+
+
+
+
+
+
+
+     //  ------------- Summon Hammer ------------------
+    public void CastHammer(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "hammer";
+            // if (r_missileEmitter) r_missileEmitter.SetActive(true);
+        } else {
+            leftHandSpell = "hammer";
+            // if (l_missileEmitter) l_missileEmitter.SetActive(true);
+        }
+        SetHandGlow("hammer", hand);
+    }
+
+    public void CastHeldHammer(GameObject castingHand, string hand){
+        GameObject newHammer = Instantiate(hammer, castingHand.transform.position, castingHand.transform.rotation);
+        // if (hand == "right") {
+        //     if (r_missileEmitter) r_missileEmitter.SetActive(false);
+        // } else {
+        //     if (l_missileEmitter) l_missileEmitter.SetActive(false);
+        // } 
+    }
+
+
+
+
+
+
+
+
+
+    //  ------------- Earth Wall ------------------
+    public void CastEarthWall(string hand) {
+        if (hand == "right") {
+            rightHandSpell = "earthwall";
+            //if (r_fireParticles) r_fireParticles.Play();
+        } else {
+            leftHandSpell = "earthwall";
+            //if (l_fireParticles) l_fireParticles.Play();
+        }
+        SetHandGlow("earthwall", hand);
+        // Debug.Log("PLAYERFIRECAST");
+    }
+
+    public void CastHeldEarthWall(GameObject castingHand, string hand) {
+        // Get position of the casting projectile ray target hit
+        RaycastHit raycastHit;
+        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
+        if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f ) ) {
+            target = raycastHit.point;
+        }
+
+        Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
+
+        GameObject newEarthWall = Instantiate(earthWall, target, dir);
+
+        // if (hand == "right") {
+        //     if (r_fireParticles) r_fireParticles.Stop();
+        // } else {
+        //     if (l_fireParticles) l_fireParticles.Stop();
+        // } 
     }
 
 

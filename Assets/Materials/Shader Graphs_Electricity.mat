@@ -25,6 +25,6 @@ Material:
     - Vector1_EECA2A46: 2
     - Vector1_FD5CDF8C: 10
     m_Colors:
-    - Color_D5717BB8: {r: 1, g: 0.982594, b: 0.7169812, a: 1}
+    - Color_D5717BB8: {r: 1, g: 0.9444444, b: 0, a: 1}
     - Vector2_23FEF732: {r: 0.1, g: -0.1, b: 0, a: 0}
     - Vector2_58739311: {r: 0, g: 1, b: 0, a: 0}

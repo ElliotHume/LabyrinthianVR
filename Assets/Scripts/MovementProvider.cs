@@ -14,7 +14,7 @@ public class MovementProvider : LocomotionProvider
     public GlyphRecognition glyphRecognition;
 
     public float speed = 3.0f;
-    public float gravityMultiplier = 1.0f;
+    public float gravityMultiplier = 1f;
 
     public GameObject player;
     public GameObject drawingAnchor;
@@ -128,10 +128,7 @@ public class MovementProvider : LocomotionProvider
 
     private void ApplyGravity() {
         if (!characterController.isGrounded) {
-            Vector3 gravity = new Vector3(0, Physics.gravity.y * gravityMultiplier, 0);
-            gravity.y *= Time.deltaTime;
-
-            characterController.Move(gravity * Time.deltaTime);
+            characterController.Move( new Vector3(0, Physics.gravity.y * gravityMultiplier  * Time.deltaTime, 0));
         }
     }
 }
