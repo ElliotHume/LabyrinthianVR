@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Tile
   - Spell_Interactable
+  - Magic
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Player
   - SpellPassthrough
   - Spell
-  - 
+  - PlayerPassthrough
   - 
   - 
   - 

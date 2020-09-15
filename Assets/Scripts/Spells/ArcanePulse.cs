@@ -8,6 +8,7 @@ public class ArcanePulse : MonoBehaviour
 	public float MaxDiameter = 2.5f;
 	public float expansionTime;
 	public GameObject owner;
+    public AudioSource hitsound;
 
 	private Vector3 startScale;
 	private float startTime;
@@ -28,10 +29,12 @@ public class ArcanePulse : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         //don't collide with ragdolls
-        if (other.tag == "BodyPart" || other.tag == "Player") {
-
-        } else if (other.tag == "Shield") {
+        if (other.tag == "Shield") {
             other.GetComponent<Shield>().Break();
+            if (hitsound != null) hitsound.Play();
+        } else if (other.tag == "Magic") {
+            Destroy(other.gameObject, 0.2f);
+            if (hitsound != null) hitsound.Play();
         }
     }
 

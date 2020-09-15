@@ -20,6 +20,7 @@ public class MovementProvider : LocomotionProvider
     public GameObject drawingAnchor;
 
     private bool isHeadSetOnLastFrame;
+    bool canFly = false, defy = false;
 
     protected override void Awake()
     {
@@ -89,15 +90,16 @@ public class MovementProvider : LocomotionProvider
             StartMove(position);
         }
 
-
-        // device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool goDown);
-        // device.TryGetFeatureValue(CommonUsages.primaryButton, out bool goUp);
-        // if (goDown){
-        //     characterController.Move(Vector3.down * Time.deltaTime);
-        // }
-        // if (goUp){
-        //     characterController.Move(Vector3.up * Time.deltaTime);
-        // }
+        if (canFly) {
+            device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool goUp);
+            device.TryGetFeatureValue(CommonUsages.primaryButton, out bool goDown);
+            if (goDown){
+                characterController.Move(Vector3.down * 4 * Time.deltaTime);
+            }
+            if (goUp){
+                characterController.Move(Vector3.up * 4 * Time.deltaTime);
+            }
+        }
     }
 
     private void StartMove(Vector2 position)
@@ -111,24 +113,25 @@ public class MovementProvider : LocomotionProvider
         direction = Quaternion.Euler(headRotation) * direction;
 
         // Apply speed and move
-        Vector3 movement = direction * speed;
+        float speedModifier = canFly ? 3f : defy ? 1.5f : 1f;
+        Vector3 movement = direction * (speed * speedModifier);
         Vector3 prevPos = head.transform.position;
         characterController.Move(movement * Time.deltaTime);
         //drawingAnchor.transform.position += movement * Time.deltaTime;
 
-
-
-        // if (movement.magnitude > 0f) {
-        //     Debug.Log("Movement, playerPos:  "+player.transform.position+"    characterControllerPos: "+characterController.transform.position+"   headPos: "+head.transform.position);
-        //     foreach(Camera item in Camera.allCameras) {
-        //         Debug.Log("Camera: "+item.gameObject+"  position: "+item.gameObject.transform.position+"             isMain: "+(item == Camera.main)+ "    isCurrent: "+(item == Camera.current));
-        //     }
-        // }
     }
 
     private void ApplyGravity() {
-        if (!characterController.isGrounded) {
+        if (!characterController.isGrounded && !canFly && !defy) {
             characterController.Move( new Vector3(0, Physics.gravity.y * gravityMultiplier  * Time.deltaTime, 0));
         }
+    }
+
+    public void ToggleFlight(bool val) {
+        canFly = val;
+    }
+
+    public void ToggleDefyGravity(bool val) {
+        defy = val;
     }
 }

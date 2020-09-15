@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Farseer : MonoBehaviour
 {
-    public float speed = 10f;
-    public float duration = 10f;
+    public float speed = 20f;
+    public float duration = 3f;
 
-    public GameObject owner;
+    public GameObject owner, hand;
     private CharacterController characterController;
 
     Vector3 startPos;
@@ -16,16 +16,16 @@ public class Farseer : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        Destroy(GetComponent<BoxCollider>(), duration*3);
-        Destroy(gameObject, duration*3);
+        Destroy(gameObject, duration*5);
         
         StartCoroutine(SectionTiming());
     }
 
-    public void SetOwner(GameObject player) {
+    public void SetOwner(GameObject player, GameObject castingHand) {
         owner = player;
         characterController = owner.GetComponent<CharacterController>();
         startPos = player.transform.position;
+        hand = castingHand;
     }
 
     // Update is called once per frame
@@ -40,13 +40,13 @@ public class Farseer : MonoBehaviour
         }
         
         owner.transform.position = new Vector3(startPos.x, owner.transform.position.y, startPos.z);
-        transform.position = owner.transform.position;
+        transform.position = hand.transform.position+Vector3.down;
     }
 
     IEnumerator SectionTiming() {
         yield return new WaitForSeconds(duration);
         stay = true;
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration*3);
         moveDown = true;
     }
 }

@@ -48,12 +48,14 @@ public class GlyphRecognition : MonoBehaviour {
         glyphColours.Add("fireball", new Color(1f, 0, 0));
 		glyphColours.Add("shield", new Color(113/255f, 199/255f, 1f));
 		glyphColours.Add("windslash", new Color(26/255f, 1f, 0));
-		glyphColours.Add("finalSpark", new Color(1f, 247/255f, 103/255f));
-		glyphColours.Add("arcanePulse", new Color(214/255f, 135/255f, 1f));
-		glyphColours.Add("iceSpikes", new Color(127/255f, 126/255f, 253/255f));
-		glyphColours.Add("iceSpray", new Color(127/255f, 126/255f, 253/255f));
-		glyphColours.Add("royalFire", new Color(143/255f, 111/255f, 1f));
-		glyphColours.Add("magicMissile", new Color(143/255f, 111/255f, 1f));
+		glyphColours.Add("lightning", new Color(1f, 247/255f, 103/255f));
+		glyphColours.Add("arcanopulse", new Color(214/255f, 135/255f, 1f));
+		glyphColours.Add("icespikes", new Color(127/255f, 126/255f, 253/255f));
+		glyphColours.Add("icespray", new Color(127/255f, 126/255f, 253/255f));
+		glyphColours.Add("royalfire", new Color(143/255f, 111/255f, 1f));
+		glyphColours.Add("magicmissile", new Color(143/255f, 111/255f, 1f));
+		glyphColours.Add("hammer", new Color(1f, 186/255f, 60/255f));
+        glyphColours.Add("earthwall", new Color(165/255f, 145/255f, 0f));
 		glyphColours.Add("default", new Color(191 / 255f, 110 / 255f, 54 / 255f, 64 / 255f));
 
 	}
@@ -151,78 +153,9 @@ public class GlyphRecognition : MonoBehaviour {
 		// Make sure glyph recognition finishes and clears the stroke list
 		// through any possible errors.
 		try {
-			switch (match.target.ToString()) {
-				//case "Fireball":
-				//case "Fireball2":
-				//case "Fireball3":
-				case "Fireball4":
-					StartCoroutine(Morph (match, glyphColours["fireball"]));
-					player.CastFireball(hand);
-					break;
-				//case "Shield":
-				case "Shield2":
-				//case "Shield3":
-					StartCoroutine(Morph (match, glyphColours["shield"]));
-					player.CastShieldBack(hand);
-					break;
-				case "WindSlash":
-				//case "Windslash2":
-				//case "Windslash3":
-				//case "Windslash4":
-					StartCoroutine(Morph (match, glyphColours["windslash"]));
-					player.CastWindForward(hand);
-					break;
-				case "Lightning":
-				//case "Lightning2":
-					StartCoroutine(Morph (match, glyphColours["finalSpark"]));
-					player.CastLightningNeutral(hand);
-					break;
-				//case "ArcanePulse":
-				case "Arcanopulse":
-				//case "Arcanopulse2":
-				//case "Arcanopulse3":
-					StartCoroutine(Morph (match, glyphColours["arcanePulse"]));
-					player.CastArcanePulse(hand);
-					break;
-				case "Icespike":
-				//case "Icespike2":
-				//case "Icespike3":
-				 	StartCoroutine(Morph (match, glyphColours["iceSpikes"]));
-				 	player.CastIceSpikes(hand);
-				 	break;
-				case "Icespray":
-				 	StartCoroutine(Morph (match, glyphColours["iceSpray"]));
-				 	player.CastIceSpray(hand);
-				 	break;
-				//case "Royalfire":
-				//case "Royalfire2":
-				case "Royalfire3":
-					StartCoroutine(Morph (match, glyphColours["royalFire"]));
-					player.CastRoyalFire(hand);
-					break;
-				case "Magicmissile":
-					StartCoroutine(Morph (match, glyphColours["magicMissile"]));
-					player.CastMagicMissile(hand);
-					break;
-				case "Hammer":
-					StartCoroutine(Morph (match, glyphColours["magicMissile"]));
-					player.CastHammer(hand);
-					break;
-				case "Earthwall":
-					StartCoroutine(Morph (match, glyphColours["magicMissile"]));
-					player.CastEarthWall(hand);
-					break;
-				default:
-					//Debug.Log("Fizzle");
-					player.CastFizzle(hand);
-					ClearAll();
-					//Clear(targetGlyphGraphic);
-					//Clear(castedGlyphGraphic);
-					//Clear(currentGlyphGraphic);
-					//Clear(currentStrokeGraphic);
-					//glyphInput.strokeList.Clear();
-					break;
-			}
+			StartCoroutine(Morph(match));
+			// glyphColours[match.target.ToString()])
+			player.PrepareSpell(match.target.ToString(), hand);
 		}
 		catch (System.Exception e) {
 			Debug.LogError("Glyph recognition " + e + " occured. Clearing strokes.");
@@ -232,7 +165,7 @@ public class GlyphRecognition : MonoBehaviour {
 
 	const float step=0.01f;
 
-	IEnumerator Morph(GlyphMatch match, Color color){
+	IEnumerator Morph(GlyphMatch match){
 		//targetGlyphGraphic.color = new Color(1f, 1f, 1f, 1f);
 
 		Clear(castedGlyphGraphic);
