@@ -24,6 +24,7 @@ The maze will be covered with secrets and lore tablets that will tell the player
 ## Screenshots ##
 ![Starting room of the Labyrinth](Images/FirstZone2.PNG)
 ![First zone of the Elemental Path](Images/ElementalZone0.PNG)
+![Table of Spells](Images/Spells.PNG)
 
 ### WIP zones: ###
 ![First zone of the Arcane Path](Images/ArcaneZone0.PNG)
