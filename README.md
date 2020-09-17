@@ -22,7 +22,7 @@ The maze will be covered with secrets and lore tablets that will tell the player
 
 
 ## Screenshots ##
-![Starting room of the Labyrinth](Images/FirstZone.PNG)
+![Starting room of the Labyrinth](Images/FirstZone2.PNG)
 ![First zone of the Elemental Path](Images/ElementalZone0.PNG)
 
 ### WIP zones: ###
