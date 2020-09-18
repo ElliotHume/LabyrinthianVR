@@ -2,7 +2,9 @@
 “Knowledge comes at a price of skill, no information is given to the unworthy” 
 
 
-### [Video trailer of the most recent development build](https://drive.google.com/file/d/1mNEqmbB7N3NgcfvjMQDKSJ-hcn0eGVX3/view?usp=sharing) ###
+### [Video walkthrough of the first two levels](https://drive.google.com/file/d/1mNEqmbB7N3NgcfvjMQDKSJ-hcn0eGVX3/view?usp=sharing) ###
+### [Spellcasting demo from the most recent development build](https://drive.google.com/file/d/1jE3I2p1PMfhViooRWt6XInkQ_wLuQmcu/view?usp=sharing) ###
+Unfortunately the audio of the spellcasting demo has a delay and some volume issues, I assure you that the in-game audio is much better! 
 
 ## Premise ##
 A mage apprentice is sent to the labyrinth by a wrongly cast portal spell. The labyrinth is a place from myth where godlings go to find their powers and become full blooded gods. When godlings come they are given a guiding light and a runic tablet, but as a human your guiding light has not been summoned. You are to find a way through the labyrinth alone with the promise of powerful knowledge and a hope to return home.
@@ -20,8 +22,9 @@ The maze will be covered with secrets and lore tablets that will tell the player
 
 
 ## Screenshots ##
-![Starting room of the Labyrinth](Images/FirstZone.PNG)
+![Starting room of the Labyrinth](Images/FirstZone2.PNG)
 ![First zone of the Elemental Path](Images/ElementalZone0.PNG)
+![Table of Spells](Images/Spells.PNG)
 
 ### WIP zones: ###
 ![First zone of the Arcane Path](Images/ArcaneZone0.PNG)
