@@ -15,9 +15,9 @@ public class Player : MonoBehaviour
     public GameObject rightHand, leftHand, drawingAnchor;
     public XRController rightHandController, leftHandController;
     private SkinnedMeshRenderer rightHandRenderer, leftHandRenderer;
-    public Material baseMaterial, spellHandGlow_r, spellHandGlow_l;
-    public ParticleSystem r_fireParticles, r_lightningParticles, r_windParticles, r_arcaneParticles, r_iceParticles;
-    public ParticleSystem l_fireParticles, l_lightningParticles, l_windParticles, l_arcaneParticles, l_iceParticles;
+    public Material baseMaterial, spellHandGlow_r, spellHandGlow_l, goldMaterial;
+    public ParticleSystem r_fireParticles, r_lightningParticles, r_windParticles, r_arcaneParticles, r_iceParticles, r_mortalParticles, r_planarParticles, r_flightParticles;
+    public ParticleSystem l_fireParticles, l_lightningParticles, l_windParticles, l_arcaneParticles, l_iceParticles, l_mortalParticles, l_planarParticles, l_flightParticles;
     public GameObject r_shieldSphere, r_arcanoSphere, r_missileEmitter;
     public GameObject l_shieldSphere, l_arcanoSphere, l_missileEmitter;
 
@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     public GameObject farseer;
     public GameObject returnSpell;
     public GameObject defy;
+    public GameObject midasTouch;
+    public GameObject seeDead;
     public GameObject flight;
 
     public List<GameObject> hammers;
@@ -50,6 +52,11 @@ public class Player : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        Color arcaneColor = new Color(156/255f, 0f, 1f);
+        Color mortalColor = new Color(165/255f, 145/255f, 0f);
+        Color planarColor = new Color(1f, 1f, 1f);
+
+
         // hand colours
         handColours.Add("fireball", new Color(1f, 0, 0));
 		handColours.Add("shield", new Color(113/255f, 199/255f, 1f));
@@ -58,15 +65,17 @@ public class Player : MonoBehaviour
 		handColours.Add("arcanopulse", new Color(214/255f, 135/255f, 1f));
 		handColours.Add("icespikes", new Color(50/255f, 50/255f, 1f));
         handColours.Add("icespray", new Color(50/255f, 50/255f, 1f));
-		handColours.Add("royalfire", new Color(156/255f, 0f, 1f));
-        handColours.Add("magicmissile", new Color(156/255f, 0f, 1f));
-        handColours.Add("hammer", new Color(1f, 186/255f, 60/255f));
-        handColours.Add("defy", new Color(1f, 186/255f, 60/255f));
-        handColours.Add("earthwall", new Color(165/255f, 145/255f, 0f));
-        handColours.Add("farseer", new Color(0f, 0f, 0f));
-        handColours.Add("return", new Color(0f, 0f, 0f));
-        handColours.Add("flight1", new Color(1f, 1f, 1f));
-        handColours.Add("flight2", new Color(1f, 1f, 1f));
+		handColours.Add("royalfire", arcaneColor);
+        handColours.Add("magicmissile", arcaneColor);
+        handColours.Add("hammer", mortalColor);
+        handColours.Add("defy", mortalColor);
+        handColours.Add("earthwall", mortalColor);
+        handColours.Add("midastouch", mortalColor);
+        handColours.Add("farseer", planarColor);
+        handColours.Add("seedead", planarColor);
+        handColours.Add("return", arcaneColor);
+        handColours.Add("flight1", planarColor);
+        handColours.Add("flight2", planarColor);
 
         rightHand = GameObject.Find("RightHand Controller");
         Debug.Log("right Hand GameObject: "+ rightHand);
@@ -156,15 +165,17 @@ public class Player : MonoBehaviour
                 ps = rightHand ? r_lightningParticles : l_lightningParticles;
                 break;
             case "windslash":
-            case "defy":
+                ps = rightHand ? r_windParticles : l_windParticles;
+                break;
             case "flight1":
             case "flight2":
-                ps = rightHand ? r_windParticles : l_windParticles;
+                ps = rightHand ? r_flightParticles : l_flightParticles;
                 break;
             case "arcanopulse":
                 handObject = rightHand ? r_arcanoSphere : l_arcanoSphere;
                 break;
             case "royalfire":
+            case "return":
                 ps = rightHand ? r_arcaneParticles : l_arcaneParticles;
                 break;
             case "icespikes":
@@ -176,13 +187,13 @@ public class Player : MonoBehaviour
                 break;
             case "hammer":
             case "earthwall":
-                // TODO: Create Mortal particles
-                ps = rightHand ? r_fireParticles : l_fireParticles;
+            case "defy":
+            case "midastouch":
+                ps = rightHand ? r_mortalParticles : l_mortalParticles;
                 break;
             case "farseer":
-            case "return":
-                // TODO: Create Planar particles
-                ps = rightHand ? r_arcaneParticles : l_arcaneParticles;
+            case "seedead":
+                ps = rightHand ? r_planarParticles : l_planarParticles;
                 break;
         }
         if (ps != null){
@@ -247,6 +258,12 @@ public class Player : MonoBehaviour
                         break;
                     case "return":
                         CastHeldReturn(castingHand);
+                        break;
+                    case "midastouch":
+                        CastHeldMidasTouch(castingHand, hand);
+                        break;
+                    case "seedead":
+                        CastHeldSeeDead(castingHand);
                         break;
                     case "flight1":
                         CastHeldFlight(true);
@@ -485,6 +502,13 @@ public class Player : MonoBehaviour
 
 
 
+    //  ------------- See Dead ------------------
+    public void CastHeldSeeDead(GameObject castingHand) {
+        GameObject newSeeDead = Instantiate(seeDead, castingHand.transform.position, castingHand.transform.rotation);
+        newSeeDead.transform.SetParent(castingHand.transform);
+    }
+
+
 
 
 
@@ -516,10 +540,32 @@ public class Player : MonoBehaviour
         newReturn.GetComponent<Return>().SetOwner(gameObject, castingHand);
     }
 
+
+
+
+
+
+
     
+    //  ------------- Midas Touch ------------------
+    public void CastHeldMidasTouch(GameObject castingHand, string hand) {
+        GameObject newMidasTouch = Instantiate(midasTouch, castingHand.transform.position, castingHand.transform.rotation);
+        newMidasTouch.transform.SetParent(castingHand.transform);
 
+        StartCoroutine(MidasHand(hand));
+    }
    
-
+    IEnumerator MidasHand(string hand) {
+        if (hand == "right") {
+            rightHandRenderer.material = goldMaterial;
+            yield return new WaitForSeconds(5);
+            rightHandRenderer.material = baseMaterial;
+        } else {
+            leftHandRenderer.material = goldMaterial;
+            yield return new WaitForSeconds(5);
+            leftHandRenderer.material = baseMaterial;
+        }
+    }
 
 
 

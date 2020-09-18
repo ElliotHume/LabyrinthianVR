@@ -7,11 +7,21 @@ public class Freezable : MonoBehaviour
     public Material freezeMaterial, baseMaterial;
     public float duration=0f;
     private Vector3 frozenPosition;
+
+    Material[] baseMaterials, frozenMaterials;
+    Renderer rend;
+
     //bool frozen = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rend = gameObject.GetComponent<Renderer>();
+        baseMaterials = rend.materials;
+
+        frozenMaterials = new Material[rend.materials.Length];
+        for (var j = 0; j < rend.materials.Length; j++) {
+            frozenMaterials[j] = freezeMaterial;
+        }
     }
 
     // Update is called once per frame
@@ -25,7 +35,11 @@ public class Freezable : MonoBehaviour
 
         frozenPosition = transform.position;
         
-        gameObject.GetComponent<MeshRenderer>().material = freezeMaterial;
+        //gameObject.GetComponent<MeshRenderer>().material = freezeMaterial;
+
+        // Change all materials to frozen, not just the first material
+        rend.materials = frozenMaterials;
+
         if (duration > 0) StartCoroutine(Unfreeze());
 
         ParticleSystem ps = GetComponent<ParticleSystem>();
@@ -43,7 +57,7 @@ public class Freezable : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
-        gameObject.GetComponent<MeshRenderer>().material = baseMaterial;
+        rend.materials = baseMaterials;
         //frozen = false;
     }
 }

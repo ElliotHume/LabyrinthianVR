@@ -20,7 +20,7 @@ public class MovementProvider : LocomotionProvider
     public GameObject drawingAnchor;
 
     private bool isHeadSetOnLastFrame;
-    bool canFly = false, defy = false;
+    bool movedThisUpdate = false, canFly = false, defy = false;
 
     protected override void Awake()
     {
@@ -34,7 +34,7 @@ public class MovementProvider : LocomotionProvider
         // OVRManager.fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.High; // it's the maximum foveation level
         // OVRManager.useDynamicFixedFoveatedRendering = true;
 
-        Debug.Log("Cameras #: "+Camera.allCamerasCount+"   current: "+Camera.current.gameObject+"     main: "+Camera.main.gameObject);
+        //Debug.Log("Cameras #: "+Camera.allCamerasCount+"   current: "+Camera.current.gameObject+"     main: "+Camera.main.gameObject);
         foreach(Camera item in Camera.allCameras) {
             Debug.Log("Camera: "+item.gameObject+"    isMain: "+(item == Camera.main)+ "    isCurrent: "+(item == Camera.current));
         }
@@ -77,19 +77,16 @@ public class MovementProvider : LocomotionProvider
 
     private void CheckForInput()
     {
+        movedThisUpdate = false;
         foreach(XRController controller in controllers) {
-            if(controller.enableInputActions) {
-                CheckForMovement(controller.inputDevice);
+            if(controller.enableInputActions && !movedThisUpdate) {
+                movedThisUpdate = CheckForMovement(controller.inputDevice);
             }
         }
     }
 
-    private void CheckForMovement(InputDevice device)
+    private bool CheckForMovement(InputDevice device)
     {
-        if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 position)) {
-            StartMove(position);
-        }
-
         if (canFly) {
             device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool goUp);
             device.TryGetFeatureValue(CommonUsages.primaryButton, out bool goDown);
@@ -100,6 +97,12 @@ public class MovementProvider : LocomotionProvider
                 characterController.Move(Vector3.up * 4 * Time.deltaTime);
             }
         }
+
+        if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 position)) {
+            StartMove(position);
+            return true;
+        }
+        return false;
     }
 
     private void StartMove(Vector2 position)

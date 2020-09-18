@@ -5,10 +5,13 @@ using UnityEngine;
 public class Hammer : MonoBehaviour
 {
     public AudioSource HitSound;
+    public float hitTimeout = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
         HitSound = GetComponent<AudioSource>();
+        StartCoroutine(HitBoxTimeout());
     }
 
     // Update is called once per frame
@@ -18,7 +21,8 @@ public class Hammer : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "Spell_Interactable") {
+        if (hitTimeout == 0f){
+            if (collision.gameObject.tag == "Spell_Interactable") {
                 SpellInteractable si = collision.gameObject.GetComponent<SpellInteractable>();
                 Breakable b = collision.gameObject.GetComponent<Breakable>();
                 EarthWall ew = collision.gameObject.GetComponent<EarthWall>();
@@ -26,9 +30,23 @@ public class Hammer : MonoBehaviour
                 if (si != null) si.Trigger("hammer");
                 if (ew != null) ew.Shatter(collision.GetContact(0));
                 if (b != null) b.Break();
-        } else if (collision.gameObject.tag == "Shield") {
+            } else if (collision.gameObject.tag == "Shield") {
                 Shield s = collision.gameObject.GetComponent<Shield>();
                 if(s != null) s.Break();
+            } else if (collision.gameObject.tag == "Enemy") {
+                EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+                if (enemy != null) enemy.TakeDamage(10f);
+            }
+
+            hitTimeout = 1f;
+        }
+    }
+
+    IEnumerator HitBoxTimeout() {
+        while (true) {
+            if (hitTimeout > 0) {
+                yield return new WaitForSeconds(hitTimeout);
+            }
         }
     }
 }

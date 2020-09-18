@@ -38,6 +38,9 @@ public class FireballExplosion : MonoBehaviour
             if (si != null) si.Trigger("fireball");
             if (b != null) b.Burn();
             Destroy(GetComponent<SphereCollider>(), 0);
+        } else if (other.tag == "Enemy") {
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null) enemy.TakeDamage(25f);
         }
     }
 }
