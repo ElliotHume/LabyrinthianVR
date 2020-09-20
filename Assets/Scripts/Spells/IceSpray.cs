@@ -9,7 +9,6 @@ public class IceSpray : MonoBehaviour
     {
         Destroy(gameObject, 10.5f);
         Destroy(GetComponent<CapsuleCollider>(), 5.5f);
-        
     }
 
     // Update is called once per frame
@@ -27,6 +26,10 @@ public class IceSpray : MonoBehaviour
             if (b != null) b.Freeze();
 
             Debug.Log("Freeze: "+other.gameObject);
+        } else if (other.tag == "Enemy") {
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null) enemy.Slow(2f);
         }
     }
+
 }

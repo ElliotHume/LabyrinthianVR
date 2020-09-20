@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hammer : MonoBehaviour
 {
     public AudioSource HitSound;
-    public float hitTimeout = 0f;
+    public float damage = 10f, hitTimeout = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +46,9 @@ public class Hammer : MonoBehaviour
         while (true) {
             if (hitTimeout > 0) {
                 yield return new WaitForSeconds(hitTimeout);
+                hitTimeout = 0;
             }
+            yield return new WaitForFixedUpdate();
         }
     }
 }

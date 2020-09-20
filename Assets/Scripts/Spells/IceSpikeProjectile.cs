@@ -7,7 +7,7 @@ public class IceSpikeProjectile : MonoBehaviour
 {
 
     public GameObject iceSpike;
-    public float speed;
+    public float damage=30f, speed;
     public float spikeDistance;
 
     public float maxDistanceFromCenter = 28f;
@@ -45,25 +45,14 @@ public class IceSpikeProjectile : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other) {
-    //     if (other.tag == "Player" &&
-    //         (other.GetComponent<NetworkIdentity>().connectionToClient == null ? null : other.GetComponent<NetworkIdentity>().connectionToClient.ToString())
-    //         != (owner == null ? null : owner.ToString())
-    //     ) {
-    //         other.GetComponent<CharacterBehaviour>().TakeDamage(1);
-    //         other.GetComponent<CharacterBehaviour>().TargetShowDamageEffects(other.GetComponent<NetworkIdentity>().connectionToClient);
-    //         other.GetComponent<CharacterBehaviour>().TargetThrowPlayerBack(other.GetComponent<NetworkIdentity>().connectionToClient, 0.6f, 0, 40);
-    //         Destroy(gameObject);
-    //     }
-    //     else if (other.tag == "Shield") {
+    // void OnTriggerEnter(Collider other) {
+    //     if (other.tag == "Shield") {
     //         other.GetComponent<Shield>().Break();
     //         Destroy(gameObject);
     //     }
-    //     else if (other.tag == "ArcanePulse") {
-    //         startPosition = transform.position;
-    //         transform.rotation *= Quaternion.Euler(0f, 180f, 0f);
-    //         distanceTravelled = 0f;
-    //         nextSpikeDistance = spikeDistance;
+    //     else if (other.tag == "Enemy") {
+    //         EnemyAI enemy = other.GetComponent<EnemyAI>();
+    //         if (enemy != null) enemy.TakeDamage(damage);
     //     }
-    }
+    // }
 }

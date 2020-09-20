@@ -48,6 +48,8 @@ public class Player : MonoBehaviour
     private Dictionary<string, Color> handColours = new Dictionary<string, Color>();
     bool flight1=false, flight2=false, flightTimerRunning=false;
 
+    private PlayerManager playerManager;
+
 
 
     // Start is called before the first frame update
@@ -92,6 +94,8 @@ public class Player : MonoBehaviour
         } catch {
             Debug.Log("Could not find hand renderers, will try again on FixedUpdate");
         }
+
+        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -288,6 +292,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void WeaponHit(float damage) {
+        //Do nothing for now
+        print("HIT BY WEAPON");
+
+        playerManager.Damage(damage);
+    }
 
 
 
@@ -557,10 +567,12 @@ public class Player : MonoBehaviour
    
     IEnumerator MidasHand(string hand) {
         if (hand == "right") {
+            print("Try set midas hand right");
             rightHandRenderer.material = goldMaterial;
             yield return new WaitForSeconds(5);
             rightHandRenderer.material = baseMaterial;
         } else {
+            print("Try set midas hand right");
             leftHandRenderer.material = goldMaterial;
             yield return new WaitForSeconds(5);
             leftHandRenderer.material = baseMaterial;

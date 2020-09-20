@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FireballExplosion : MonoBehaviour
 {
-    public int damage = 0;
+    public float damage = 25;
     public GameObject ownerGO;
 
     
@@ -40,7 +40,7 @@ public class FireballExplosion : MonoBehaviour
             Destroy(GetComponent<SphereCollider>(), 0);
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.TakeDamage(25f);
+            if (enemy != null) enemy.TakeDamage(damage);
         }
     }
 }

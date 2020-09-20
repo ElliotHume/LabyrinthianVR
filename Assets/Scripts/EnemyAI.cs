@@ -10,22 +10,25 @@ public class EnemyAI : MonoBehaviour
 
     public float health = 100f;
     public LayerMask whatIsGround, whatIsPlayer;
+    public AudioSource hitSound;
+    public Weapon weapon;
     Transform target;
     NavMeshAgent agent;
     Animator anim;
 
     // Patrolling
+    public bool doesPatrol = true;
     Vector3 walkPoint, startPoint;
     bool walkPointSet;
     public float walkPointRange = 10f, idleTime = 6f;
 
     //Attacking
-    public float attackCooldown = 1f;
+    public float attackCooldown = 4f;
     bool alreadyAttacked;
 
     //States
     public float sightRange = 10f, attackRange = 3f, startSpeed;
-    bool targetInSightRange, targetInAttackRange, idling, walking;
+    bool targetInSightRange, targetInAttackRange, idling, walking = false, inCombat = false, slowed = false;
 
 
 
@@ -47,12 +50,24 @@ public class EnemyAI : MonoBehaviour
         targetInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         targetInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!targetInSightRange && !targetInAttackRange) Patrolling();
-        if (targetInSightRange && !targetInAttackRange) ChaseTarget();
-        if (targetInSightRange && targetInAttackRange) AttackTarget();
+        if (health > 0) {
+            if (!inCombat) {
+                if (!targetInSightRange && !targetInAttackRange) {
+                    if (doesPatrol) Patrolling();
+                } else {
+                    inCombat = true;
+                    ChaseTarget();
+                }
+            } else {
+                if (!targetInAttackRange && !alreadyAttacked) {
+                    ChaseTarget();
+                } else {
+                    AttackTarget();
+                }
+            }
 
-        anim.SetBool("Walking", walking);
-        anim.SetBool("Dead", health <= 0);
+            anim.SetBool("Walking", walking);
+        }
     }
 
     void Patrolling() {
@@ -63,7 +78,7 @@ public class EnemyAI : MonoBehaviour
                 Idle();
             }
         } else {
-            print("Patrolling");
+            //print("Patrolling");
             walking = true;
             agent.SetDestination(walkPoint);
         }
@@ -80,13 +95,13 @@ public class EnemyAI : MonoBehaviour
     }
 
     void ChaseTarget() {
-        print("Chasing");
+        //print("Chasing");
         walking = true;
         agent.SetDestination(target.position);
     }
 
     void AttackTarget() {
-        print("Attacking");
+        //print("Attacking");
         walking = false;
 
         //agent.SetDestination(transform.position);
@@ -94,10 +109,9 @@ public class EnemyAI : MonoBehaviour
         transform.LookAt(target.position);
 
         if (!alreadyAttacked) {
-            // Attack code
             Debug.Log("Attack Target");
             anim.SetTrigger("Attack");
-
+            if (weapon != null) weapon.Attack();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), attackCooldown);
         }
@@ -111,6 +125,9 @@ public class EnemyAI : MonoBehaviour
         print("Take Damage: "+damage+"     health: "+health);
         anim.SetTrigger("TakeDamage");
         health -= damage;
+        inCombat = true;
+
+        if (hitSound) hitSound.Play();
 
         agent.speed = 0f;
         Invoke(nameof(ResumeMovement), 1f);
@@ -123,16 +140,22 @@ public class EnemyAI : MonoBehaviour
 
     void ResumeMovement() {
         agent.speed = startSpeed;
+        slowed = false;
+    }
+
+    public void Slow(float duration){
+        if (!slowed) {
+            agent.speed /= 2;
+            Invoke(nameof(ResumeMovement), duration);
+        }
     }
 
     public void Die() {
-        // Death code
-
+        anim.SetBool("Dead", true);
         Destroy(gameObject, 60f);
     }
 
     void SearchWalkPoint() {
-        Debug.Log("Trying to find walkpoint");
         // Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -143,7 +166,6 @@ public class EnemyAI : MonoBehaviour
         NavMeshPath path = new NavMeshPath();
         agent.CalculatePath(target.position, path);
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround) && path.status == NavMeshPathStatus.PathComplete) {
-            Debug.Log("Walkpoint Found");
             walkPointSet = true;
         }
         idling = false;

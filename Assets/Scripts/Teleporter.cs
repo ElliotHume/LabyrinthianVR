@@ -10,15 +10,16 @@ public class Teleporter : MonoBehaviour
     public GameObject teleportAnchor;
     public bool sceneChanger;
     public string sceneName;
-
     public bool playerTriggered;
-
     public List<GameObject> toggleObjects;
+
+    PlayerManager playerManager;
     // Start is called before the first frame update
     void Start()
     {
         if (player == null) player = GameObject.Find("XR Rig");
         if (teleportAnchor == null) teleportAnchor = GameObject.Find("SpawnPoint");
+        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -36,12 +37,7 @@ public class Teleporter : MonoBehaviour
 
     void Teleport() {
         if ( sceneChanger ) {
-            try {
-                SceneManager.LoadScene(sceneName);
-            } catch (System.Exception e) {
-                Debug.Log("Error loading scene: "+e);
-            }
-            
+            playerManager.LoadScene(sceneName);
         } else {
             player.transform.position = teleportAnchor.transform.position;
             player.transform.rotation = teleportAnchor.transform.rotation;

@@ -21,9 +21,8 @@ public class AnchorPlacementZone : MonoBehaviour
     /// OnTriggerEnter is called when the Collider other enters the trigger.
     /// </summary>
     /// <param name="other">The other Collider involved in this collision.</param>
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.name == "DrawingAnchor") {
+    void OnTriggerEnter(Collider other) {
+        if (other.name == "DrawingAnchor" || other.name == "UnlockingSphere") {
             other.gameObject.transform.position = transform.position + new Vector3(-0.036f, 0.12f, -0.034f); 
             
             foreach (GameObject go in toggleObjects) {
@@ -31,7 +30,6 @@ public class AnchorPlacementZone : MonoBehaviour
             }
 
             GetComponent<AudioSource>().Play();
-            //print(toggleObject+" set to active "+toggleObject.activeInHierarchy+ " pos: "+toggleObject.transform.position);
         }
     }
 }

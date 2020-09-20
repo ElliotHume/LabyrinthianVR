@@ -8,7 +8,7 @@ public class MagicMissile : MonoBehaviour
 
     private Vector3 startPosition;
     private Vector3 endPosition;
-    public float speed;
+    public float damage=10f, speed;
 
     public ParticleSystem explosionParticles;
     public GameObject mesh;
@@ -66,6 +66,9 @@ public class MagicMissile : MonoBehaviour
                 Debug.Log("Hit Player, moving to TPAnchor");
                 other.gameObject.transform.position = TPAnchor.transform.position;
                 other.gameObject.transform.rotation = TPAnchor.transform.rotation;
+            } else if (other.tag == "Enemy") {
+                EnemyAI enemy = other.GetComponent<EnemyAI>();
+                if (enemy != null) enemy.TakeDamage(damage);
             }
         } 
     }

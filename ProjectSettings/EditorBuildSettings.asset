@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MortalZone0.unity
     guid: 3181beacc719c764cbdc60c6ee85aefb
+  - enabled: 1
+    path: Assets/Scenes/DeathRealm.unity
+    guid: 40058f625b78a3f489590bebaee2e63f
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 534bcd331d56cad499426244845cdfa6,
       type: 2}

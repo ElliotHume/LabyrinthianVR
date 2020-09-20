@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class IceSpike : MonoBehaviour
 {
-    public int damage = 1;
+    public int damage = 30;
 
     // Start is called before the first frame update
     public void Start()
@@ -21,10 +21,9 @@ public class IceSpike : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
-            // other.GetComponent<CharacterBehaviour>().TakeDamage(damage);
-            // other.GetComponent<CharacterBehaviour>().TargetShowDamageEffects(other.GetComponent<NetworkIdentity>().connectionToClient);
-            // other.GetComponent<CharacterBehaviour>().TargetThrowPlayerBack(other.GetComponent<NetworkIdentity>().connectionToClient, 0.6f, 0, 40);
+        if (other.tag == "Enemy") {
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null) enemy.TakeDamage(damage);
         }
     }
 }

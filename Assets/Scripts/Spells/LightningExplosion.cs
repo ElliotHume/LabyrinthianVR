@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LightningExplosion : MonoBehaviour
 {
-    // Doesn't deal damage; damage is dealt directly by Lightning.
+    public float damage = 10f;
 
     void Start() {
         Destroy(gameObject, 1f);
@@ -23,6 +23,9 @@ public class LightningExplosion : MonoBehaviour
         if (other.tag == "Spell_Interactable") {
             SpellInteractable si = other.GetComponent<SpellInteractable>();
             if (si != null) si.Trigger("lightning");
+        } else if (other.tag == "Enemy") {
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null) enemy.TakeDamage(damage);
         }
     }
 }
