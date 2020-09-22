@@ -4,27 +4,32 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
 
-    public AudioSource hitSound, swingSound;
+    public AudioSource hitSound, attackSound, swingSound;
     public LayerMask whatIsPlayer;
     public float attackDuration = 1f, attackRange = 1f;
     public float damage = 20f;
 
+    public ParticleSystem[] particles;
+
     BoxCollider bcollider;
     Player player;
+
     // Start is called before the first frame update
     void Start() {
         player = GameObject.Find("XR Rig").GetComponent<Player>();
     }
 
     public void Attack() {
-        swingSound.Play();
+        if (swingSound != null) swingSound.Play();
         Invoke(nameof(CheckAttack), attackDuration);
     }
 
     void CheckAttack() {
+        if (attackSound != null) attackSound.Play();
+        if (particles.Length > 0) foreach(ParticleSystem p in particles) p.Play();
         if (Physics.CheckSphere(transform.position, attackRange, whatIsPlayer)) {
             player.WeaponHit(damage);
-            hitSound.Play();
+            if (hitSound != null) hitSound.Play();
         }
     }
 

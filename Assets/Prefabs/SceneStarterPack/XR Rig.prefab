@@ -9682,7 +9682,7 @@ GameObject:
   - component: {fileID: 8464667460322246987}
   m_Layer: 10
   m_Name: XR Rig
-  m_TagString: BodyPart
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10045,7 +10045,7 @@ GameObject:
   - component: {fileID: 8464667461127745521}
   m_Layer: 0
   m_Name: LeftHand Controller
-  m_TagString: BodyPart
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10426,7 +10426,7 @@ GameObject:
   - component: {fileID: 2493380323529320596}
   m_Layer: 0
   m_Name: RightHand Controller
-  m_TagString: BodyPart
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

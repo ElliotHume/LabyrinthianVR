@@ -9,6 +9,8 @@ public class EnemyAI : MonoBehaviour
 {
 
     public float health = 100f;
+    float maxHealth;
+
     public LayerMask whatIsGround, whatIsPlayer;
     public AudioSource hitSound;
     public Weapon weapon;
@@ -28,7 +30,7 @@ public class EnemyAI : MonoBehaviour
 
     //States
     public float sightRange = 10f, attackRange = 3f, startSpeed;
-    bool targetInSightRange, targetInAttackRange, idling, walking = false, inCombat = false, slowed = false;
+    bool targetInSightRange, targetInAttackRange, canSeeTarget, idling, walking = false, inCombat = false, slowed = false;
 
 
 
@@ -41,18 +43,34 @@ public class EnemyAI : MonoBehaviour
         target = GameObject.Find("XR Rig").transform;
         startPoint = transform.position;
         startSpeed = agent.speed;
+        maxHealth = health;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Check for sight and attack range
+        // Check if the target is in sight range
         targetInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
+        // If in sight range, check if the target is not obscured
+        if (targetInSightRange) {
+            RaycastHit raycastHit;
+            if( Physics.Raycast( transform.position, (target.position - transform.position), out raycastHit, 100f ) ) {
+                Debug.Log("Raycast hit: "+raycastHit.transform.gameObject);
+                canSeeTarget = raycastHit.transform == target || raycastHit.transform.gameObject.tag == "Player";
+            }
+        }
+
+        // Check if target is in attack range
         targetInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (health > 0) {
+        // Set animation variable(s)
+        anim.SetBool("Walking", walking);
+
+        // Thinking logic
+        if (health > 0f) {
             if (!inCombat) {
-                if (!targetInSightRange && !targetInAttackRange) {
+                if ((!targetInSightRange || (targetInSightRange && !canSeeTarget)) && !targetInAttackRange) {
                     if (doesPatrol) Patrolling();
                 } else {
                     inCombat = true;
@@ -64,13 +82,15 @@ public class EnemyAI : MonoBehaviour
                 } else {
                     AttackTarget();
                 }
-            }
 
-            anim.SetBool("Walking", walking);
+                if ( inCombat && !targetInSightRange && !canSeeTarget) inCombat = false;
+            }
         }
     }
 
     void Patrolling() {
+        // If: no walkpoint is set and not already idling, idle
+        // Else: walk to the set walkpoint
         if (!walkPointSet) {
             walking = false;
             if (!idling) {
@@ -78,41 +98,43 @@ public class EnemyAI : MonoBehaviour
                 Idle();
             }
         } else {
-            //print("Patrolling");
             walking = true;
             agent.SetDestination(walkPoint);
         }
 
+        // If target is at the set walkpoint, find a new walkpoint
         if ((transform.position - walkPoint).magnitude < 1f) {
             walkPointSet = false;
         }
     }
 
     void Idle() {
-        print("Idling");
+        // Stop moving, and after a time, look for a new walkpoint
         agent.ResetPath();
         Invoke(nameof(SearchWalkPoint), idleTime);
     }
 
     void ChaseTarget() {
-        //print("Chasing");
+        // Walk towards target
         walking = true;
         agent.SetDestination(target.position);
     }
 
     void AttackTarget() {
-        //print("Attacking");
+        // Stop moving and look at the target
         walking = false;
-
-        //agent.SetDestination(transform.position);
         agent.ResetPath();
         transform.LookAt(target.position);
 
+        // If you are not currently attacking, attack target
         if (!alreadyAttacked) {
-            Debug.Log("Attack Target");
             anim.SetTrigger("Attack");
-            if (weapon != null) weapon.Attack();
             alreadyAttacked = true;
+
+            // Attack actions(s)
+            if (weapon != null) weapon.Attack();
+
+            // wait for the attack cooldown before attacking again
             Invoke(nameof(ResetAttack), attackCooldown);
         }
     }
@@ -122,12 +144,14 @@ public class EnemyAI : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
-        print("Take Damage: "+damage+"     health: "+health);
         anim.SetTrigger("TakeDamage");
         health -= damage;
         inCombat = true;
 
-        if (hitSound) hitSound.Play();
+        if (hitSound) {
+            hitSound.pitch = Mathf.Lerp(1f,2f,health/maxHealth);
+            hitSound.Play();
+        }
 
         agent.speed = 0f;
         Invoke(nameof(ResumeMovement), 1f);
@@ -145,7 +169,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Slow(float duration){
         if (!slowed) {
-            agent.speed /= 2;
+            agent.speed /= 4;
             Invoke(nameof(ResumeMovement), duration);
         }
     }
@@ -168,6 +192,7 @@ public class EnemyAI : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround) && path.status == NavMeshPathStatus.PathComplete) {
             walkPointSet = true;
         }
+
         idling = false;
     }
 }

@@ -62,7 +62,7 @@ public class MagicMissile : MonoBehaviour
             } else if (other.tag == "Shield") {
                 Shield s = other.GetComponent<Shield>();
                 if(s != null) s.Break();
-            } else if (other.tag == "BodyPart" && TPAnchor != null) {
+            } else if ((other.tag == "BodyPart" || other.tag == "Player") && TPAnchor != null) {
                 Debug.Log("Hit Player, moving to TPAnchor");
                 other.gameObject.transform.position = TPAnchor.transform.position;
                 other.gameObject.transform.rotation = TPAnchor.transform.rotation;

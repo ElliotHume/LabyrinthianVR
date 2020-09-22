@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnchorPlacementZone : MonoBehaviour
 {
+    public GameObject anchor;
     public List<GameObject> toggleObjects;
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,7 @@ public class AnchorPlacementZone : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     void OnTriggerEnter(Collider other) {
         if (other.name == "DrawingAnchor" || other.name == "UnlockingSphere") {
-            other.gameObject.transform.position = transform.position + new Vector3(-0.036f, 0.12f, -0.034f); 
+            other.gameObject.transform.position = anchor.transform.position; 
             
             foreach (GameObject go in toggleObjects) {
                 go.SetActive(true);

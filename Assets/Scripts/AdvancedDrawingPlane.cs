@@ -52,7 +52,6 @@ public class AdvancedDrawingPlane : MonoBehaviour
             }
         } else {
             if (!visible && interactor.selectTarget == null) {
-                print(interactor.selectTarget);
                 boxCollider.enabled = true;
                 meshRenderer.enabled = true;
                 visible = true;

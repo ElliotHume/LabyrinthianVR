@@ -532,7 +532,7 @@ public class Player : MonoBehaviour
         StartCoroutine(Defy());
     }
     IEnumerator Defy() {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
         gameObject.GetComponent<MovementProvider>().ToggleDefyGravity(false);
     }
 
@@ -569,12 +569,12 @@ public class Player : MonoBehaviour
         if (hand == "right") {
             print("Try set midas hand right");
             rightHandRenderer.material = goldMaterial;
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(5f);
             rightHandRenderer.material = baseMaterial;
         } else {
-            print("Try set midas hand right");
+            print("Try set midas hand left");
             leftHandRenderer.material = goldMaterial;
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(5f);
             leftHandRenderer.material = baseMaterial;
         }
     }
