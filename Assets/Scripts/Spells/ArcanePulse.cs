@@ -15,10 +15,6 @@ public class ArcanePulse : MonoBehaviour
 
     public void Start()
     {
-        //startScale = transform.localScale;
-        //startTime = Time.time;
-
-        //StartCoroutine(Expand());
         Destroy(GetComponent<SphereCollider>(), 1.1f);
         Destroy(gameObject, 1.2f);
     }
@@ -32,27 +28,9 @@ public class ArcanePulse : MonoBehaviour
         if (other.tag == "Shield") {
             other.GetComponent<Shield>().Break();
             if (hitsound != null) hitsound.Play();
-        } else if (other.tag == "Magic") {
+        } else if (other.tag == "Magic" || other.gameObject.layer == 11) {
             Destroy(other.gameObject, 0.2f);
             if (hitsound != null) hitsound.Play();
         }
     }
-
-    /*
-    IEnumerator Expand() {
-    	while (true) {
-    		// transform.scale = new Vector3(tranform.scale.x + expansionSpeed);
-            float currentTime = (Time.time - startTime) / expansionTime;
-            transform.localScale = Vector3.Lerp(startScale, new Vector3(MaxDiameter,MaxDiameter,MaxDiameter), currentTime);;
-            Debug.Log(transform.localScale);
-            if (transform.localScale.x >= MaxDiameter) {
-                // GameObject newExplosion = Instantiate(fireballExplosion, transform.position, Quaternion.identity);
-                // NetworkServer.Spawn(newExplosion);
-                Destroy(gameObject);
-            }
-
-            yield return new WaitForEndOfFrame();
-        }
-    }
-    */
 }

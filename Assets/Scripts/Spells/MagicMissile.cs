@@ -5,49 +5,42 @@ using UnityEngine;
 
 public class MagicMissile : MonoBehaviour
 {
-
-    private Vector3 startPosition;
-    private Vector3 endPosition;
     public float damage=10f, speed;
 
     public ParticleSystem explosionParticles;
     public GameObject mesh;
     public AudioSource hitSound;
 
-    private bool hitSomething = false;
-    private GameObject TPAnchor;
+    private bool hitSomething = false, targetPlayer;
     public bool canHitPlayer = false;
-    
-
-    // private bool wasReflected = false;
-    // public bool playerThrown; TODO
-
-
-    // Start is called before the first frame update
-    public void Start()
-    {
-        if (hitSound == null ) hitSound = GetComponent<AudioSource>();
-    }
+    GameObject player;
+    CharacterController playerController;
 
     void Update() {
-        if (!hitSomething) transform.position += transform.forward * Time.deltaTime * speed;
+        if (!hitSomething) {
+            if (targetPlayer && playerController != null) {
+                Vector3 playerPos = player.transform.TransformPoint(playerController.center);
+                transform.position = Vector3.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
+                transform.LookAt(playerPos);
+            } else {
+                transform.position += transform.forward * Time.deltaTime * speed;
+            }
+        }
     }
 
-    public void SetTarget(Vector3 p) {
-        endPosition = p;
+    public void TargetPlayer() {
+        targetPlayer = true;
     }
 
     public void HitPlayer() {
         canHitPlayer = true;
-    }
-
-    public void TeleportAnchor(GameObject anchor) {
-        TPAnchor = anchor;
+        player = GameObject.Find("XR Rig");
+        playerController = player.GetComponent<CharacterController>();
     }
 
     void OnTriggerEnter(Collider other) {
-        //print("MagicMissile hit: " + other.ToString());
-        if ((other.tag != "BodyPart" && other.tag != "Player") || canHitPlayer) {
+        if (other.tag != "Player" || canHitPlayer) {
+            //print("MagicMissile hit: " + other.ToString());
             Destroy(GetComponent<SphereCollider>());
             Destroy(gameObject, 1.1f);
             hitSomething = true;
@@ -62,14 +55,12 @@ public class MagicMissile : MonoBehaviour
             } else if (other.tag == "Shield") {
                 Shield s = other.GetComponent<Shield>();
                 if(s != null) s.Break();
-            } else if ((other.tag == "BodyPart" || other.tag == "Player") && TPAnchor != null) {
-                Debug.Log("Hit Player, moving to TPAnchor");
-                other.gameObject.transform.position = TPAnchor.transform.position;
-                other.gameObject.transform.rotation = TPAnchor.transform.rotation;
+            } else if (other.tag == "Player") {
+                if (player != null) player.GetComponent<Player>().WeaponHit(damage);
             } else if (other.tag == "Enemy") {
                 EnemyAI enemy = other.GetComponent<EnemyAI>();
-                if (enemy != null) enemy.TakeDamage(damage);
+                if (enemy != null) enemy.TakeDamage("arcane", damage);
             }
-        } 
+        }
     }
 }

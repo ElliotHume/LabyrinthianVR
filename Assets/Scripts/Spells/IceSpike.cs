@@ -23,7 +23,7 @@ public class IceSpike : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.TakeDamage(damage);
+            if (enemy != null) enemy.TakeDamage("ice", damage);
         }
     }
 }

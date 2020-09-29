@@ -21,6 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_740CCDB8: 1
+    - Vector1_740CCDB8: 2
     m_Colors:
     - Color_682024A: {r: 2.366492, g: 0.00000030091505, b: 0, a: 0}
+  m_BuildTextureStacks: []

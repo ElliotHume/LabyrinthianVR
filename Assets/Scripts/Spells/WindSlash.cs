@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WindSlash : MonoBehaviour
 {
-    public int damage = 1;
+    public int damage = 20;
     public float speed = 25f;
     public float duration = 1f;
 
@@ -56,6 +56,9 @@ public class WindSlash : MonoBehaviour
             if (si != null) si.Trigger("windslash");
             SpawnHit();
             Destroy(gameObject);
+        } else if (other.tag == "Enemy") {
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null) enemy.TakeDamage("wind", damage);
         }
     }
 

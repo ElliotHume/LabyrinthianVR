@@ -15,6 +15,7 @@ TagManager:
   - Spell_Interactable
   - Magic
   - Enemy
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - Spell
   - PlayerPassthrough
   - Ground
-  - 
+  - Enemy
   - 
   - 
   - 

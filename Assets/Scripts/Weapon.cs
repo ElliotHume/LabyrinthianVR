@@ -4,7 +4,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
 
-    public AudioSource hitSound, attackSound, swingSound;
+    public AudioSource attackSound, swingSound;
     public LayerMask whatIsPlayer;
     public float attackDuration = 1f, attackRange = 1f;
     public float damage = 20f;
@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
         player = GameObject.Find("XR Rig").GetComponent<Player>();
     }
 
-    public void Attack() {
+    public virtual void Attack() {
         if (swingSound != null) swingSound.Play();
         Invoke(nameof(CheckAttack), attackDuration);
     }
@@ -29,7 +29,6 @@ public class Weapon : MonoBehaviour
         if (particles.Length > 0) foreach(ParticleSystem p in particles) p.Play();
         if (Physics.CheckSphere(transform.position, attackRange, whatIsPlayer)) {
             player.WeaponHit(damage);
-            if (hitSound != null) hitSound.Play();
         }
     }
 
@@ -37,7 +36,13 @@ public class Weapon : MonoBehaviour
         if (other.tag == "Player" || other.tag == "BodyPart") {
             Player player = other.gameObject.GetComponent<Player>();
             if (player != null) player.WeaponHit(damage);
-            hitSound.Play();
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a blue sphere for the hitscan attack range
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

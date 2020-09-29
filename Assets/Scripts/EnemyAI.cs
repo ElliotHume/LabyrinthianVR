@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
@@ -11,10 +13,12 @@ public class EnemyAI : MonoBehaviour
     public float health = 100f;
     float maxHealth;
 
-    public LayerMask whatIsGround, whatIsPlayer;
+    public LayerMask whatIsGround, whatIsPlayer, sightBlockingMask;
     public AudioSource hitSound;
     public Weapon weapon;
-    Transform target;
+    GameObject player;
+    CharacterController playerController;
+    Vector3 playerPos;
     NavMeshAgent agent;
     Animator anim;
 
@@ -32,6 +36,10 @@ public class EnemyAI : MonoBehaviour
     public float sightRange = 10f, attackRange = 3f, startSpeed;
     bool targetInSightRange, targetInAttackRange, canSeeTarget, idling, walking = false, inCombat = false, slowed = false;
 
+    // Enemy Specific
+    public string weakness;
+    public UnityEvent onDeath;
+
 
 
 
@@ -40,7 +48,8 @@ public class EnemyAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        target = GameObject.Find("XR Rig").transform;
+        player = GameObject.Find("XR Rig");
+        playerController = player.GetComponent<CharacterController>();
         startPoint = transform.position;
         startSpeed = agent.speed;
         maxHealth = health;
@@ -49,15 +58,17 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Get player controller position in worldspace
+        playerPos = player.transform.TransformPoint(playerController.center);
+
         // Check if the target is in sight range
         targetInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
         // If in sight range, check if the target is not obscured
-        if (targetInSightRange) {
+        if (targetInSightRange || targetInAttackRange) {
             RaycastHit raycastHit;
-            if( Physics.Raycast( transform.position, (target.position - transform.position), out raycastHit, 100f ) ) {
-                Debug.Log("Raycast hit: "+raycastHit.transform.gameObject);
-                canSeeTarget = raycastHit.transform == target || raycastHit.transform.gameObject.tag == "Player";
+            if( Physics.SphereCast(transform.position, 2f, (playerPos - transform.position), out raycastHit, 100f, sightBlockingMask) ) {
+                canSeeTarget = raycastHit.transform.gameObject.tag == "Player";
             }
         }
 
@@ -70,21 +81,22 @@ public class EnemyAI : MonoBehaviour
         // Thinking logic
         if (health > 0f) {
             if (!inCombat) {
-                if ((!targetInSightRange || (targetInSightRange && !canSeeTarget)) && !targetInAttackRange) {
+                if (!targetInSightRange || (targetInSightRange && !canSeeTarget)) {
                     if (doesPatrol) Patrolling();
                 } else {
                     inCombat = true;
                     ChaseTarget();
                 }
             } else {
-                if (!targetInAttackRange && !alreadyAttacked) {
+                if ((!targetInAttackRange && !alreadyAttacked) || (targetInAttackRange && !canSeeTarget && !alreadyAttacked)) {
                     ChaseTarget();
                 } else {
                     AttackTarget();
                 }
-
-                if ( inCombat && !targetInSightRange && !canSeeTarget) inCombat = false;
+                //if ( inCombat && !targetInSightRange && !canSeeTarget) inCombat = false;
             }
+        } else if (agent.hasPath) {
+            agent.ResetPath();
         }
     }
 
@@ -117,14 +129,21 @@ public class EnemyAI : MonoBehaviour
     void ChaseTarget() {
         // Walk towards target
         walking = true;
-        agent.SetDestination(target.position);
+
+        // Find closest point on navmesh from the player controllers center
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(playerPos, out hit, 2f, NavMesh.AllAreas)){
+            agent.SetDestination(hit.position);
+        }
+        
+        //agent.SetDestination(playerPos);
     }
 
     void AttackTarget() {
         // Stop moving and look at the target
         walking = false;
         agent.ResetPath();
-        transform.LookAt(target.position);
+        transform.LookAt(new Vector3 (playerPos.x, transform.position.y, playerPos.z));
 
         // If you are not currently attacking, attack target
         if (!alreadyAttacked) {
@@ -144,22 +163,27 @@ public class EnemyAI : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
-        anim.SetTrigger("TakeDamage");
-        health -= damage;
-        inCombat = true;
-
-        if (hitSound) {
-            hitSound.pitch = Mathf.Lerp(1f,2f,health/maxHealth);
-            hitSound.Play();
+        // Do not animate if damage is small (like a damage over time effect)
+        if (damage >= 5) {
+            anim.SetTrigger("TakeDamage");
+            if (hitSound) {
+                hitSound.pitch = Mathf.Lerp(2f,1f,health/maxHealth);
+                hitSound.Play();
+            }
+            agent.speed = 0f;
+            Invoke(nameof(ResumeMovement), 1f);
         }
 
-        agent.speed = 0f;
-        Invoke(nameof(ResumeMovement), 1f);
-
-
+        inCombat = true;
+        health -= damage;
         if (health <= 0f) {
             Die();
         }
+    }
+
+    public void TakeDamage(string spell, float damage) {
+        if (spell == weakness) damage *= 2;
+        TakeDamage(damage);
     }
 
     void ResumeMovement() {
@@ -176,7 +200,10 @@ public class EnemyAI : MonoBehaviour
 
     public void Die() {
         anim.SetBool("Dead", true);
-        Destroy(gameObject, 60f);
+        walking = false;
+        onDeath.Invoke();
+        GetComponent<CapsuleCollider>().enabled = false;
+        Destroy(gameObject, 40f);
     }
 
     void SearchWalkPoint() {
@@ -188,11 +215,22 @@ public class EnemyAI : MonoBehaviour
 
         // Check if the random point is on valid ground and is reachable by the agent
         NavMeshPath path = new NavMeshPath();
-        agent.CalculatePath(target.position, path);
+        agent.CalculatePath(walkPoint, path);
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround) && path.status == NavMeshPathStatus.PathComplete) {
             walkPointSet = true;
         }
 
         idling = false;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere for the sight range
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+
+        // Draw a red sphere for the attack range
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

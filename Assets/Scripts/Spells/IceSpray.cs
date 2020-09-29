@@ -24,11 +24,12 @@ public class IceSpray : MonoBehaviour
             Freezable b = other.GetComponent<Freezable>();
             if (si != null) si.Trigger("icespray");
             if (b != null) b.Freeze();
-
             Debug.Log("Freeze: "+other.gameObject);
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.Slow(2f);
+            if (enemy != null) enemy.Slow(3f);
+        } else if (other.tag == "Missile") {
+            Destroy(other.gameObject);
         }
     }
 

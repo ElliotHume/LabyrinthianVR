@@ -15,14 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/ArcaneZone0.unity
     guid: cce09a55342349d459e45c037ec58e5d
   - enabled: 0
-    path: Assets/Scenes/PlanarZone0.unity
-    guid: 6c112177aba9f3d4da83cd6615db63ff
-  - enabled: 0
     path: Assets/Scenes/MortalZone0.unity
     guid: 3181beacc719c764cbdc60c6ee85aefb
   - enabled: 1
     path: Assets/Scenes/DeathRealm.unity
     guid: 40058f625b78a3f489590bebaee2e63f
+  - enabled: 1
+    path: Assets/Scenes/PlanarZone0.unity
+    guid: 6c562a60c4fa28647bc94f2c7ba7d169
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 534bcd331d56cad499426244845cdfa6,
       type: 2}

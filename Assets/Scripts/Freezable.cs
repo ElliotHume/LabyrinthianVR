@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Freezable : MonoBehaviour
 {
-    public Material freezeMaterial, baseMaterial;
+    public Material freezeMaterial;
     public float duration=0f;
     private Vector3 frozenPosition;
 

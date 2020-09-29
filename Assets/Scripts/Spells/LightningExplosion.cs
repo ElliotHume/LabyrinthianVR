@@ -25,7 +25,7 @@ public class LightningExplosion : MonoBehaviour
             if (si != null) si.Trigger("lightning");
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.TakeDamage(damage);
+            if (enemy != null) enemy.TakeDamage("lightning", damage);
         }
     }
 }

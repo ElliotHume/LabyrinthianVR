@@ -6,84 +6,39 @@ using UnityEngine;
 public class Fireball : MonoBehaviour
 {
 
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    public float travelTime;
-    private float startHeight;
-    public float maxHeight;
-
-    private float startTime;
-    private Vector3 target;
-
+    private bool targetPlayer;
+    public float damage=10f, speed;
+    public bool canHitPlayer = false;
+    GameObject player;
+    CharacterController playerController;
     public GameObject fireballExplosion;
 
-    public GameObject ownerGO;
-    // private bool wasReflected = false;
-    public bool playerThrown; // TODO
-
-    private float verticalSpeed;
-    private float vertical;
-
-    // Start is called before the first frame update
-    public void Start()
-    {
-        startPosition = transform.position + Vector3.up;
-        startTime = Time.time;
-        startHeight = transform.position.y;
-
-        StartCoroutine(TravelToDestination());
-    }
-
-    // public void Start () {
-    //     startPosition = transform.position + Vector3.up;
-    //     startTime = Time.time;
-    //     startHeight = transform.position.y;
-
-    //     StartCoroutine(TravelToDestination());
-    // }
-
-    public void SetTarget(Vector3 p) {
-        endPosition = p;
-    }
-
-    IEnumerator TravelToDestination() {
-        // verticalSpeed = maxHeight;
-        // vertical = startHeight;
-        while (true) {
-            // float currentTime = (Time.time - startTime) / travelTime;
-            // Vector3 horizontal = Vector3.Lerp(startPosition, endPosition, currentTime);
-            // vertical += verticalSpeed * Time.deltaTime;
-            // verticalSpeed -= maxHeight * (2f / travelTime) * Time.deltaTime;
-
-            // transform.position = new Vector3(horizontal.x, vertical, horizontal.z);
-
-            transform.position += transform.forward * Time.deltaTime * travelTime;
-            /*
-            if (currentTime > 1f) {
-                GameObject newExplosion = Instantiate(fireballExplosion, transform.position, Quaternion.identity);
-                NetworkServer.Spawn(newExplosion);
-                Destroy(gameObject);
-            }
-            */
-
-            yield return new WaitForEndOfFrame();
+    void Update() {
+        if (targetPlayer && playerController != null) {
+            Vector3 playerPos = player.transform.TransformPoint(playerController.center);
+            transform.position = Vector3.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
+            //transform.LookAt(targetPosition.position+Vector3.up);
+        } else {
+            transform.position += transform.forward * Time.deltaTime * speed;
         }
     }
 
+    public void TargetPlayer() {
+        targetPlayer = true;
+    }
+
+    public void HitPlayer() {
+        canHitPlayer = true;
+        player = GameObject.Find("XR Rig");
+        playerController = player.GetComponent<CharacterController>();
+    }
+
+
     void OnTriggerEnter(Collider other) {
-        // Should not hit the caster
-        // This is pretty messy - reminder to clean up afterwards
-        //print("ownerGO: " + ownerGO.ToString());
-        print("Fireball hit: " + other.ToString());
-        if (other.tag != "BodyPart" && other.tag != "Player") {
-            //print(other.name);
-            //print("explode here1");
-            OfflineSpawnExplosion();
+        if ((other.tag != "BodyPart" && other.tag != "Player") || canHitPlayer) {
+            GameObject newExplosion = Instantiate(fireballExplosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }       
     }
 
-    public void OfflineSpawnExplosion() {
-        GameObject newExplosion = Instantiate(fireballExplosion, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
 }

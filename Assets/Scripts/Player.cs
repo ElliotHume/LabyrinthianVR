@@ -38,12 +38,16 @@ public class Player : MonoBehaviour
     public GameObject defy;
     public GameObject midasTouch;
     public GameObject seeDead;
+    public GameObject skeleton;
+    public GameObject metalFan;
+    public GameObject drainSphere;
     public GameObject flight;
 
     public List<GameObject> hammers;
     public int maxHammers = 3;
     public List<GameObject> shields;
     public int maxShields = 3;
+    public AudioSource damagedSound;
 
     private Dictionary<string, Color> handColours = new Dictionary<string, Color>();
     bool flight1=false, flight2=false, flightTimerRunning=false;
@@ -73,8 +77,12 @@ public class Player : MonoBehaviour
         handColours.Add("defy", mortalColor);
         handColours.Add("earthwall", mortalColor);
         handColours.Add("midastouch", mortalColor);
+        handColours.Add("metalfan", mortalColor);
         handColours.Add("farseer", planarColor);
         handColours.Add("seedead", planarColor);
+        handColours.Add("death", planarColor);
+        handColours.Add("raiseskeleton", planarColor);
+        handColours.Add("drainsphere", planarColor);
         handColours.Add("return", arcaneColor);
         handColours.Add("flight1", planarColor);
         handColours.Add("flight2", planarColor);
@@ -96,6 +104,8 @@ public class Player : MonoBehaviour
         }
 
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+
+        if (damagedSound == null) damagedSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -144,7 +154,7 @@ public class Player : MonoBehaviour
 
     void SetHandGlow(string spell, string hand){
         if(rightHandRenderer && leftHandRenderer){
-            Debug.Log("Setting hand colour to: "+handColours[spell]);
+            //Debug.Log("Setting hand colour to: "+handColours[spell]);
             if (hand == "right") {
                 spellHandGlow_r.SetColor("Color_682024A", handColours[spell]);
                 rightHandRenderer.material = spellHandGlow_r;
@@ -193,10 +203,14 @@ public class Player : MonoBehaviour
             case "earthwall":
             case "defy":
             case "midastouch":
+            case "metalfan":
                 ps = rightHand ? r_mortalParticles : l_mortalParticles;
                 break;
             case "farseer":
             case "seedead":
+            case "death":
+            case "raiseskeleton":
+            case "drainsphere":
                 ps = rightHand ? r_planarParticles : l_planarParticles;
                 break;
         }
@@ -208,7 +222,7 @@ public class Player : MonoBehaviour
             }
         }
         if (handObject != null) {
-            print("handObject: "+handObject+"     toggle active from: "+ handObject.activeInHierarchy+" to: "+!handObject.activeInHierarchy);
+            //print("handObject: "+handObject+"     toggle active from: "+ handObject.activeInHierarchy+" to: "+!handObject.activeInHierarchy);
             handObject.SetActive(turnOn);
         }
     }
@@ -218,7 +232,7 @@ public class Player : MonoBehaviour
         GameObject castingHand = (hand == "right") ? rightHand : leftHand;
 
         if (heldSpell != null) {
-            Debug.Log("Player Cast Held Spell: "+heldSpell+"    from hand: "+hand);
+            //Debug.Log("Player Cast Held Spell: "+heldSpell+"    from hand: "+hand);
             try {
                 switch (heldSpell) {
                     case "fireball":
@@ -269,6 +283,18 @@ public class Player : MonoBehaviour
                     case "seedead":
                         CastHeldSeeDead(castingHand);
                         break;
+                    case "death":
+                        CastHeldDeath(castingHand);
+                        break;
+                    case "raiseskeleton":
+                        CastHeldRaiseSkeleton(castingHand);
+                        break;
+                    case "metalfan":
+                        CastHeldMetalFan(castingHand);
+                        break;
+                    case "drainsphere":
+                        CastHeldDrainSphere(castingHand);
+                        break;
                     case "flight1":
                         CastHeldFlight(true);
                         break;
@@ -293,8 +319,7 @@ public class Player : MonoBehaviour
     }
 
     public void WeaponHit(float damage) {
-        //Do nothing for now
-        print("HIT BY WEAPON");
+        if (damage > 5f && damagedSound != null) damagedSound.Play();
 
         playerManager.Damage(damage);
     }
@@ -581,6 +606,39 @@ public class Player : MonoBehaviour
 
 
 
+    //  ------------- Death ------------------
+    public void CastHeldDeath(GameObject castingHand) {
+        WeaponHit(999f);
+    }
+
+
+
+    //  ------------- Metal Fan ------------------
+    public void CastHeldMetalFan(GameObject castingHand) {
+        GameObject newMetalFan = Instantiate(metalFan, castingHand.transform.position, castingHand.transform.rotation);
+    }
+
+
+
+    //  ------------- Raise Skeleton ------------------
+    public void CastHeldRaiseSkeleton(GameObject castingHand) {
+        // Get position of the casting projectile ray target hit
+        RaycastHit raycastHit;
+        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
+        if( Physics.Raycast( castingHand.transform.position, -castingHand.transform.forward, out raycastHit, 50f ) ) {
+            target = raycastHit.point;
+        }
+
+        Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
+
+        GameObject newSkeleton = Instantiate(skeleton, target+(Vector3.up*3f), dir);
+    }
+
+    //  ------------- Drain Sphere ------------------
+    public void CastHeldDrainSphere(GameObject castingHand) {
+        GameObject newDrainSphere = Instantiate(drainSphere, castingHand.transform.position + (castingHand.transform.forward * 3f), castingHand.transform.rotation);
+        newDrainSphere.GetComponent<DrainSphere>().LinkCastingHand(castingHand);
+    }
 
 
 

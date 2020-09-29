@@ -30,7 +30,6 @@ public class MissileShooter : MonoBehaviour
         GameObject newMagicMissile = Instantiate(magicMissile, spawnPoint.transform.position, spawnPoint.transform.rotation);
         MagicMissile mm = newMagicMissile.GetComponent<MagicMissile>();
         mm.HitPlayer();
-        mm.TeleportAnchor(playerTeleportAnchor);
     }
 
     public IEnumerator Shoot() {

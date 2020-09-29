@@ -9,13 +9,18 @@ public class PlayerManager : MonoBehaviour
     public List<string> discoveredSpells;
     public List<string> discoveredScenes;
     public float health = 100;
+    float maxHealth;
     public string previousScene;
+
+    public Color baseColour, damageColour;
+    public Material damageMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         StartCoroutine(RegenHealth());
+        maxHealth = health;
     }
 
     // Update is called once per frame
@@ -35,6 +40,9 @@ public class PlayerManager : MonoBehaviour
     public void Damage(float damage) {
         health -= damage;
 
+        Color drawingPlaneColour = Color.Lerp(damageColour, baseColour, health / maxHealth);
+        damageMaterial.SetColor("_Color", drawingPlaneColour);
+
         if (health <= 0f) {
             // Send the player to the death realm
             LoadScene("DeathRealm");
@@ -51,6 +59,7 @@ public class PlayerManager : MonoBehaviour
 
     public void ReturnToLastScene() {
         health = 100;
+        damageMaterial.SetColor("_Color", baseColour);
         SceneManager.LoadScene(previousScene);
     }
 
