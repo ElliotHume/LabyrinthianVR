@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
         health -= damage;
 
         Color drawingPlaneColour = Color.Lerp(damageColour, baseColour, health / maxHealth);
-        damageMaterial.SetColor("_Color", drawingPlaneColour);
+        damageMaterial.color = drawingPlaneColour;
 
         if (health <= 0f) {
             // Send the player to the death realm

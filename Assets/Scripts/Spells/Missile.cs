@@ -58,4 +58,9 @@ public class Missile : MonoBehaviour
             }
         }
     }
+
+    public void Shoot() {
+        transform.parent = null;
+        active = true;
+    }
 }

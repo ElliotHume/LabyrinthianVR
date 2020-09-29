@@ -25,7 +25,7 @@ public class DrainSphere : MonoBehaviour
     void Update()
     {
         Vector3 handVelocity = (hand.transform.position - prevHandLocation) / Time.deltaTime;
-        moveDirection += handVelocity/5f;
+        moveDirection += handVelocity/4f;
 
         transform.position += moveDirection * speed * Time.deltaTime;
 

@@ -27,7 +27,10 @@ public class IceSpray : MonoBehaviour
             Debug.Log("Freeze: "+other.gameObject);
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.Slow(3f);
+            if (enemy != null) {
+                enemy.Slow(3f);
+                enemy.TakeDamage("ice", 0.25f);
+            }
         } else if (other.tag == "Missile") {
             Destroy(other.gameObject);
         }

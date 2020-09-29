@@ -55542,7 +55542,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 8444fb5760167414fb1900b05fa9272f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.759
+      value: -3.91
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8444fb5760167414fb1900b05fa9272f,
         type: 3}
@@ -116251,7 +116251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.069, y: 0.19000244}
+  m_AnchoredPosition: {x: -0.029, y: 0.19000244}
   m_SizeDelta: {x: 640, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063544226
@@ -130072,6 +130072,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1061049742, guid: f103f95b39d29d54a971fae1be1c1c36, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7177035543809454226, guid: f103f95b39d29d54a971fae1be1c1c36,
         type: 3}
       propertyPath: m_LocalPosition.x

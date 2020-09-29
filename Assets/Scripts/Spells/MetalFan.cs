@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class MetalFan : MonoBehaviour
 {
@@ -14,10 +15,10 @@ public class MetalFan : MonoBehaviour
             if (castSound != null) castSound.Play();
 
             foreach (Missile spike in spikes){
-                spike.active = true;
+                spike.Shoot();
             }
             released = true;
-
+            
             Destroy(gameObject, 15f);
         }
     }

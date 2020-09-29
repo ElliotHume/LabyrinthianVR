@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class RoyalFlame : MonoBehaviour
 {
-    public float royalBurnRate = 0.1f;
+    public float damagePerTick = 0.1f;
+    public AudioSource hitSound;
 
     // Start is called before the first frame update
     public void Start()
@@ -21,20 +22,14 @@ public class RoyalFlame : MonoBehaviour
     }
 
     void OnTriggerStay(Collider other) {
-        // if (other.tag == "Player" && other.GetComponent<CharacterBehaviour>().health > 0) {
-        //     other.GetComponent<CharacterBehaviour>().royalBurn += royalBurnRate * Time.deltaTime;
-        //     if (other.GetComponent<CharacterBehaviour>().royalBurn >= 1f) {
-        //         RpcPlaySound();
-        //         other.GetComponent<CharacterBehaviour>().TakeDamage(1);
-        //         other.GetComponent<CharacterBehaviour>().TargetShowDamageEffects(other.GetComponent<NetworkIdentity>().connectionToClient);
-        //         other.GetComponent<CharacterBehaviour>().royalBurn = 0f;
-        //     }
-        // } else if (other.tag == "ArcanePulse") {
-        //     Destroy(gameObject, 2f);
-        // }
+        if (other.tag == "Enemy") {
+            if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null) enemy.TakeDamage("arcane", damagePerTick);
+        } else if (other.tag == "Player") {
+            if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
+            Player player = other.gameObject.GetComponent<Player>();
+            if (player != null) player.WeaponHit(damagePerTick);
+        }
     }
-
-    // void RpcPlaySound() {
-    //     GetComponents<AudioSource>()[1].Play();
-    // }
 }
