@@ -30,6 +30,7 @@ public class AdvancedDrawingPlane : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //DontDestroyOnLoad(gameObject);
         if (player == null) player = GameObject.Find("XR Rig").GetComponent<Player>();
         meshRenderer = GetComponent<MeshRenderer>();
         interactor = hand.GetComponent<XRDirectInteractor>();

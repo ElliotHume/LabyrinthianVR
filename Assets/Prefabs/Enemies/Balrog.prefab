@@ -467,7 +467,8 @@ MonoBehaviour:
   sightRange: 7
   attackRange: 5
   startSpeed: 1.5
-  weakness: 
+  weakness: wind
+  weaknessMultiplier: 2
   onDeath:
     m_PersistentCalls:
       m_Calls: []

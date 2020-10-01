@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class MissileShooter : MonoBehaviour
 {
-    public float frequency = 2f;
+    public float cooldown = 2f;
     public bool active;
 
-    public GameObject magicMissile, spawnPoint, playerTeleportAnchor;
+    public GameObject magicMissile, spawnPoint;
     // Start is called before the first frame update
     /* test */
     void Start()
     {
         if (active) StartCoroutine(Shoot());
-        if (playerTeleportAnchor == null) playerTeleportAnchor = GameObject.Find("SpawnPoint");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Toggle() {
@@ -30,12 +23,13 @@ public class MissileShooter : MonoBehaviour
         GameObject newMagicMissile = Instantiate(magicMissile, spawnPoint.transform.position, spawnPoint.transform.rotation);
         MagicMissile mm = newMagicMissile.GetComponent<MagicMissile>();
         mm.HitPlayer();
+        mm.TargetPlayer();
     }
 
     public IEnumerator Shoot() {
-        while (active) {
-            ShootOnce();
-            yield return new WaitForSeconds(frequency);
+        while (true) {
+            if (active) ShootOnce();
+            yield return new WaitForSeconds(cooldown);
         }
     }
 }

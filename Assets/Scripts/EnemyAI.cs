@@ -38,6 +38,7 @@ public class EnemyAI : MonoBehaviour
 
     // Enemy Specific
     public string weakness;
+    public float weaknessMultiplier = 2f;
     public UnityEvent onDeath;
 
 
@@ -182,7 +183,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     public void TakeDamage(string spell, float damage) {
-        if (spell == weakness) damage *= 2;
+        if (spell == weakness) damage *= weaknessMultiplier;
         TakeDamage(damage);
     }
 

@@ -13,7 +13,7 @@ public class MagicMissile : MonoBehaviour
 
     private bool hitSomething = false, targetPlayer;
     public bool canHitPlayer = false;
-    GameObject player;
+    GameObject player, hand;
     CharacterController playerController;
 
     void Update() {
@@ -22,6 +22,8 @@ public class MagicMissile : MonoBehaviour
                 Vector3 playerPos = player.transform.TransformPoint(playerController.center);
                 transform.position = Vector3.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
                 transform.LookAt(playerPos);
+            } else if (hand != null) {
+                transform.position += hand.transform.forward * Time.deltaTime * speed;
             } else {
                 transform.position += transform.forward * Time.deltaTime * speed;
             }
@@ -36,6 +38,10 @@ public class MagicMissile : MonoBehaviour
         canHitPlayer = true;
         player = GameObject.Find("XR Rig");
         playerController = player.GetComponent<CharacterController>();
+    }
+
+    public void LinkCastingHand(GameObject castingHand) {
+        hand = castingHand;
     }
 
     void OnTriggerEnter(Collider other) {

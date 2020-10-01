@@ -9,9 +9,7 @@ public class Player : MonoBehaviour
 
     public GlyphRecognition glyphRecognition;
 
-    public float spellVelocity = 20;
     public string rightHandSpell = null, leftHandSpell = null;
-    public string lastSpellCast;
     public GameObject rightHand, leftHand, drawingAnchor;
     public XRController rightHandController, leftHandController;
     private SkinnedMeshRenderer rightHandRenderer, leftHandRenderer;
@@ -41,6 +39,7 @@ public class Player : MonoBehaviour
     public GameObject skeleton;
     public GameObject metalFan;
     public GameObject drainSphere;
+    public GameObject marker;
     public GameObject flight;
 
     public List<GameObject> hammers;
@@ -48,6 +47,7 @@ public class Player : MonoBehaviour
     public List<GameObject> shields;
     public int maxShields = 3;
     public AudioSource damagedSound;
+    public LayerMask groundMask;
 
     private Dictionary<string, Color> handColours = new Dictionary<string, Color>();
     bool flight1=false, flight2=false, flightTimerRunning=false;
@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
         handColours.Add("icespray", new Color(50/255f, 50/255f, 1f));
 		handColours.Add("royalfire", arcaneColor);
         handColours.Add("magicmissile", arcaneColor);
+        handColours.Add("magicmissiledirected", new Color(214/255f, 135/255f, 1f));
         handColours.Add("hammer", mortalColor);
         handColours.Add("defy", mortalColor);
         handColours.Add("earthwall", mortalColor);
@@ -84,6 +85,7 @@ public class Player : MonoBehaviour
         handColours.Add("raiseskeleton", planarColor);
         handColours.Add("drainsphere", planarColor);
         handColours.Add("return", arcaneColor);
+        handColours.Add("marker", planarColor);
         handColours.Add("flight1", planarColor);
         handColours.Add("flight2", planarColor);
 
@@ -190,6 +192,7 @@ public class Player : MonoBehaviour
                 break;
             case "royalfire":
             case "return":
+            case "marker":
                 ps = rightHand ? r_arcaneParticles : l_arcaneParticles;
                 break;
             case "icespikes":
@@ -197,6 +200,7 @@ public class Player : MonoBehaviour
                 ps = rightHand ? r_iceParticles : l_iceParticles;
                 break;
             case "magicmissile":
+            case "magicmissiledirected":
                 handObject = rightHand ? r_missileEmitter : l_missileEmitter;
                 break;
             case "hammer":
@@ -260,7 +264,10 @@ public class Player : MonoBehaviour
                         CastHeldArcanoPulse(castingHand);
                         break;
                     case "magicmissile":
-                        CastHeldMagicMissile(castingHand);
+                        CastHeldMagicMissile(castingHand, false);
+                        break;
+                    case "magicmissiledirected":
+                        CastHeldMagicMissile(castingHand, true);
                         break;
                     case "hammer":
                         CastHeldHammer(castingHand);
@@ -294,6 +301,9 @@ public class Player : MonoBehaviour
                         break;
                     case "drainsphere":
                         CastHeldDrainSphere(castingHand);
+                        break;
+                    case "marker":
+                        CastHeldMarker(castingHand);
                         break;
                     case "flight1":
                         CastHeldFlight(true);
@@ -474,8 +484,9 @@ public class Player : MonoBehaviour
 
 
     //  ------------- Magic Missile ------------------
-    public void CastHeldMagicMissile(GameObject castingHand){
+    public void CastHeldMagicMissile(GameObject castingHand, bool directed){
         GameObject newMagicMissile = Instantiate(magicMissile, castingHand.transform.position, castingHand.transform.rotation);
+        if (directed) newMagicMissile.GetComponent<MagicMissile>().LinkCastingHand(castingHand);
     }
 
 
@@ -511,14 +522,12 @@ public class Player : MonoBehaviour
     public void CastHeldEarthWall(GameObject castingHand) {
         // Get position of the casting projectile ray target hit
         RaycastHit raycastHit;
-        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
-        if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f ) ) {
-            target = raycastHit.point;
+        if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f, groundMask ) ) {
+            Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
+            GameObject newEarthWall = Instantiate(earthWall, raycastHit.point, dir);
         }
 
-        Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
-
-        GameObject newEarthWall = Instantiate(earthWall, target, dir);
+        
     }
 
 
@@ -620,18 +629,21 @@ public class Player : MonoBehaviour
 
 
 
+    //  ------------- Marker ------------------
+    public void CastHeldMarker(GameObject castingHand) {
+        GameObject newMarker = Instantiate(marker, castingHand.transform.position, castingHand.transform.rotation);
+    }
+
+
+
     //  ------------- Raise Skeleton ------------------
     public void CastHeldRaiseSkeleton(GameObject castingHand) {
         // Get position of the casting projectile ray target hit
         RaycastHit raycastHit;
-        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
-        if( Physics.Raycast( castingHand.transform.position, -castingHand.transform.forward, out raycastHit, 50f ) ) {
-            target = raycastHit.point;
-        }
-
-        Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
-
-        GameObject newSkeleton = Instantiate(skeleton, target+(Vector3.up*3f), dir);
+        if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f, groundMask ) ) {
+            Quaternion dir = Quaternion.Euler(0, -castingHand.transform.rotation.eulerAngles.y, 0);
+            GameObject newSkeleton = Instantiate(skeleton, raycastHit.point+(Vector3.up*3f), dir);
+        }        
     }
 
     //  ------------- Drain Sphere ------------------
