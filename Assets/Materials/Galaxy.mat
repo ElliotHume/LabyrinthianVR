@@ -36,3 +36,4 @@ Material:
     - Color_E8827537: {r: 0, g: 1.4142135, b: 1.4142135, a: 0}
     - Vector2_C5CDDA: {r: 0, g: 0, b: 0, a: 0}
     - Vector3_21BC03A6: {r: 0.3, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

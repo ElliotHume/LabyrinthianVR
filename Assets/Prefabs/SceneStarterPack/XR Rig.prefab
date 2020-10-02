@@ -9856,10 +9856,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glyphRecognition: {fileID: 0}
-  spellVelocity: 20
   rightHandSpell: 
   leftHandSpell: 
-  lastSpellCast: 
   rightHand: {fileID: 8464667460992748163}
   leftHand: {fileID: 8464667461682054355}
   drawingAnchor: {fileID: 0}
@@ -9925,12 +9923,16 @@ MonoBehaviour:
     type: 3}
   drainSphere: {fileID: 7177035543809454239, guid: f103f95b39d29d54a971fae1be1c1c36,
     type: 3}
+  marker: {fileID: 1010284327224261879, guid: cf57be46a86d8b843bed9fc38b2e1b1c, type: 3}
   flight: {fileID: 4215348494904648822, guid: ae7b73b610216e347ba9b07c7597c7cb, type: 3}
   hammers: []
   maxHammers: 3
   shields: []
   maxShields: 2
   damagedSound: {fileID: 9214305629081468469}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!114 &8464667460322246988
 MonoBehaviour:
   m_ObjectHideFlags: 0

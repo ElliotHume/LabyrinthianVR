@@ -22,9 +22,8 @@ public class MagicMissile : MonoBehaviour
                 Vector3 playerPos = player.transform.TransformPoint(playerController.center);
                 transform.position = Vector3.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
                 transform.LookAt(playerPos);
-            } else if (hand != null) {
-                transform.position += hand.transform.forward * Time.deltaTime * speed;
             } else {
+                if (hand != null) transform.rotation = hand.transform.rotation;
                 transform.position += transform.forward * Time.deltaTime * speed;
             }
         }

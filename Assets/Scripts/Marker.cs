@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Marker : MonoBehaviour
 {
-    bool active;
+    bool active = true;
     public float speed;
 
     // Start is called before the first frame update
@@ -23,6 +23,7 @@ public class Marker : MonoBehaviour
         if (other.gameObject.tag != "Player"){
             transform.parent = other.gameObject.transform;
             active = false;
+            GetComponent<Rigidbody>().enabled = false;
         }
     }
 }
