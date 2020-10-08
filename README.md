@@ -1,7 +1,8 @@
 # Labyrinthian 
 “Knowledge comes at a price of skill, no information is given to the unworthy” 
 
-### [First look at Combat! (from the most recent development build)](https://drive.google.com/file/d/1BV1-XuEmsrxDXvtg4RC3rzKAzQFefZKq/view?usp=sharing) ###
+### [Early Gameplay video! (from the most recent development build)](https://drive.google.com/file/d/1xJ_BES61z12q9RlTr7zKJVLLXFjpBsIf/view?usp=sharing) ###
+### [First look at Combat](https://drive.google.com/file/d/1BV1-XuEmsrxDXvtg4RC3rzKAzQFefZKq/view?usp=sharing) ###
 ### [Video walkthrough of the first two levels](https://drive.google.com/file/d/1mNEqmbB7N3NgcfvjMQDKSJ-hcn0eGVX3/view?usp=sharing) ###
 ### [Spellcasting demo](https://drive.google.com/file/d/1jE3I2p1PMfhViooRWt6XInkQ_wLuQmcu/view?usp=sharing) ###
 Unfortunately the audio in the spellcasting demo has a delay and some volume issues, I assure you that the in-game audio is much better! 
