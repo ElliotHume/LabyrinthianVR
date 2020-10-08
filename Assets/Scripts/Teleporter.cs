@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Teleporter : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Teleporter : MonoBehaviour
     public bool sceneChanger;
     public string sceneName;
     public bool playerTriggered;
-    public List<GameObject> toggleObjects;
+    public UnityEvent onTeleport;
 
     PlayerManager playerManager;
     // Start is called before the first frame update
@@ -42,11 +43,7 @@ public class Teleporter : MonoBehaviour
             player.transform.position = teleportAnchor.transform.position;
             player.transform.rotation = teleportAnchor.transform.rotation;
 
-            if (toggleObjects.Count > 0 ) {
-                foreach( GameObject go in toggleObjects ) {
-                    go.SetActive(!go.activeInHierarchy);
-                }
-            }
+            onTeleport.Invoke();
 
             AudioSource asrce = GetComponent<AudioSource>();
             if (asrce != null) asrce.Play();

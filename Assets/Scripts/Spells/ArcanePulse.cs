@@ -28,7 +28,7 @@ public class ArcanePulse : MonoBehaviour
         if (other.tag == "Shield") {
             other.GetComponent<Shield>().Break();
             if (hitsound != null) hitsound.Play();
-        } else if (other.tag == "Magic" || other.gameObject.layer == 11) {
+        } else if (other.tag == "Magic" || other.gameObject.layer == 11 || other.gameObject.layer == 12) {
             Destroy(other.gameObject, 0.2f);
             if (hitsound != null) hitsound.Play();
         }

@@ -14,8 +14,8 @@ public class Player : MonoBehaviour
     public XRController rightHandController, leftHandController;
     private SkinnedMeshRenderer rightHandRenderer, leftHandRenderer;
     public Material baseMaterial, spellHandGlow_r, spellHandGlow_l, goldMaterial;
-    public ParticleSystem r_fireParticles, r_lightningParticles, r_windParticles, r_arcaneParticles, r_iceParticles, r_mortalParticles, r_planarParticles, r_flightParticles;
-    public ParticleSystem l_fireParticles, l_lightningParticles, l_windParticles, l_arcaneParticles, l_iceParticles, l_mortalParticles, l_planarParticles, l_flightParticles;
+    public ParticleSystem r_fireParticles, r_lightningParticles, r_windParticles, r_arcaneParticles, r_iceParticles, r_mortalParticles, r_planarParticles, r_flightParticles, r_basicParticles;
+    public ParticleSystem l_fireParticles, l_lightningParticles, l_windParticles, l_arcaneParticles, l_iceParticles, l_mortalParticles, l_planarParticles, l_flightParticles, l_basicParticles;
     public GameObject r_shieldSphere, r_arcanoSphere, r_missileEmitter;
     public GameObject l_shieldSphere, l_arcanoSphere, l_missileEmitter;
 
@@ -40,12 +40,15 @@ public class Player : MonoBehaviour
     public GameObject metalFan;
     public GameObject drainSphere;
     public GameObject marker;
+    public GameObject sword;
     public GameObject flight;
 
     public List<GameObject> hammers;
-    public int maxHammers = 3;
+    public int maxHammers = 1;
     public List<GameObject> shields;
-    public int maxShields = 3;
+    public int maxShields = 2;
+    public List<GameObject> swords;
+    public int maxSwords = 2;
     public AudioSource damagedSound;
     public LayerMask groundMask;
 
@@ -79,6 +82,7 @@ public class Player : MonoBehaviour
         handColours.Add("earthwall", mortalColor);
         handColours.Add("midastouch", mortalColor);
         handColours.Add("metalfan", mortalColor);
+        handColours.Add("sword", new Color(54/255f, 99/255f, 78/255f));
         handColours.Add("farseer", planarColor);
         handColours.Add("seedead", planarColor);
         handColours.Add("death", planarColor);
@@ -192,7 +196,6 @@ public class Player : MonoBehaviour
                 break;
             case "royalfire":
             case "return":
-            case "marker":
                 ps = rightHand ? r_arcaneParticles : l_arcaneParticles;
                 break;
             case "icespikes":
@@ -216,6 +219,10 @@ public class Player : MonoBehaviour
             case "raiseskeleton":
             case "drainsphere":
                 ps = rightHand ? r_planarParticles : l_planarParticles;
+                break;
+            case "sword":
+            case "marker":
+                ps = rightHand ? r_basicParticles : l_basicParticles;
                 break;
         }
         if (ps != null){
@@ -304,6 +311,9 @@ public class Player : MonoBehaviour
                         break;
                     case "marker":
                         CastHeldMarker(castingHand);
+                        break;
+                    case "sword":
+                        CastHeldSword(castingHand);
                         break;
                     case "flight1":
                         CastHeldFlight(true);
@@ -464,16 +474,15 @@ public class Player : MonoBehaviour
 
     //  ------------- ROYAL FIRE ------------------
     public void CastHeldRoyalFire(GameObject castingHand){
-        GameObject newRoyalFireball = Instantiate(royalFireball, castingHand.transform.position, transform.rotation);
+        GameObject newRoyalFireball = Instantiate(royalFireball, castingHand.transform.position + (castingHand.transform.forward * 0.5f), transform.rotation);
+        // // Get position of the casting projectile ray target hit
+        // RaycastHit raycastHit;
+        // Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
+        // if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f ) ) {
+        //     target = raycastHit.point;
+        // }
 
-        // Get position of the casting projectile ray target hit
-        RaycastHit raycastHit;
-        Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
-        if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f ) ) {
-            target = raycastHit.point;
-        }
-
-        newRoyalFireball.GetComponent<Royalfireball>().SetTarget(target);
+        // newRoyalFireball.GetComponent<Royalfireball>().SetTarget(target);
     }
 
 
@@ -632,6 +641,19 @@ public class Player : MonoBehaviour
     //  ------------- Marker ------------------
     public void CastHeldMarker(GameObject castingHand) {
         GameObject newMarker = Instantiate(marker, castingHand.transform.position, castingHand.transform.rotation);
+    }
+
+
+    //  ------------- Sword Summon ------------------
+    public void CastHeldSword(GameObject castingHand) {
+        GameObject newSword = Instantiate(sword, castingHand.transform.position, castingHand.transform.rotation);
+
+        swords.Add(newSword);
+        if (swords.Count > maxSwords) {
+            GameObject oldestSword = swords[0];
+            swords.RemoveAt(0);
+            Destroy(oldestSword);
+        }
     }
 
 

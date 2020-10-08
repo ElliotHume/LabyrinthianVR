@@ -16,6 +16,7 @@ TagManager:
   - Magic
   - Enemy
   - Missile
+  - Weapon
   layers:
   - Default
   - TransparentFX

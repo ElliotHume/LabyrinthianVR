@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3979623718172417390}
   - component: {fileID: 1558135841308804889}
   - component: {fileID: 4578793040994042662}
-  - component: {fileID: 3777514100298998680}
   m_Layer: 13
   m_Name: PlayerShield
   m_TagString: Shield
@@ -213,22 +212,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!208 &3777514100298998680
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091421368820422775}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &7640963821603740646
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,8 +238,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7640963821603740646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 0, z: 0}
-  m_LocalScale: {x: 0.28997767, y: 0.44836155, z: 0.16966015}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
+  m_LocalScale: {x: 0.17706192, y: 0.4349107, z: 0.16457035}
   m_Children: []
   m_Father: {fileID: 3124760917165025892}
   m_RootOrder: 0

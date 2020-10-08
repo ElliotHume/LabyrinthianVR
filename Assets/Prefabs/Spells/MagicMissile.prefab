@@ -4926,7 +4926,6 @@ MonoBehaviour:
   explosionParticles: {fileID: 554472375}
   mesh: {fileID: 6580605326325308700}
   hitSound: {fileID: 3617122140062368577}
-  castSound: {fileID: 0}
   canHitPlayer: 0
 --- !u!54 &3617122140062368575
 Rigidbody:
@@ -4943,7 +4942,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!135 &3617122140062368576
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5109,7 +5108,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

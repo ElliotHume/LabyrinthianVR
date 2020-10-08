@@ -21,9 +21,9 @@ public class Marker : MonoBehaviour
 
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag != "Player"){
-            transform.parent = other.gameObject.transform;
             active = false;
-            GetComponent<Rigidbody>().enabled = false;
+            GetComponent<Rigidbody>().detectCollisions = false;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
 }

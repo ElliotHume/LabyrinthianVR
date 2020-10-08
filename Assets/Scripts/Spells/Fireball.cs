@@ -35,7 +35,7 @@ public class Fireball : MonoBehaviour
 
 
     void OnTriggerEnter(Collider other) {
-        if ((other.tag != "BodyPart" && other.tag != "Player") || canHitPlayer) {
+        if ((other.tag != "BodyPart" && other.tag != "Player" && other.tag != "Weapon") || canHitPlayer) {
             GameObject newExplosion = Instantiate(fireballExplosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }       

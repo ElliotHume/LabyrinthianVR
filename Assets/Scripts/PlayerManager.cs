@@ -23,12 +23,6 @@ public class PlayerManager : MonoBehaviour
         maxHealth = health;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DiscoverScene(string scene) {
         if (!discoveredScenes.Contains(scene)) discoveredScenes.Add(scene);
     }
@@ -40,8 +34,7 @@ public class PlayerManager : MonoBehaviour
     public void Damage(float damage) {
         health -= damage;
 
-        Color drawingPlaneColour = Color.Lerp(damageColour, baseColour, health / maxHealth);
-        damageMaterial.color = drawingPlaneColour;
+        ChangeDamageMaterial();
 
         if (health <= 0f) {
             // Send the player to the death realm
@@ -49,9 +42,16 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    void ChangeDamageMaterial() {
+        Color drawingPlaneColour = Color.Lerp(damageColour, baseColour, health / maxHealth);
+        damageMaterial.color = drawingPlaneColour;
+    }
+
     public void LoadScene(string sceneName) {
-        if (sceneName == "last") sceneName = previousScene;
         health = 100;
+        damageMaterial.color = baseColour;
+
+        if (sceneName == "last") sceneName = previousScene;
         previousScene = SceneManager.GetActiveScene().name;
         DiscoverScene(sceneName);
         SceneManager.LoadScene(sceneName);
@@ -59,12 +59,16 @@ public class PlayerManager : MonoBehaviour
 
     public void ReturnToLastScene() {
         health = 100;
-        damageMaterial.SetColor("_Color", baseColour);
+        damageMaterial.color = baseColour;
+
         SceneManager.LoadScene(previousScene);
     }
 
     IEnumerator RegenHealth() {
-        yield return new WaitForSeconds(15);
-        health = Mathf.Clamp(health+10, 0, 100);
+        while (true) {
+            yield return new WaitForSeconds(15);
+            health = Mathf.Clamp(health+15, 0, 100);
+            ChangeDamageMaterial();
+        }
     }
 }

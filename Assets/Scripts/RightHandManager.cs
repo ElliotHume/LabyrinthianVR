@@ -31,7 +31,7 @@ public class RightHandManager : MonoBehaviour
     {
         controller = GetComponent<XRController>();
         inputDevice = controller.inputDevice;
-        interactor = GetComponent<XRDirectInteractor>();
+        if (interactor == null) interactor = GetComponent<XRDirectInteractor>();
     }
 
     public bool CheckIfActivated(XRController controller){

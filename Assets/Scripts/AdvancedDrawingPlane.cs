@@ -52,7 +52,7 @@ public class AdvancedDrawingPlane : MonoBehaviour
                 if (edgeParticles) edgeParticles.Stop();
             }
         } else {
-            if (!visible && interactor.selectTarget == null) {
+            if (!visible && !interactor.isSelectActive) {
                 boxCollider.enabled = true;
                 meshRenderer.enabled = true;
                 visible = true;

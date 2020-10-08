@@ -24,8 +24,11 @@ public class DrainSphere : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Get velocity of the casting hand
         Vector3 handVelocity = (hand.transform.position - prevHandLocation) / Time.deltaTime;
-        moveDirection += handVelocity/4f;
+
+        // square the velocity, so fast movements are more impactful and slow sweeps will not move the sphere as much
+        moveDirection += Vector3.Scale(handVelocity, handVelocity) / 5f;
 
         transform.position += moveDirection * speed * Time.deltaTime;
 

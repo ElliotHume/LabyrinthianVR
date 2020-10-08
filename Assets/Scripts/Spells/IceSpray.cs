@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IceSpray : MonoBehaviour
 {
+    public float damagePerTick = 0.25f;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class IceSpray : MonoBehaviour
             EnemyAI enemy = other.GetComponent<EnemyAI>();
             if (enemy != null) {
                 enemy.Slow(3f);
-                enemy.TakeDamage("ice", 0.25f);
+                enemy.TakeDamage("ice", damagePerTick);
             }
         } else if (other.tag == "Missile") {
             Destroy(other.gameObject);

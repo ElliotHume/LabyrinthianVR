@@ -20,6 +20,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
-    m_Floats: []
+    m_Floats:
+    - Vector1_740CCDB8: 1
     m_Colors:
-    - Color_682024A: {r: 1.772549, g: 0.179395, b: 0, a: 0}
+    - Color_682024A: {r: 0.2134483, g: 0.38977516, b: 0.3062519, a: 0}
+  m_BuildTextureStacks: []

@@ -24,9 +24,9 @@ public class MovementProvider : LocomotionProvider
     {
         PositionController();
 
-        // // OUTDATED 
-        // OVRManager.fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.High; // it's the maximum foveation level
-        // OVRManager.useDynamicFixedFoveatedRendering = true;
+        // OUTDATED 
+        OVRManager.fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.High; // it's the maximum foveation level
+        OVRManager.useDynamicFixedFoveatedRendering = true;
 
         //Debug.Log("Cameras #: "+Camera.allCamerasCount+"   current: "+Camera.current.gameObject+"     main: "+Camera.main.gameObject);
         foreach(Camera item in Camera.allCameras) {
@@ -41,6 +41,7 @@ public class MovementProvider : LocomotionProvider
         CheckForInput();
         ApplyGravity();
     }
+
     private void PositionController()
     {
         //Debug.Log("PRE: "+head.transform.position);
@@ -85,13 +86,12 @@ public class MovementProvider : LocomotionProvider
         }
 
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 position)) {
-            StartMove(position);
-            return true;
+            return StartMove(position);
         }
         return false;
     }
 
-    private void StartMove(Vector2 position)
+    private bool StartMove(Vector2 position)
     {
         // Apply the touch position to the head's forward Vector
         Vector3 direction = new Vector3(position.x, 0, position.y);
@@ -105,7 +105,7 @@ public class MovementProvider : LocomotionProvider
         Vector3 movement = direction * (speed * speedModifier);
         Vector3 prevPos = head.transform.position;
         characterController.Move(movement * Time.deltaTime);
-
+        return movement.magnitude * Time.deltaTime > 0.01f;
     }
 
     private void ApplyGravity() {

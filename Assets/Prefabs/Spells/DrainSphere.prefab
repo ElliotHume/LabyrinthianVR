@@ -4926,7 +4926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 15
   speed: 0.2
-  damagePerTick: 0.1
+  damagePerTick: 0.2
   hitSound: {fileID: 1061049742}
 --- !u!54 &7177035543809454229
 Rigidbody:

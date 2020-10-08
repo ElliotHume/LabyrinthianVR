@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 658078512}
   - component: {fileID: 658078514}
   - component: {fileID: 658078513}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 6836790293370765061}
   - component: {fileID: 6836790293370765063}
   - component: {fileID: 6836790293370765060}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HandParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4904,7 +4904,7 @@ GameObject:
   - component: {fileID: 6836790294432838942}
   - component: {fileID: 6836790294432838928}
   - component: {fileID: 6836790294432838929}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SprayParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9719,9 +9719,9 @@ GameObject:
   - component: {fileID: 2716826822466499448}
   - component: {fileID: 4650273024099997608}
   - component: {fileID: -7333291681966766761}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: IceSpray
-  m_TagString: Untagged
+  m_TagString: Magic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9769,6 +9769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949f16ea127e68247b493be259778b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePerTick: 0.25
 --- !u!54 &4650273024099997608
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9784,7 +9785,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!82 &-7333291681966766761
 AudioSource:
   m_ObjectHideFlags: 0

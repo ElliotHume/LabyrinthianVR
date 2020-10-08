@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer, sightBlockingMask;
     public AudioSource hitSound;
-    public Weapon weapon;
+    public Weapon weapon, enrageWeapon;
     GameObject player;
     CharacterController playerController;
     Vector3 playerPos;
@@ -29,7 +29,10 @@ public class EnemyAI : MonoBehaviour
     public float walkPointRange = 10f, idleTime = 6f;
 
     //Attacking
-    public float attackCooldown = 4f;
+    public bool doesEnrage = false;
+    public int numberOfEnrageAttacks = 1;
+    bool hasAlreadyEnraged = false, enraging = false;
+    public float attackCooldown = 4f, damageAnimationTime = 1f, enrageAnimationTime = 1f;
     bool alreadyAttacked;
 
     //States
@@ -56,8 +59,7 @@ public class EnemyAI : MonoBehaviour
         maxHealth = health;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Get player controller position in worldspace
         playerPos = player.transform.TransformPoint(playerController.center);
@@ -68,7 +70,8 @@ public class EnemyAI : MonoBehaviour
         // If in sight range, check if the target is not obscured
         if (targetInSightRange || targetInAttackRange) {
             RaycastHit raycastHit;
-            if( Physics.SphereCast(transform.position, 2f, (playerPos - transform.position), out raycastHit, 100f, sightBlockingMask) ) {
+            if( Physics.SphereCast(transform.position, 1f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
+                //print(raycastHit.transform.gameObject);
                 canSeeTarget = raycastHit.transform.gameObject.tag == "Player";
             }
         }
@@ -128,13 +131,22 @@ public class EnemyAI : MonoBehaviour
     }
 
     void ChaseTarget() {
+        // Do not chase if enraging
+        if (enraging) return;
+
         // Walk towards target
         walking = true;
 
-        // Find closest point on navmesh from the player controllers center
+        // Find closest point on navmesh from the player controllers center, check if it is reachable
         NavMeshHit hit;
+        NavMeshPath path = new NavMeshPath();
         if (NavMesh.SamplePosition(playerPos, out hit, 2f, NavMesh.AllAreas)){
-            agent.SetDestination(hit.position);
+            agent.CalculatePath(hit.position, path);
+            if (path.status == NavMeshPathStatus.PathComplete) {
+                agent.SetDestination(hit.position);
+            } else {
+                agent.ResetPath();
+            }
         }
         
         //agent.SetDestination(playerPos);
@@ -147,7 +159,7 @@ public class EnemyAI : MonoBehaviour
         transform.LookAt(new Vector3 (playerPos.x, transform.position.y, playerPos.z));
 
         // If you are not currently attacking, attack target
-        if (!alreadyAttacked) {
+        if (!alreadyAttacked && !enraging) {
             anim.SetTrigger("Attack");
             alreadyAttacked = true;
 
@@ -172,7 +184,11 @@ public class EnemyAI : MonoBehaviour
                 hitSound.Play();
             }
             agent.speed = 0f;
-            Invoke(nameof(ResumeMovement), 1f);
+            if (doesEnrage && health <= maxHealth/(4f - (float)numberOfEnrageAttacks) && !hasAlreadyEnraged) {
+                Invoke(nameof(Enrage), damageAnimationTime);
+            } else {
+                Invoke(nameof(ResumeMovement), damageAnimationTime);
+            }
         }
 
         inCombat = true;
@@ -187,9 +203,34 @@ public class EnemyAI : MonoBehaviour
         TakeDamage(damage);
     }
 
+    public void Enrage() {
+        // If you are not currently enraging, do so
+        if (!enraging) {
+            anim.Play("Enrage");
+
+            // Stop moving and look at the target
+            walking = false;
+            agent.ResetPath();
+            transform.LookAt(new Vector3 (playerPos.x, transform.position.y, playerPos.z));
+            
+            enraging = true;
+            numberOfEnrageAttacks -= 1;
+
+            // Attack actions(s)
+            if (enrageWeapon != null) enrageWeapon.Attack();
+
+            // wait for the enrage to finish before moving again
+            Invoke(nameof(ResumeMovement), enrageAnimationTime);
+            
+            // If you have reached the max amount of enrages, stop enraging
+            if (numberOfEnrageAttacks <= 0) hasAlreadyEnraged = true;
+        }
+    }
+
     void ResumeMovement() {
         agent.speed = startSpeed;
         slowed = false;
+        enraging = false;
     }
 
     public void Slow(float duration){

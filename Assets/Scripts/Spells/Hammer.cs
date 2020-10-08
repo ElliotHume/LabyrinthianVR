@@ -35,7 +35,8 @@ public class Hammer : MonoBehaviour
                 if(s != null) s.Break();
             } else if (collision.gameObject.tag == "Enemy") {
                 EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
-                if (enemy != null) enemy.TakeDamage("mortal", 10f);
+                if (enemy != null) enemy.TakeDamage("mortal", damage);
+                if (HitSound) HitSound.Play();
             }
 
             hitTimeout = 1f;
