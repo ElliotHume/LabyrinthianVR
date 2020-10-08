@@ -1,5 +1,6 @@
 # Labyrinthian 
-“Knowledge comes at a price of skill, no information is given to the unworthy” 
+#### “Knowledge comes at a price of skill, no information is given to the unworthy” ####
+----
 
 ### [Early Gameplay video! (from the most recent development build)](https://drive.google.com/file/d/1xJ_BES61z12q9RlTr7zKJVLLXFjpBsIf/view?usp=sharing) ###
 ### [First look at Combat](https://drive.google.com/file/d/1BV1-XuEmsrxDXvtg4RC3rzKAzQFefZKq/view?usp=sharing) ###
