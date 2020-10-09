@@ -70,7 +70,7 @@ public class EnemyAI : MonoBehaviour
         // If in sight range, check if the target is not obscured
         if (targetInSightRange || targetInAttackRange) {
             RaycastHit raycastHit;
-            if( Physics.SphereCast(transform.position, 0.5f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
+            if( Physics.SphereCast(transform.position, 1f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
                 //print(raycastHit.transform.gameObject);
                 canSeeTarget = raycastHit.transform.gameObject.tag == "Player";
             }
@@ -219,7 +219,7 @@ public class EnemyAI : MonoBehaviour
             if (enrageWeapon != null) enrageWeapon.Attack();
 
             // wait for the enrage to finish before moving again
-            Invoke(nameof(ResumeMovement), enrageAnimationTime);
+            Invoke(nameof(ResetEnrage), enrageAnimationTime);
             
             // If you have reached the max amount of enrages, stop enraging
             if (numberOfEnrageAttacks <= 0) hasAlreadyEnraged = true;
@@ -242,7 +242,11 @@ public class EnemyAI : MonoBehaviour
     void ResumeMovement() {
         agent.speed = startSpeed;
         slowed = false;
+    }
+
+    void ResetEnrage() {
         enraging = false;
+        ResumeMovement();
     }
 
     public void Slow(float duration){

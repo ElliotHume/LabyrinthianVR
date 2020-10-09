@@ -4105,6 +4105,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rhino (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1629894502827334967, guid: bd759393c665dff4e93a5306c5870a9b,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 1629894502827487739, guid: bd759393c665dff4e93a5306c5870a9b,
         type: 3}
       propertyPath: m_LocalPosition.x
