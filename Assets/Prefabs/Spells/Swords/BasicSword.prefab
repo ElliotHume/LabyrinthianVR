@@ -4972,8 +4972,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitSound: {fileID: 2025973115}
-  damage: 10
-  hitTimeout: 1
+  damage: 8
+  hitTimeout: 0.2
   damageType: none
   FireSword: {fileID: 1466512764667320, guid: c3d3646a21160034081ae4ce205b8796, type: 3}
   IceSword: {fileID: 1599587151244576, guid: 0de82f2050779844e840890abdb725d4, type: 3}
@@ -4999,7 +4999,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 2
 --- !u!65 &2025973113
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -6,7 +6,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Sword : MonoBehaviour
 {
     public AudioSource HitSound;
-    public float damage = 10f, hitTimeout = 1f;
+    public float damage = 5f, hitTimeout = 0.2f;
+    bool onHitTimeout = false;
     public string damageType;
 
     public GameObject FireSword, IceSword, ArcaneSword, PlanarSword, MortalSword;
@@ -26,7 +27,7 @@ public class Sword : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (hitTimeout == 0f){
+        if (!onHitTimeout){
             //print("hitsomething");
             if (collision.gameObject.tag == "Spell_Interactable") {
                 SpellInteractable si = collision.gameObject.GetComponent<SpellInteractable>();
@@ -42,12 +43,12 @@ public class Sword : MonoBehaviour
                 Instantiate(MortalSword, transform.position, transform.rotation);
             }
 
-            hitTimeout = 1f;
+            onHitTimeout = true;
         }
     }
 
     void OnTriggerEnter(Collider other) {
-        if (hitTimeout == 0f){
+        if (!onHitTimeout){
             //print("hitsomething");
             if (other.tag == "Spell_Interactable") {
                 SpellInteractable si = other.gameObject.GetComponent<SpellInteractable>();
@@ -73,15 +74,15 @@ public class Sword : MonoBehaviour
                 }
             }
 
-            hitTimeout = 1f;
+            onHitTimeout = true;
         }
     }
 
     IEnumerator HitBoxTimeout() {
         while (true) {
-            if (hitTimeout > 0f) {
+            if (onHitTimeout) {
                 yield return new WaitForSeconds(hitTimeout);
-                hitTimeout = 0f;
+                onHitTimeout = false;
             }
             yield return new WaitForFixedUpdate();
         }

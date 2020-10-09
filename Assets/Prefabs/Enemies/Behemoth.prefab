@@ -20882,7 +20882,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d60ccbb11be7ab44a9689af51dfdd2cd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c0e1791aed4f1483e925bf16abbf11d6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -21088,14 +21088,20 @@ MonoBehaviour:
     m_Bits: 26135
   hitSound: {fileID: 3073166630471687445}
   weapon: {fileID: 3073166631204106227}
+  enrageWeapon: {fileID: 0}
   doesPatrol: 0
   walkPointRange: 10
   idleTime: 10
+  doesEnrage: 0
+  numberOfEnrageAttacks: 1
   attackCooldown: 3
+  damageAnimationTime: 2
+  enrageAnimationTime: 1
   sightRange: 8
   attackRange: 8
   startSpeed: 4
   weakness: fire
+  weaknessMultiplier: 2
   onDeath:
     m_PersistentCalls:
       m_Calls:

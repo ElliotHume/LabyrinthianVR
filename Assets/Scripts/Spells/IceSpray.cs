@@ -29,7 +29,7 @@ public class IceSpray : MonoBehaviour
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
             if (enemy != null) {
-                enemy.Slow(3f);
+                enemy.Slow(15f);
                 enemy.TakeDamage("ice", damagePerTick);
             }
         } else if (other.tag == "Missile") {

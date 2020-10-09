@@ -9846,7 +9846,7 @@ PrefabInstance:
     - target: {fileID: 109434732395451517, guid: cf0341f0ce3122e4096163d1849a08c5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 109434732395451517, guid: cf0341f0ce3122e4096163d1849a08c5,
         type: 3}
@@ -14877,7 +14877,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172669425622038}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -22537,7 +22537,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 8f9cc8eba0161ba4fbfb20452950ec99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -48137,7 +48137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 8f9cc8eba0161ba4fbfb20452950ec99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -51594,7 +51594,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &889072480
 PrefabInstance:
@@ -52580,7 +52580,31 @@ MonoBehaviour:
   playerTriggered: 1
   onTeleport:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 332276862890377626}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 127209887}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!65 &923658734
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56531,7 +56555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.274}
+  m_AnchoredPosition: {x: 0, y: 107}
   m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028240843
@@ -98166,7 +98190,7 @@ PrefabInstance:
     - target: {fileID: 2384733376054711719, guid: c18015b15e62ed44187920bb1b5c2e24,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 2384733376054711719, guid: c18015b15e62ed44187920bb1b5c2e24,
         type: 3}
@@ -103462,7 +103486,7 @@ Transform:
   - {fileID: 325553771}
   - {fileID: 972474609}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1811175758
 PrefabInstance:
@@ -103744,7 +103768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.522, y: 0.015}
+  m_AnchoredPosition: {x: -0.522, y: 0.03}
   m_SizeDelta: {x: 640, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1830510958
@@ -107394,7 +107418,7 @@ Transform:
   - {fileID: 987752854}
   - {fileID: 1596203715}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1914024944
 PrefabInstance:
@@ -123853,7 +123877,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3342780524748703167}
-  m_LocalRotation: {x: 0.34243774, y: 0.54660493, z: -0.16496716, w: 0.7461537}
+  m_LocalRotation: {x: 0.34531692, y: 0.5448476, z: -0.16835822, w: 0.74535424}
   m_LocalPosition: {x: -7.596163, y: 29.472275, z: 89.74185}
   m_LocalScale: {x: 1.3692443, y: 1.2932297, z: 2.425073}
   m_Children:
@@ -123861,7 +123885,7 @@ Transform:
   - {fileID: 1882093089}
   m_Father: {fileID: 1808069690}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 43.738003, y: 76.561005, z: 10.219001}
+  m_LocalEulerAnglesHint: {x: 44.285, y: 76.444, z: 10.082}
 --- !u!23 &2062835578226586950
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -129024,7 +129048,7 @@ PrefabInstance:
     - target: {fileID: 6680033758972122541, guid: 9fbe9e48fed5ebb40b26f37f341a0960,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6680033758972122541, guid: 9fbe9e48fed5ebb40b26f37f341a0960,
         type: 3}
@@ -129138,7 +129162,7 @@ PrefabInstance:
     - target: {fileID: 3342780525204684403, guid: fb698adfdcfa41c43a4b463796143a6c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6719964634291932404, guid: fb698adfdcfa41c43a4b463796143a6c,
         type: 3}
@@ -129173,11 +129197,8 @@ PrefabInstance:
     - target: {fileID: 6719964634291932405, guid: fb698adfdcfa41c43a4b463796143a6c,
         type: 3}
       propertyPath: m_text
-      value: "\tWell done godling\n\nThe anchor you hold is wrought from ARCANE magic
-        that binds it, and other\n   objects linked, in space\n\n\tTo embark upon
-        the path of the\n     ARCANE cast the spell that will\n      spatially bind
-        force and light\n\t\ttogether\n\nThis casting will shield you from\n\t  
-        harm\n\n\tNow Reach the\n      Level above\nyour head\n\n"
+      value: "\tWell done godling\n\n\n\n\t\t// TO DO\n\t\t// LORE\n\n\n\n\n\tNow
+        Reach the\n      Level above\nyour head\n\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6719964634291932405, guid: fb698adfdcfa41c43a4b463796143a6c,
         type: 3}
@@ -129224,6 +129245,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1687258584}
+    - target: {fileID: 6719964635464401864, guid: fb698adfdcfa41c43a4b463796143a6c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6719964635464401865, guid: fb698adfdcfa41c43a4b463796143a6c,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -130142,7 +130168,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172669425622038}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1

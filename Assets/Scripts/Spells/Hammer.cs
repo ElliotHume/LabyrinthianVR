@@ -5,7 +5,8 @@ using UnityEngine;
 public class Hammer : MonoBehaviour
 {
     public AudioSource HitSound;
-    public float damage = 10f, hitTimeout = 0f;
+    public float damage = 10f, hitTimeout = 0.1f;
+    bool onHitTimeout = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class Hammer : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (hitTimeout == 0f){
+        if (!onHitTimeout){
             if (collision.gameObject.tag == "Spell_Interactable") {
                 SpellInteractable si = collision.gameObject.GetComponent<SpellInteractable>();
                 Breakable b = collision.gameObject.GetComponent<Breakable>();
@@ -39,15 +40,15 @@ public class Hammer : MonoBehaviour
                 if (HitSound) HitSound.Play();
             }
 
-            hitTimeout = 1f;
+            onHitTimeout = true;
         }
     }
 
     IEnumerator HitBoxTimeout() {
         while (true) {
-            if (hitTimeout > 0) {
+            if (onHitTimeout) {
                 yield return new WaitForSeconds(hitTimeout);
-                hitTimeout = 0;
+                onHitTimeout = false;
             }
             yield return new WaitForFixedUpdate();
         }

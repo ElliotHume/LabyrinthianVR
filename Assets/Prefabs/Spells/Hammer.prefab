@@ -5211,7 +5211,7 @@ GameObject:
   - component: {fileID: 7319533094617191546}
   m_Layer: 9
   m_Name: Hammer
-  m_TagString: Magic
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5468,8 +5468,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitSound: {fileID: 3070571352814989409}
-  damage: 15
-  hitTimeout: 1
+  damage: 8
+  hitTimeout: 0.2
 --- !u!1 &4205547699818521733
 GameObject:
   m_ObjectHideFlags: 0

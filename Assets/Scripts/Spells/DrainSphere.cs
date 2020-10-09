@@ -26,9 +26,9 @@ public class DrainSphere : MonoBehaviour
     {
         // Get velocity of the casting hand
         Vector3 handVelocity = (hand.transform.position - prevHandLocation) / Time.deltaTime;
-
+        Vector3 absoluteVelocity = new Vector3( Mathf.Abs(handVelocity.x), Mathf.Abs(handVelocity.y), Mathf.Abs(handVelocity.z));
         // square the velocity, so fast movements are more impactful and slow sweeps will not move the sphere as much
-        moveDirection += Vector3.Scale(handVelocity, handVelocity) / 5f;
+        moveDirection += Vector3.Scale(handVelocity, absoluteVelocity) / 10f;
 
         transform.position += moveDirection * speed * Time.deltaTime;
 

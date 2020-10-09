@@ -16562,14 +16562,20 @@ MonoBehaviour:
     m_Bits: 26135
   hitSound: {fileID: 7913107643378144264}
   weapon: {fileID: 7913107643062499200}
+  enrageWeapon: {fileID: 0}
   doesPatrol: 0
   walkPointRange: 10
   idleTime: 6
+  doesEnrage: 0
+  numberOfEnrageAttacks: 1
   attackCooldown: 4
+  damageAnimationTime: 1
+  enrageAnimationTime: 1.5
   sightRange: 15
   attackRange: 10
   startSpeed: 3
   weakness: wind
+  weaknessMultiplier: 2
   onDeath:
     m_PersistentCalls:
       m_Calls: []

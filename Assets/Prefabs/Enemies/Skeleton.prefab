@@ -315,10 +315,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.03
-  m_Height: 0.17
+  m_Radius: 0.04583359
+  m_Height: 0.17000002
   m_Direction: 1
-  m_Center: {x: 0, y: 0.075, z: 0}
+  m_Center: {x: 4.9808535e-10, y: 0.075, z: 0.015940541}
 --- !u!82 &1677474705447296509
 AudioSource:
   m_ObjectHideFlags: 0
@@ -439,10 +439,15 @@ MonoBehaviour:
     m_Bits: 26135
   hitSound: {fileID: 1677474705447296509}
   weapon: {fileID: 1677474704726632989}
+  enrageWeapon: {fileID: 0}
   doesPatrol: 0
   walkPointRange: 10
   idleTime: 6
+  doesEnrage: 0
+  numberOfEnrageAttacks: 1
   attackCooldown: 4
+  damageAnimationTime: 1
+  enrageAnimationTime: 1
   sightRange: 15
   attackRange: 1.5
   startSpeed: 2

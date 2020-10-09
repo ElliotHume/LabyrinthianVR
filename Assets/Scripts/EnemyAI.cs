@@ -70,7 +70,7 @@ public class EnemyAI : MonoBehaviour
         // If in sight range, check if the target is not obscured
         if (targetInSightRange || targetInAttackRange) {
             RaycastHit raycastHit;
-            if( Physics.SphereCast(transform.position, 1f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
+            if( Physics.SphereCast(transform.position, 0.5f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
                 //print(raycastHit.transform.gameObject);
                 canSeeTarget = raycastHit.transform.gameObject.tag == "Player";
             }
@@ -97,7 +97,6 @@ public class EnemyAI : MonoBehaviour
                 } else {
                     AttackTarget();
                 }
-                //if ( inCombat && !targetInSightRange && !canSeeTarget) inCombat = false;
             }
         } else if (agent.hasPath) {
             agent.ResetPath();
@@ -145,11 +144,11 @@ public class EnemyAI : MonoBehaviour
             if (path.status == NavMeshPathStatus.PathComplete) {
                 agent.SetDestination(hit.position);
             } else {
-                agent.ResetPath();
+                OutOfReach();
             }
+        } else {
+            OutOfReach();
         }
-        
-        //agent.SetDestination(playerPos);
     }
 
     void AttackTarget() {
@@ -206,6 +205,7 @@ public class EnemyAI : MonoBehaviour
     public void Enrage() {
         // If you are not currently enraging, do so
         if (!enraging) {
+            enraging = true;
             anim.Play("Enrage");
 
             // Stop moving and look at the target
@@ -213,7 +213,6 @@ public class EnemyAI : MonoBehaviour
             agent.ResetPath();
             transform.LookAt(new Vector3 (playerPos.x, transform.position.y, playerPos.z));
             
-            enraging = true;
             numberOfEnrageAttacks -= 1;
 
             // Attack actions(s)
@@ -227,6 +226,19 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    public void OutOfReach() {
+        if (targetInAttackRange) {
+            AttackTarget();
+        } else {
+            walking = false;
+            agent.ResetPath();
+            if (doesEnrage && !enraging) {
+                numberOfEnrageAttacks += 1;
+                Enrage();
+            }
+        }
+    }
+
     void ResumeMovement() {
         agent.speed = startSpeed;
         slowed = false;
@@ -235,7 +247,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Slow(float duration){
         if (!slowed) {
-            agent.speed /= 4;
+            agent.speed /= 5f;
             Invoke(nameof(ResumeMovement), duration);
         }
     }

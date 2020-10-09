@@ -254,7 +254,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d60ccbb11be7ab44a9689af51dfdd2cd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c0e1791aed4f1483e925bf16abbf11d6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -465,9 +465,10 @@ MonoBehaviour:
   walkPointRange: 10
   idleTime: 10
   doesEnrage: 0
+  numberOfEnrageAttacks: 1
   attackCooldown: 3
-  damageAnimationTime: 1
-  enrageAnimationTime: 1
+  damageAnimationTime: 2
+  enrageAnimationTime: 2.5
   sightRange: 7
   attackRange: 5
   startSpeed: 1.5
