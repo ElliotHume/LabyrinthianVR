@@ -20718,19 +20718,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229636, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8240770, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8242978, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8271678, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11498484, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
+      propertyPath: barsPerTrigger
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
@@ -69703,6 +69707,12 @@ Transform:
 --- !u!1 &1342402214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8464667460322246977, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+    type: 3}
+  m_PrefabInstance: {fileID: 8464667461127745511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1342402215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8464667460322246991, guid: cdb7afb950e7c2a48821e8e3cb18de93,
     type: 3}
   m_PrefabInstance: {fileID: 8464667461127745511}
   m_PrefabAsset: {fileID: 0}
@@ -131096,6 +131106,81 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 35
       objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: accelerationMax
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: velocityMax
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: velocityStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: angularVelocityMax
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: angularVelocitySmoothing
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: accelerationSmoothing
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: velocitySmoothing
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: motionTarget
+      value: 
+      objectReference: {fileID: 1342402215}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867041756609662920, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: useMask
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286812573885594506, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: useMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286812573885594506, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: drawBeforeTransparent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286812573885594506, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: motionTarget
+      value: 
+      objectReference: {fileID: 1342402215}
+    - target: {fileID: 4286812573885594506, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043160929437938437, guid: cdb7afb950e7c2a48821e8e3cb18de93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5504161644660594500, guid: cdb7afb950e7c2a48821e8e3cb18de93,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -131206,7 +131291,8 @@ PrefabInstance:
       propertyPath: glyphRecognition
       value: 
       objectReference: {fileID: 1643467203}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: cdb7afb950e7c2a48821e8e3cb18de93, type: 3}
 --- !u!1 &8464667461127745512 stripped
 GameObject:

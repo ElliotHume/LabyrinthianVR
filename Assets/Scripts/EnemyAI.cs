@@ -67,11 +67,10 @@ public class EnemyAI : MonoBehaviour
         // Check if the target is in sight range
         targetInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-        // If in sight range, check if the target is not obscured
+        // If in sight range, check if the target is obscured
         if (targetInSightRange || targetInAttackRange) {
             RaycastHit raycastHit;
             if( Physics.SphereCast(transform.position, 1f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
-                //print(raycastHit.transform.gameObject);
                 canSeeTarget = raycastHit.transform.gameObject.tag == "Player";
             }
         }
@@ -177,6 +176,10 @@ public class EnemyAI : MonoBehaviour
     public void TakeDamage(float damage) {
         // Do not animate if damage is small (like a damage over time effect)
         if (damage >= 5) {
+            // Interrupt any attack
+            if (weapon != null && alreadyAttacked) weapon.Interrupt();
+
+
             anim.SetTrigger("TakeDamage");
             if (hitSound) {
                 hitSound.pitch = Mathf.Lerp(2f,1f,health/maxHealth);
@@ -257,11 +260,11 @@ public class EnemyAI : MonoBehaviour
     }
 
     public void Die() {
-        anim.SetBool("Dead", true);
+        anim.Play("Dead");
         walking = false;
         onDeath.Invoke();
         GetComponent<CapsuleCollider>().enabled = false;
-        Destroy(gameObject, 40f);
+        Destroy(gameObject, 30f);
     }
 
     void SearchWalkPoint() {

@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     public LayerMask whatIsPlayer;
     public float attackDuration = 1f, attackRange = 1f;
     public float damage = 20f;
+    protected bool interrupted = false;
 
     public ParticleSystem[] particles;
 
@@ -21,15 +22,19 @@ public class Weapon : MonoBehaviour
 
     public virtual void Attack() {
         if (swingSound != null) swingSound.Play();
+        interrupted = false;
         Invoke(nameof(CheckAttack), attackDuration);
     }
 
     void CheckAttack() {
-        if (attackSound != null) attackSound.Play();
-        if (particles.Length > 0) foreach(ParticleSystem p in particles) p.Play();
-        if (Physics.CheckSphere(transform.position, attackRange, whatIsPlayer)) {
-            player.WeaponHit(damage);
+        if (!interrupted) {
+            if (attackSound != null) attackSound.Play();
+            if (particles.Length > 0) foreach(ParticleSystem p in particles) p.Play();
+            if (Physics.CheckSphere(transform.position, attackRange, whatIsPlayer)) {
+                player.WeaponHit(damage);
+            }
         }
+        interrupted = false;
     }
 
     void OnTriggerEnter(Collider other) {
@@ -44,5 +49,9 @@ public class Weapon : MonoBehaviour
         // Draw a blue sphere for the hitscan attack range
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public virtual void Interrupt() {
+        interrupted = true;
     }
 }

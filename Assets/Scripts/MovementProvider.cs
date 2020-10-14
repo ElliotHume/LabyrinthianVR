@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using Sigtrap.VrTunnellingPro;
 
 public class MovementProvider : LocomotionProvider
 {
@@ -13,11 +14,17 @@ public class MovementProvider : LocomotionProvider
     public float gravityMultiplier = 1f;
     public GameObject player;
     bool movedThisUpdate = false, canFly = false, defy = false;
+    public TunnellingMobile vignette;
+    Vector3 oldPos;
+    public float MaxSpeed=6f;
+    public float MaxFOV=0.7f;
+    float currentFOVIntensity = 0f;
 
     protected override void Awake()
     {
         characterController = GetComponent<CharacterController>();
         head = GetComponent<XRRig>().cameraGameObject;
+        if (vignette == null) vignette = head.GetComponent<TunnellingMobile>();
     }
 
     private void Start()
@@ -85,9 +92,25 @@ public class MovementProvider : LocomotionProvider
             }
         }
 
+        // //  DEBUG CODE
+        if (Input.GetKey("up")) {
+            StartMove(new Vector3(0.5f, 0f, 0f));
+        } else if (Input.GetKey("down")) {
+            StartMove(new Vector3(-0.5f, 0f, 0f));
+        }
+
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 position)) {
             return StartMove(position);
+            // if (StartMove(position)){
+            //     return true;
+            // } 
+            // else if (vignette.forceVignetteValue > 0f){
+            //     // Expand FOV
+            //     vignette.forceVignetteValue = Mathf.Clamp(vignette.forceVignetteValue-0.01f, 0f, 0.7f); 
+            //     print("Expanding");
+            // }
         }
+
         return false;
     }
 
@@ -105,7 +128,19 @@ public class MovementProvider : LocomotionProvider
         Vector3 movement = direction * (speed * speedModifier);
         Vector3 prevPos = head.transform.position;
         characterController.Move(movement * Time.deltaTime);
-        return movement.magnitude * Time.deltaTime > 0.01f;
+
+        // // Limit FOV when moving
+        // if (movement.magnitude * Time.deltaTime > 0.01f) {
+        //     vignette.forceVignetteValue = Mathf.Clamp(vignette.forceVignetteValue+0.05f, 0f, 0.7f);
+        //     print("Shrinking:    "+movement.magnitude * Time.deltaTime);
+        //     return true;
+        // }
+
+        // foreach(Camera c in Camera.allCameras) {
+        //     print(c.gameObject + "    Position:   " + c.gameObject.transform.position);
+        // }
+
+        return false;
     }
 
     private void ApplyGravity() {
@@ -120,5 +155,19 @@ public class MovementProvider : LocomotionProvider
 
     public void ToggleDefyGravity(bool val) {
         defy = val;
+    }
+
+    public void LimitFOV(){
+        Vector3 velocity = (transform.position - oldPos) / Time.deltaTime;
+        oldPos = transform.position;
+
+        float expectedLimit = MaxFOV;
+        if (velocity.magnitude < MaxSpeed) {
+            expectedLimit = (velocity.magnitude / MaxSpeed) * MaxFOV;
+        }
+
+        currentFOVIntensity = Mathf.Lerp(currentFOVIntensity, expectedLimit, 0.01f);
+
+        vignette.forceVignetteValue = currentFOVIntensity;
     }
 }

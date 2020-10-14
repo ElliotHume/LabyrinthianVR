@@ -2784,19 +2784,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229636, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8240770, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8242978, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8271678, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
@@ -13478,7 +13478,7 @@ GameObject:
   - component: {fileID: 1142079219}
   - component: {fileID: 1142079218}
   m_Layer: 15
-  m_Name: ExplosionAttack (1)
+  m_Name: EnrageAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13492,12 +13492,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142079216}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 3.866, z: 4.35}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 26.666668, y: 24, z: 26.666668}
   m_Children:
   - {fileID: 1780916401}
   - {fileID: 964546745}
   - {fileID: 1785714156}
+  - {fileID: 1284951226}
   m_Father: {fileID: 1851501017}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13511,7 +13512,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 189c47c2dcf5c7449845b411a74a1db1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ac1844526bd9a0744b20e5ad2a20ca01, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -13527,7 +13528,7 @@ AudioSource:
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -13557,7 +13558,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -13606,7 +13607,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1142079216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e78c4fc3fc15f343975193f5aa73393, type: 3}
+  m_Script: {fileID: 11500000, guid: 17e3928460169b54098aa1683dfaa05b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackSound: {fileID: 1142079218}
@@ -13614,13 +13615,14 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
-  attackDuration: 0.75
-  attackRange: 7
-  damage: 45
-  particles:
-  - {fileID: 1780916402}
-  - {fileID: 964546747}
-  - {fileID: 1785714158}
+  attackDuration: 1
+  attackRange: 1
+  damage: 20
+  particles: []
+  prefab: {fileID: 7489170608288552225, guid: 179e4b053115f694fbbc68d3c4373fb1, type: 3}
+  anchors:
+  - {fileID: 1284951226}
+  fireDelay: 0.1
 --- !u!1001 &1148617180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14703,6 +14705,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1266940709}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1284951225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1284951226}
+  m_Layer: 15
+  m_Name: Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1284951226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284951225}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.053706598, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1142079217}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1286338558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17308,7 +17340,7 @@ PrefabInstance:
     - target: {fileID: 7673674509994947109, guid: 87a454c7da3f4f541a3f472250dafd98,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 36
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 7673674509994947109, guid: 87a454c7da3f4f541a3f472250dafd98,
         type: 3}
@@ -18780,7 +18812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1780916401
 Transform:
   m_ObjectHideFlags: 0
@@ -28997,7 +29029,7 @@ PrefabInstance:
         type: 3}
       propertyPath: enrageWeapon
       value: 
-      objectReference: {fileID: 1142079219}
+      objectReference: {fileID: 0}
     - target: {fileID: 7913107643378144266, guid: 9c1cb7ff1a2e8ba4dbb35caa3753930c,
         type: 3}
       propertyPath: numberOfEnrageAttacks
@@ -32780,6 +32812,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2727120301475505117, guid: e90c8ba6289ecc84ebdcb7a0f0b9b13c,
+        type: 3}
+      propertyPath: attackRange
+      value: 5.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2727120302230803158, guid: e90c8ba6289ecc84ebdcb7a0f0b9b13c,
         type: 3}
       propertyPath: m_Name
@@ -32838,6 +32875,11 @@ PrefabInstance:
     - target: {fileID: 2727120302231162614, guid: e90c8ba6289ecc84ebdcb7a0f0b9b13c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5651590832330976766, guid: e90c8ba6289ecc84ebdcb7a0f0b9b13c,
+        type: 3}
+      propertyPath: timer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
