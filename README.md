@@ -1,5 +1,7 @@
-# Labyrinthian 
+# Labyrinthian <img align="right" width="100" height="100" src="Images/Logo-transparent.png">
+
 #### “Knowledge comes at a price of skill, no information is given to the unworthy” ####
+
 ----
 
 ### [Early Gameplay video! (from the most recent development build)](https://drive.google.com/file/d/1xJ_BES61z12q9RlTr7zKJVLLXFjpBsIf/view?usp=sharing) ###
