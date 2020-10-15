@@ -34,6 +34,44 @@ Recently I have also added PvE combat into the game. Solving the puzzles did not
 The maze will be covered with secrets and lore tablets that will tell the player about the world and hint at the intricacies and depth of magic. Finding these secrets will almost never give the player direct power that they did not already have, most of the time they will give the player knowledge of how to progress quicker and/or find more secrets. An example of this is a hint that lets players know that if they use arcanopulse to nullify magic, and they are using farseer (a spell that makes you go up really high but you are stuck in place) you will be dropped and can move as you fall. It's completely gamebreaking but that's kinda the point, its a powerful feeling to be able to subvert the level and puzzle design. 
 
 
+## Completed Spells ##
+If you plan on playing the game, please don't read this ツ so much fun is in the discovery
+
+❇️ means that it is a master level spell, only found at the end of the game once all paths have been cleared.
+
+
+**ELEMENTAL**
+- Fireball: cast a slow-moving powerful fireball
+- Ice spray: freeze certain objects in a cone of cold
+- Windslash: dash forwards quickly, and strike through enemies
+- Lightning: targeted damage spell, very easy to cast
+- Ice Spikes (needs update): fire a wall of ice spikes away from the caster
+- ❇️ Flight - use primary and secondary buttons to go up and down respectively
+
+**ARCANE**
+- Magic missile: basic missile spell, but has a variant rune where the missile can be directed with the hand that cast it
+- Shield: create a single-use magical shield to block spells and projectiles
+- Return: after a timer, go back to the place where you cast the spell
+- Arcanopulse: destroy any magic object that is hit
+- Royal Fire: a throwable magic gas bomb that does damage over time within the area after a collision
+- ❇️ Reality banish: destroy any object you touch
+
+**MORTAL**
+- Hammer forge: summon a hammer that can break things and damage enemies
+- Earth wall: summon a rock wall where directed
+- Midas touch: turn what you touch into gold
+- Defy: defy gravity for a limited time
+- Metal Fan: a grabbable object that shoots spikes in a fan when released
+- ❇️ Creationist: create a placeable boulder
+
+**PLANAR**
+- Death: die
+- See Dead: see ghosts, they give hints
+- Farseer: go up really high on a spell platform, but you can’t move off of it
+- Raise skeleton: raise an enemy skeleton, that's right, not an ally
+- Sap Life: directable AoE draining sphere that matches the squared velocity of the casting hand
+- ❇️ Translocate: directable teleport spell
+
 
 
 ## Screenshots ##
