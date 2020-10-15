@@ -2476,19 +2476,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229636, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8240770, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8242978, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8271678, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
       propertyPath: m_Volume
-      value: 0.75
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa6554b008b146d88b6469bdb804e6f, type: 3}
@@ -3171,7 +3171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &116013778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21025,7 +21025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 08338c2d8f2308a409a7e5575a723f27, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: -11230.981}
+  m_Color: {r: 1, g: 1, b: 1, a: -11231.031}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   relativeWidth: 0.05
@@ -24272,7 +24272,9 @@ MonoBehaviour:
   sceneChanger: 1
   sceneName: SampleScene
   playerTriggered: 0
-  toggleObjects: []
+  onTeleport:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &729349649
 GameObject:
   m_ObjectHideFlags: 0
@@ -41206,7 +41208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 08338c2d8f2308a409a7e5575a723f27, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: -11230.981}
+  m_Color: {r: 1, g: 1, b: 1, a: -11231.031}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   relativeWidth: 0.05
@@ -51253,7 +51255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1677101785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58902,7 +58904,9 @@ MonoBehaviour:
   sceneChanger: 0
   sceneName: 
   playerTriggered: 0
-  toggleObjects: []
+  onTeleport:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1960108122
 GameObject:
   m_ObjectHideFlags: 0
@@ -68183,13 +68187,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3098350267030301601}
-  m_LocalRotation: {x: 0.00000011870513, y: 0.9063079, z: -0.42261827, w: 0.00000025456401}
+  m_LocalRotation: {x: 0.00000018975994, y: 0.7372774, z: -0.67559016, w: 0.00000020708667}
   m_LocalPosition: {x: -0, y: 0.0232, z: 0.1257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3658934811572496941}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: 179.99998, z: 0}
+  m_LocalEulerAnglesHint: {x: 85, y: 179.99998, z: 0}
 --- !u!1 &3098350267030301601
 GameObject:
   m_ObjectHideFlags: 0
@@ -75734,7 +75738,7 @@ PrefabInstance:
     - target: {fileID: 8464667460322246977, guid: cdb7afb950e7c2a48821e8e3cb18de93,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8464667460322246987, guid: cdb7afb950e7c2a48821e8e3cb18de93,
         type: 3}

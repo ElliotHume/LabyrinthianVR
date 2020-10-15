@@ -5018,7 +5018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitSound: {fileID: 8164355107825542788}
   damage: 10
-  hitTimeout: 0.2
+  hitTimeout: 0.3
   damageType: arcane
   FireSword: {fileID: 1466512764667320, guid: c3d3646a21160034081ae4ce205b8796, type: 3}
   IceSword: {fileID: 1599587151244576, guid: 0de82f2050779844e840890abdb725d4, type: 3}

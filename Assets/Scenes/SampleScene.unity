@@ -9279,7 +9279,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 164216, guid: c39c4cd0967de674eb0b5c00da3fdccd, type: 3}
       propertyPath: m_Name
-      value: SM_Env_Door_Large_Frame_02
+      value: Demo Dungeon Portal
       objectReference: {fileID: 0}
     - target: {fileID: 164216, guid: c39c4cd0967de674eb0b5c00da3fdccd, type: 3}
       propertyPath: m_StaticEditorFlags

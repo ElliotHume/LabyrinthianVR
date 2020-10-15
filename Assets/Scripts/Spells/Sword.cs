@@ -33,7 +33,7 @@ public class Sword : MonoBehaviour
                 SpellInteractable si = collision.gameObject.GetComponent<SpellInteractable>();
                 if (HitSound) HitSound.Play();
                 if (si != null) si.Trigger("sword");
-            } else if (collision.gameObject.tag == "Enemy") {
+            } else if (collision.gameObject.tag == "Enemy" || (collision.gameObject.tag == "Ghost" && (damageType == "planar" || damageType == "arcane"))) {
                 EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
                 if (HitSound) HitSound.Play();

@@ -36,7 +36,7 @@ public class DrainSphere : MonoBehaviour
     }
 
     void OnTriggerStay(Collider other) {
-        if (other.tag == "Enemy") {
+        if (other.tag == "Enemy" || other.tag == "Ghost") {
             if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
             EnemyAI enemy = other.GetComponent<EnemyAI>();
             if (enemy != null) enemy.TakeDamage("planar", damagePerTick);

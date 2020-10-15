@@ -62,7 +62,7 @@ public class MagicMissile : MonoBehaviour
                 if(s != null) s.Break();
             } else if (other.tag == "Player") {
                 if (player != null) player.GetComponent<Player>().WeaponHit(damage);
-            } else if (other.tag == "Enemy") {
+            } else if (other.tag == "Enemy" || other.tag == "Ghost") {
                 EnemyAI enemy = other.GetComponent<EnemyAI>();
                 if (enemy != null) enemy.TakeDamage("arcane", damage);
             }

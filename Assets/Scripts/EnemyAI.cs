@@ -208,6 +208,8 @@ public class EnemyAI : MonoBehaviour
     public void Enrage() {
         // If you are not currently enraging, do so
         if (!enraging) {
+            Debug.Log(gameObject+"  Is Enraging");
+
             enraging = true;
             anim.Play("Enrage");
 

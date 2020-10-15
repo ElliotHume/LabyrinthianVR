@@ -4911,7 +4911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 20
-  decayTime: 5
+  decayTime: 1
   explosionParticles: {fileID: 0}
   hitSound: {fileID: 5403026096398436400}
   mesh: {fileID: 0}
@@ -5564,7 +5564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 20
-  decayTime: 5
+  decayTime: 1
   explosionParticles: {fileID: 0}
   hitSound: {fileID: 5403026096398436400}
   mesh: {fileID: 0}
@@ -5794,7 +5794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 20
-  decayTime: 5
+  decayTime: 1
   explosionParticles: {fileID: 0}
   hitSound: {fileID: 5403026096398436400}
   mesh: {fileID: 0}
@@ -6024,7 +6024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 20
-  decayTime: 5
+  decayTime: 1
   explosionParticles: {fileID: 0}
   hitSound: {fileID: 5403026096398436400}
   mesh: {fileID: 0}
@@ -6254,7 +6254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 20
-  decayTime: 5
+  decayTime: 1
   explosionParticles: {fileID: 0}
   hitSound: {fileID: 5403026096398436400}
   mesh: {fileID: 0}
@@ -6484,7 +6484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 20
-  decayTime: 5
+  decayTime: 1
   explosionParticles: {fileID: 0}
   hitSound: {fileID: 5403026096398436400}
   mesh: {fileID: 0}
@@ -6714,7 +6714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 20
-  decayTime: 5
+  decayTime: 1
   explosionParticles: {fileID: 0}
   hitSound: {fileID: 5403026096398436400}
   mesh: {fileID: 0}

@@ -8,7 +8,7 @@ public class SpellNullifyZone : MonoBehaviour
     public AudioSource destroySound;
 
     void Start() {
-        if ( timer!= null || timer > 0f) Destroy(gameObject, timer);
+        if (timer > 0.1f) Destroy(gameObject, timer);
     }
 
     void OnTriggerEnter(Collider other) {

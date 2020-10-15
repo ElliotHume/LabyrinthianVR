@@ -37,7 +37,7 @@ public class Lightning : MonoBehaviour
                 //lineRenderer.SetPosition(1, rh.point);
                 break;
             }
-            else if (rh.collider.tag != "Player" && rh.collider.tag != "BodyPart"){
+            else if (rh.collider.tag != "Player" && rh.collider.tag != "BodyPart" && rh.collider.tag != "Ghost"){
                 // rh.collider.GetComponent<CharacterBehaviour>().TakeDamage(damage);
                 // rh.collider.GetComponent<CharacterBehaviour>().TargetShowDamageEffects(rh.collider.GetComponent<NetworkIdentity>().connectionToClient);
                 endPos = rh.point;
