@@ -20,10 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlanarZone0.unity
     guid: 6c562a60c4fa28647bc94f2c7ba7d169
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/ArcaneZone0.unity
     guid: 7cb282abd07306544bbfd0c58395f2d7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DemoDungeon.unity
     guid: 030a249fbc1c2e04b9e430ca20f9f395
   m_configObjects:

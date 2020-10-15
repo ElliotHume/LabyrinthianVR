@@ -37,7 +37,7 @@ public class EnemyAI : MonoBehaviour
 
     //States
     public float sightRange = 10f, attackRange = 3f, startSpeed;
-    bool targetInSightRange, targetInAttackRange, canSeeTarget, idling, walking = false, inCombat = false, slowed = false;
+    bool targetInSightRange, targetInAttackRange, canSeeTarget, idling, walking = false, inCombat = false, slowed = false, stopped = false;
 
     // Enemy Specific
     public string weakness;
@@ -157,7 +157,7 @@ public class EnemyAI : MonoBehaviour
         transform.LookAt(new Vector3 (playerPos.x, transform.position.y, playerPos.z));
 
         // If you are not currently attacking, attack target
-        if (!alreadyAttacked && !enraging) {
+        if (!alreadyAttacked && !enraging && !stopped) {
             anim.SetTrigger("Attack");
             alreadyAttacked = true;
 
@@ -178,7 +178,7 @@ public class EnemyAI : MonoBehaviour
         if (damage >= 5) {
             // Interrupt any attack
             if (weapon != null && alreadyAttacked) weapon.Interrupt();
-
+            stopped = true;
 
             anim.SetTrigger("TakeDamage");
             if (hitSound) {
@@ -243,6 +243,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     void ResumeMovement() {
+        stopped = false;
         agent.speed = startSpeed;
         slowed = false;
     }
