@@ -31980,7 +31980,11 @@ MonoBehaviour:
   damage: 20
   particles: []
   prefab: {fileID: 705728218406855877, guid: 59abdcbecfe307f468f454a9ba7de3de, type: 3}
-  anchors: []
+  anchors:
+  - {fileID: 6600506891409142125}
+  - {fileID: 8508455841910797044}
+  - {fileID: 3683865339379129223}
+  parentPrefab: 0
   fireDelay: 0.2
 --- !u!82 &5802812359276102873
 AudioSource:
