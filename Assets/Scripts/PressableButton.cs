@@ -11,7 +11,7 @@ public class PressableButton : XRBaseInteractable
     private bool prevPress = false;
     private XRBaseInteractor hoverInteractor;
     private float prevHandHeight = 0f;
-    private float yMin, yMax = 0f;
+    private float yMin, yMax = 0f, timeout;
 
 
     // Start is called before the first frame update
@@ -82,13 +82,26 @@ public class PressableButton : XRBaseInteractable
 
     void CheckPress() {
         bool inPosition = InPosition();
-        if (inPosition && inPosition != prevPress)
+        if (inPosition && inPosition != prevPress && timeout == 0f) {
             OnPress.Invoke();
+            timeout = 0.5f;
+        }
         prevPress = inPosition;
     }
 
     bool InPosition() {
         float inRange = Mathf.Clamp(transform.localPosition.y, yMin, yMin+0.01f);
         return transform.localPosition.y == inRange;
+    }
+
+    IEnumerator TimeoutTimer() {
+        while (true) {
+            if (timeout > 0f) {
+                yield return new WaitForSeconds(timeout);
+                timeout = 0f;
+            }
+            
+            yield return new WaitForFixedUpdate();
+        }
     }
 }
