@@ -40,6 +40,9 @@ public class Hammer : MonoBehaviour
                 if (HitSound) HitSound.Play();
             }
 
+            Rigidbody r = collision.gameObject.GetComponent<Rigidbody>();
+            if (r != null) r.AddExplosionForce(10f, transform.position, 1f);
+
             onHitTimeout = true;
         }
     }

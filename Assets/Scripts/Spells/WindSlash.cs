@@ -38,8 +38,8 @@ public class WindSlash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Should counter gravity so that the player can cross gaps
-        Vector3 gravity = new Vector3(0, Physics.gravity.y * Time.deltaTime, 0);
+        // Should counter gravity if airborne so that the player can cross gaps
+        Vector3 gravity = characterController.isGrounded ? Vector3.zero : new Vector3(0, Physics.gravity.y * Time.deltaTime, 0);
 
         if (characterController != null) {
             characterController.Move((direction * Time.deltaTime * speed) - gravity );

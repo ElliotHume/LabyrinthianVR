@@ -45,6 +45,9 @@ public class FireballExplosion : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null) player.WeaponHit(damage);
         }
+
+        Rigidbody r = other.GetComponent<Rigidbody>();
+        if (r != null) r.AddExplosionForce(10f, transform.position, 1f);
     }
 }
 

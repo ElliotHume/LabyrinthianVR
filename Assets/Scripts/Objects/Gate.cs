@@ -76,8 +76,6 @@ public class Gate : MonoBehaviour
 
     IEnumerator TimeToggle(float duration) {
         yield return new WaitForSeconds(duration);
-        
-        
         if (doneMoving) {
             Debug.Log("Toggling gate: "+gameObject.name);
             doneMoving = false;
