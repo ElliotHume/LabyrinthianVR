@@ -9,8 +9,8 @@ using UnityEngine.SceneManagement;
 public class AdvancedDrawingPlane : MonoBehaviour
 {
     public string handName;
-    public GameObject hand;
-    public Camera playerCamera;
+    public GameObject hand, playerGO;
+    public CharacterController playerController;
     public GlyphDrawInput glyphDrawInput;
     public GlyphRecognition glyphRecognition;
     public Player player;
@@ -32,6 +32,8 @@ public class AdvancedDrawingPlane : MonoBehaviour
     {
         //DontDestroyOnLoad(gameObject);
         if (player == null) player = GameObject.Find("XR Rig").GetComponent<Player>();
+        if (playerGO == null ) playerGO = GameObject.Find("XR Rig");
+        if (playerController == null) playerController = GameObject.Find("XR Rig").GetComponent<CharacterController>();
         meshRenderer = GetComponent<MeshRenderer>();
         interactor = hand.GetComponent<XRDirectInteractor>();
         boxCollider = GetComponent<BoxCollider>();
@@ -40,10 +42,12 @@ public class AdvancedDrawingPlane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!playerCamera) playerCamera = Camera.main;
+        // Get player controller position in worldspace
+        Vector3 playerPos = playerGO.transform.TransformPoint(playerController.center);
 
         if (!CheckIfActivated()) {
-            transform.LookAt((hand.transform.position + playerCamera.transform.position) / 2);
+            transform.LookAt((hand.transform.position + (playerPos + (Vector3.up * 0.3f))) /2f);
+            // transform.LookAt(playerPos);
             transform.position = hand.transform.position + (planeOffsetForward * hand.transform.forward);
             if (visible) {
                 boxCollider.enabled = false;

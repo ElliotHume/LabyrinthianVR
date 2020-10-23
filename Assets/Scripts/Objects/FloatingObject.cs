@@ -26,4 +26,9 @@ public class FloatingObject : MonoBehaviour
             transform.position = new Vector3(transform.position.x, newY, transform.position.z) ;
         }
     }
+
+    public void StartMoving() {
+        bobs = true;
+        rotates = true;
+    }
 }

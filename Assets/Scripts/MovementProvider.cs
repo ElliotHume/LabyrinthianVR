@@ -140,7 +140,7 @@ public class MovementProvider : LocomotionProvider
         //     print(c.gameObject + "    Position:   " + c.gameObject.transform.position);
         // }
 
-        return false;
+        return (movement.magnitude * Time.deltaTime > 0.01f);
     }
 
     private void ApplyGravity() {

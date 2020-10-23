@@ -24,15 +24,17 @@ public class DrainSphere : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get velocity of the casting hand
-        Vector3 handVelocity = (hand.transform.position - prevHandLocation) / Time.deltaTime;
-        Vector3 absoluteVelocity = new Vector3( Mathf.Abs(handVelocity.x), Mathf.Abs(handVelocity.y), Mathf.Abs(handVelocity.z));
-        // square the velocity, so fast movements are more impactful and slow sweeps will not move the sphere as much
-        moveDirection += Vector3.Scale(handVelocity, absoluteVelocity) / 10f;
+        if (hand != null) {
+            // Get velocity of the casting hand
+            Vector3 handVelocity = (hand.transform.position - prevHandLocation) / Time.deltaTime;
+            Vector3 absoluteVelocity = new Vector3( Mathf.Abs(handVelocity.x), Mathf.Abs(handVelocity.y), Mathf.Abs(handVelocity.z));
+            // square the velocity, so fast movements are more impactful and slow sweeps will not move the sphere as much
+            moveDirection += Vector3.Scale(handVelocity, absoluteVelocity) / 10f;
 
-        transform.position += moveDirection * speed * Time.deltaTime;
+            transform.position += moveDirection * speed * Time.deltaTime;
 
-        prevHandLocation = hand.transform.position;
+            prevHandLocation = hand.transform.position;
+        }
     }
 
     void OnTriggerStay(Collider other) {
