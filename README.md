@@ -75,7 +75,7 @@ If you plan on playing the game, please don't read this ツ so much fun is in th
 
 
 ## Screenshots ##
-![Starting room of the Labyrinth](Images/FirstZone2.PNG)
+![Redesigned starting room of the Labyrinth](Images/Zone0.PNG)
 ![First zone of the Elemental Path](Images/ElementalZone0.PNG)
 ![Table of Spells](Images/Spell.PNG)
 ![First zone of the Arcane Path](Images/ArcaneZone0N.PNG)
