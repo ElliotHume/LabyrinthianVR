@@ -117,6 +117,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("space")) {
+            Instantiate(fireball, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        }
         
         if (!rightHandRenderer) {
             try {

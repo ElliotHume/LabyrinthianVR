@@ -4958,6 +4958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  explosionForce: 1500
   ownerGO: {fileID: 0}
 --- !u!82 &-8902624909664388898
 AudioSource:
@@ -5015,7 +5016,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.75
+      value: 0.85
       inSlope: 0
       outSlope: 0
       tangentMode: 0

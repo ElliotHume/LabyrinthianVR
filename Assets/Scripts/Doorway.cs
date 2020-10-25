@@ -36,21 +36,25 @@ public class Doorway : MonoBehaviour
     }
 
     IEnumerator OpenDoors() {
+        print("opening");
         moving = true;
         var t = 0f;
         if (openSound != null) openSound.Play();
         if (dcoll != null) dcoll.enabled = false;
         while(t < 1f){
             t += Time.deltaTime / openDuration;
-            ldoor.transform.rotation = Quaternion.Lerp(ldoor.transform.rotation, lEndRotation, t);
-            rdoor.transform.rotation = Quaternion.Lerp(rdoor.transform.rotation, rEndRotation, t);
+            ldoor.transform.localRotation = Quaternion.Lerp(ldoor.transform.localRotation, lEndRotation, t);
+            rdoor.transform.localRotation = Quaternion.Lerp(rdoor.transform.localRotation, rEndRotation, t);
+            print(ldoor.transform.localRotation.eulerAngles+ "      "+lEndRotation.eulerAngles+"        "+t);
             yield return new WaitForFixedUpdate();
         }
+        print("done opening");
         opened = true;
         moving = false;
     }
 
     IEnumerator CloseDoors(){
+        print("closing");
         moving = true;
         var t = 0f;
         if (closeSound != null) closeSound.Play();

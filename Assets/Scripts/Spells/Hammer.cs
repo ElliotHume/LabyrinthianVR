@@ -41,7 +41,7 @@ public class Hammer : MonoBehaviour
             }
 
             Rigidbody r = collision.gameObject.GetComponent<Rigidbody>();
-            if (r != null) r.AddExplosionForce(10f, transform.position, 1f);
+            if (r != null) r.AddExplosionForce(1500f, transform.position, 1f);
 
             onHitTimeout = true;
         }

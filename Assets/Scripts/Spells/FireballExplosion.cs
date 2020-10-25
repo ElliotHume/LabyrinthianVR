@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FireballExplosion : MonoBehaviour
 {
-    public float damage = 25;
+    public float damage = 25, explosionForce = 100f;
     public GameObject ownerGO;
 
     
@@ -47,7 +47,7 @@ public class FireballExplosion : MonoBehaviour
         }
 
         Rigidbody r = other.GetComponent<Rigidbody>();
-        if (r != null) r.AddExplosionForce(10f, transform.position, 1f);
+        if (r != null) r.AddExplosionForce(explosionForce, transform.position, 2f);
     }
 }
 

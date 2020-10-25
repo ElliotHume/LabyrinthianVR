@@ -20,10 +20,22 @@ public class PressableButton : XRBaseInteractable
         SetMinMax();
     }
 
-    // Update is called once per frame
+    // //Update is called once per frame
     // void Update()
     // {
-        
+    //     if (Input.GetMouseButtonDown(0)) {
+    //         RaycastHit  hit;
+    //         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                
+    //         if (Physics.Raycast(ray, out hit)) {
+    //             if (hit.transform.name == gameObject.name ) {
+    //                 print( "My object is clicked by mouse");
+    //                 OnPress.Invoke();
+    //             } else {
+    //                 print(hit.transform.name);
+    //             }
+    //         }
+    //     }
     // }
 
     
@@ -100,7 +112,6 @@ public class PressableButton : XRBaseInteractable
                 yield return new WaitForSeconds(timeout);
                 timeout = 0f;
             }
-            
             yield return new WaitForFixedUpdate();
         }
     }

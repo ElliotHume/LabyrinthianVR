@@ -46,6 +46,10 @@ public class DrainSphere : MonoBehaviour
             if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
             Player player = other.gameObject.GetComponent<Player>();
             if (player != null) player.WeaponHit(damagePerTick);
+        } else if (other.tag == "Spell_Interactable") {
+            SpellInteractable si = other.gameObject.GetComponent<SpellInteractable>();
+            if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
+            if (si != null) si.Trigger("drainsphere");
         }
     }
 }

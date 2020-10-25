@@ -24,6 +24,9 @@ public class Marker : MonoBehaviour
             active = false;
             GetComponent<Rigidbody>().detectCollisions = false;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            SpellInteractable s = other.gameObject.GetComponent<SpellInteractable>();
+            if (s != null ) s.Trigger("marker");
         }
     }
 }
