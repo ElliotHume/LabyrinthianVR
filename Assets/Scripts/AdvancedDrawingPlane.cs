@@ -43,10 +43,10 @@ public class AdvancedDrawingPlane : MonoBehaviour
     void Update()
     {
         // Get player controller position in worldspace
-        Vector3 playerPos = playerGO.transform.TransformPoint(playerController.center);
+        Vector3 playerPos = playerGO.transform.TransformPoint(playerController.center + new Vector3(0f, playerController.height / 2f, 0));
 
         if (!CheckIfActivated()) {
-            transform.LookAt((hand.transform.position + (playerPos + (Vector3.up * 0.3f))) /2f);
+            transform.LookAt((hand.transform.position + (playerPos)) /2f);
             // transform.LookAt(playerPos);
             transform.position = hand.transform.position + (planeOffsetForward * hand.transform.forward);
             if (visible) {
