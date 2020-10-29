@@ -3234,7 +3234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handName: right
   hand: {fileID: 8464667461127745514}
-  playerCamera: {fileID: 1687258584}
+  playerGO: {fileID: 0}
+  playerController: {fileID: 0}
   glyphDrawInput: {fileID: 1301843703}
   glyphRecognition: {fileID: 1301843699}
   player: {fileID: 1342402217}
@@ -21875,7 +21876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 08338c2d8f2308a409a7e5575a723f27, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: -11376.08}
+  m_Color: {r: 1, g: 1, b: 1, a: -11378.267}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   relativeWidth: 0.05
@@ -41999,7 +42000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 08338c2d8f2308a409a7e5575a723f27, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: -11376.08}
+  m_Color: {r: 1, g: 1, b: 1, a: -11378.267}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   relativeWidth: 0.05
@@ -52529,7 +52530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handName: left
   hand: {fileID: 8464667461127745516}
-  playerCamera: {fileID: 1687258584}
+  playerGO: {fileID: 0}
+  playerController: {fileID: 0}
   glyphDrawInput: {fileID: 285997797}
   glyphRecognition: {fileID: 285997793}
   player: {fileID: 1342402217}
@@ -68083,6 +68085,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 158014385}
     m_Modifications:
+    - target: {fileID: 398031793958628489, guid: 85b1b7f2ff01f2d47baa0f6e8507f628,
+        type: 3}
+      propertyPath: m_Name
+      value: LightningSpellSocketwParticle
+      objectReference: {fileID: 0}
     - target: {fileID: 398031794369888745, guid: 85b1b7f2ff01f2d47baa0f6e8507f628,
         type: 3}
       propertyPath: m_Name
@@ -68165,6 +68172,18 @@ PrefabInstance:
       objectReference: {fileID: 1687258584}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85b1b7f2ff01f2d47baa0f6e8507f628, type: 3}
+--- !u!114 &1736746301378182761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8550078225600338151, guid: 85b1b7f2ff01f2d47baa0f6e8507f628,
+    type: 3}
+  m_PrefabInstance: {fileID: 1736746301378182760}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8d0d0c30ccecb478d96daf344a08ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1740252007405462869
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -77690,6 +77709,90 @@ Transform:
   m_Father: {fileID: 2973740624383172862}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -42.27, z: 0}
+--- !u!1001 &7854642296942251545
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3154603971791998354}
+    m_Modifications:
+    - target: {fileID: 1769621031496868837, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1687258584}
+    - target: {fileID: 4998989047244936978, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_Name
+      value: LightningSpellSocketwParticle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998989047244936978, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287929351950607617, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8651694503570672483, guid: 1ec9b9cc80bcddf4db0ae9937e55916a,
+        type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1736746301378182761}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ec9b9cc80bcddf4db0ae9937e55916a, type: 3}
 --- !u!4 &7858697619166871991
 Transform:
   m_ObjectHideFlags: 0
