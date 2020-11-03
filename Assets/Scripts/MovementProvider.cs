@@ -18,6 +18,7 @@ public class MovementProvider : LocomotionProvider
     Vector3 oldPos;
     public float MaxSpeed=6f;
     public float MaxFOV=0.7f;
+    public AudioSource footsteps;
     float currentFOVIntensity = 0f;
 
     protected override void Awake()
@@ -76,6 +77,11 @@ public class MovementProvider : LocomotionProvider
             if(controller.enableInputActions && !movedThisUpdate) {
                 movedThisUpdate = CheckForMovement(controller.inputDevice);
             }
+        }
+        if (movedThisUpdate) {
+            if (!footsteps.isPlaying) footsteps.Play();
+        } else {
+            footsteps.Stop();
         }
     }
 

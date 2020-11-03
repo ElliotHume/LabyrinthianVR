@@ -119,6 +119,12 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown("space")) {
             Instantiate(fireball, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } else if (Input.GetKeyDown("e")) {
+            Instantiate(arcanePulse, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } else if (Input.GetKeyDown("q")) {
+            Instantiate(hammer, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } else if (Input.GetKeyDown("r")) {
+            Instantiate(drainSphere, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         }
         
         if (!rightHandRenderer) {

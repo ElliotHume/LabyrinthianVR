@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Zone0.unity
+    guid: bb208091398037245a270ca85d814157
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 0
@@ -26,9 +29,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DemoDungeon.unity
     guid: 030a249fbc1c2e04b9e430ca20f9f395
-  - enabled: 1
-    path: Assets/Scenes/Zone0.unity
-    guid: bb208091398037245a270ca85d814157
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 534bcd331d56cad499426244845cdfa6,
       type: 2}
