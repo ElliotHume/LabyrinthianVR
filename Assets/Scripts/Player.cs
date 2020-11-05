@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
 
     private Dictionary<string, Color> handColours = new Dictionary<string, Color>();
     bool flight1=false, flight2=false, flightTimerRunning=false;
+    float spellAccuracy = 0.5f;
 
     private PlayerManager playerManager;
 
@@ -117,6 +118,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Debug Stuff
         if (Input.GetKeyDown("space")) {
             Instantiate(fireball, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("e")) {
@@ -125,8 +127,18 @@ public class Player : MonoBehaviour
             Instantiate(hammer, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("r")) {
             Instantiate(drainSphere, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } if (Input.GetKeyDown("3")) {
+            ReleaseSpellCast("right");
         }
-        
+    }
+
+    void FixedUpdate() {
+        if (rightHandController == null) {
+            rightHandController = rightHand.GetComponent<XRController>();
+        }
+        if (leftHandController == null) {
+            leftHandController = leftHand.GetComponent<XRController>();
+        }
         if (!rightHandRenderer) {
             try {
                 rightHandRenderer = GameObject.Find("hands:Rhand").GetComponent<SkinnedMeshRenderer>();
@@ -147,23 +159,13 @@ public class Player : MonoBehaviour
         if (!drawingAnchor) {
             drawingAnchor = GameObject.Find("DrawingAnchor");
         }
-    }
-
-    void FixedUpdate() {
-        if (rightHandController == null) {
-            rightHandController = rightHand.GetComponent<XRController>();
-        }
-
-        if (leftHandController == null) {
-            leftHandController = leftHand.GetComponent<XRController>();
-        }
 
         if (rightHandSpell != null && rightHandSpell != "") {
-            rightHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.1f);
+            rightHandController.SendHapticImpulse(spellAccuracy, 0.1f);
         }
 
         if (leftHandSpell != null && leftHandSpell != "") {
-            leftHandController.inputDevice.SendHapticImpulse(0, 0.5f, 0.1f);
+            leftHandController.SendHapticImpulse(spellAccuracy, 0.1f);
         }
     }
 
@@ -366,12 +368,25 @@ public class Player : MonoBehaviour
             --------------------------------------------------------------------------------------------------------
                 -------------------------------------------------------------------------------------------------------- */
 
-    public void PrepareSpell(string spell, string hand) {
+    public void PrepareSpell(string spell, string hand, float accuracy) {
         if (hand == "right") {
             rightHandSpell = spell;
         } else {
             leftHandSpell = spell;
         }
+
+        // Round accuracy results for more consistent spell scaling effects
+        print("Accuracy: "+accuracy);
+        if (accuracy >= 0.74f) {
+            accuracy = 1f;
+        } else if (accuracy >= 0.64f) {
+            accuracy = 0.75f;
+        } else if (accuracy >= 0.44f ) {
+            accuracy = 0.5f;
+        }
+
+        spellAccuracy = accuracy;
+
         ToggleSpellParticles((hand=="right"), spell);
         SetHandGlow(spell, hand);
     }
@@ -381,6 +396,7 @@ public class Player : MonoBehaviour
     //  ------------- FIREBALL ------------------
     public void CastHeldFireball(GameObject castingHand) {
         GameObject newFireball = Instantiate(fireball, castingHand.transform.position, castingHand.transform.rotation);
+        newFireball.GetComponent<Fireball>().Scale(spellAccuracy);
     }
 
 
@@ -483,15 +499,7 @@ public class Player : MonoBehaviour
 
     //  ------------- ROYAL FIRE ------------------
     public void CastHeldRoyalFire(GameObject castingHand){
-        GameObject newRoyalFireball = Instantiate(royalFireball, castingHand.transform.position + (castingHand.transform.forward * 0.5f), transform.rotation);
-        // // Get position of the casting projectile ray target hit
-        // RaycastHit raycastHit;
-        // Vector3 target = castingHand.transform.position + ( 50f * castingHand.transform.forward );
-        // if( Physics.Raycast( castingHand.transform.position, castingHand.transform.forward, out raycastHit, 50f ) ) {
-        //     target = raycastHit.point;
-        // }
-
-        // newRoyalFireball.GetComponent<Royalfireball>().SetTarget(target);
+        GameObject newRoyalFireball = Instantiate(royalFireball, castingHand.transform.position + (castingHand.transform.forward * 0.3f), transform.rotation);
     }
 
 
@@ -504,6 +512,7 @@ public class Player : MonoBehaviour
     //  ------------- Magic Missile ------------------
     public void CastHeldMagicMissile(GameObject castingHand, bool directed){
         GameObject newMagicMissile = Instantiate(magicMissile, castingHand.transform.position, castingHand.transform.rotation);
+        newMagicMissile.GetComponent<MagicMissile>().Scale(spellAccuracy);
         if (directed) newMagicMissile.GetComponent<MagicMissile>().LinkCastingHand(castingHand);
     }
 
@@ -730,9 +739,9 @@ public class Player : MonoBehaviour
     public void CastFizzle(string hand)
     {
         if (hand =="right") {
-            Instantiate(fizzle, new Vector3(rightHand.transform.position.x, 0f, rightHand.transform.position.z), transform.rotation);
+            Instantiate(fizzle, rightHand.transform.position, rightHand.transform.rotation);
         } else {
-            Instantiate(fizzle, new Vector3(leftHand.transform.position.x, 0f, leftHand.transform.position.z), transform.rotation);
+            Instantiate(fizzle, leftHand.transform.position, leftHand.transform.rotation);
         }
     }
 }

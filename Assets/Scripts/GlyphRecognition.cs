@@ -14,7 +14,7 @@ public class GlyphRecognition : MonoBehaviour {
 
 	public StrokeGraphic targetGlyphGraphic, castedGlyphGraphic, currentGlyphGraphic, currentStrokeGraphic, storedGlyphGraphic;
 
-	float costThreshold = 0.2f;
+	float costThreshold = 0.175f;
 	public float CostThreshold {get{ return costThreshold; } set{
 		costThreshold = value;
 		//Debug.Log(value);
@@ -68,6 +68,12 @@ public class GlyphRecognition : MonoBehaviour {
 				//Debug.Log("Cannot find player for Glyph Recognition");
 			}
 		}	
+
+		if (Input.GetKey("1")) {
+            Cast();
+        } else if (Input.GetKey("tab")) {
+            glyphInput.EndCustomDrag(glyphInput.GetPrevPos());
+        }
 	}
 
 	public void InitCleanScreen(){
@@ -139,12 +145,14 @@ public class GlyphRecognition : MonoBehaviour {
 		targetGlyphGraphic.color = new Color(1f, 1f, 1f, 1f);
 
 		Clear(currentGlyphGraphic);
-		// if (match != null) {
-		// 	Debug.Log(match.Cost);
-		// }
+		if (match != null) {
+			Debug.Log(match.Cost);
+		}
 		if (match == null || match.Cost > costThreshold) {
 			Clear(targetGlyphGraphic);
 			Clear(castedGlyphGraphic);
+			if (match != null) print("Error cost too high");
+			player.CastFizzle(hand);
 			return;
 		}
 		
@@ -155,7 +163,7 @@ public class GlyphRecognition : MonoBehaviour {
 		try {
 			StartCoroutine(Morph(match));
 			// glyphColours[match.target.ToString()])
-			player.PrepareSpell(match.target.ToString(), hand);
+			player.PrepareSpell(match.target.ToString(), hand, 1f - match.Cost/costThreshold);
 		}
 		catch (System.Exception e) {
 			Debug.LogError("Glyph recognition " + e + " occured. Clearing strokes.");

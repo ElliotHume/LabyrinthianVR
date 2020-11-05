@@ -43,6 +43,12 @@ public class MagicMissile : MonoBehaviour
         hand = castingHand;
     }
 
+    public void Scale(float scale) {
+        float scaleFactor = 0.6f + 0.8f*scale;
+        speed *= scaleFactor;
+        transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+    }
+
     void OnTriggerEnter(Collider other) {
         if (other.tag != "Player" || canHitPlayer) {
             //print("MagicMissile hit: " + other.ToString());

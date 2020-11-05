@@ -89,10 +89,4 @@ public class Lightning : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

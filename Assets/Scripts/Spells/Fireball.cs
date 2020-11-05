@@ -7,7 +7,7 @@ public class Fireball : MonoBehaviour
 {
 
     private bool targetPlayer;
-    public float damage=10f, speed;
+    public float speed;
     public bool canHitPlayer = false;
     GameObject player;
     CharacterController playerController;
@@ -33,6 +33,10 @@ public class Fireball : MonoBehaviour
         playerController = player.GetComponent<CharacterController>();
     }
 
+    public void Scale(float scale){
+        float scaleFactor = 0.4f + 0.8f*scale;
+        transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+    }
 
     void OnTriggerEnter(Collider other) {
         if (other.tag !=  "NullZone" && other.tag != "Ghost" && ((other.tag != "BodyPart" && other.tag != "Player" && other.tag != "Weapon") || canHitPlayer)) {

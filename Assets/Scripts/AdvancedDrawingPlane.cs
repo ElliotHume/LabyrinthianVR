@@ -24,7 +24,7 @@ public class AdvancedDrawingPlane : MonoBehaviour
     MeshRenderer meshRenderer;
     XRDirectInteractor interactor;
     BoxCollider boxCollider;
-    bool visible = false;
+    bool visible = false, forceVisible = false;
 
 
     // Start is called before the first frame update
@@ -49,7 +49,7 @@ public class AdvancedDrawingPlane : MonoBehaviour
             transform.LookAt((hand.transform.position + (playerPos)) /2f);
             // transform.LookAt(playerPos);
             transform.position = hand.transform.position + (planeOffsetForward * hand.transform.forward);
-            if (visible) {
+            if (visible && !forceVisible) {
                 boxCollider.enabled = false;
                 meshRenderer.enabled = false;  
                 visible = false;
@@ -62,6 +62,17 @@ public class AdvancedDrawingPlane : MonoBehaviour
                 visible = true;
                 if (edgeParticles) edgeParticles.Play();
             }
+        }
+
+        if (Input.GetKeyDown("4")) {
+            planeOffsetForward += 0.5f;
+            forceVisible = true;
+            boxCollider.enabled = true;
+            meshRenderer.enabled = true;
+            visible = true;
+            if (edgeParticles) edgeParticles.Play();
+        } else if (Input.GetKeyDown("5")) {
+            planeOffsetForward -= 0.1f;
         }
     }
 

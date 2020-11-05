@@ -13,7 +13,7 @@ public class HandLinkPuzzle : MonoBehaviour
     public UnityEvent onComplete;
 
     Rigidbody l_object_rb, r_object_rb;
-    float error_tolerance = 0.2f;
+    float error_tolerance = 1f;
     bool goalZoneIn = false, secondGoalZoneIn = false;
     Vector3 prevLHandPos = Vector3.zero, prevRHandPos = Vector3.zero;
 

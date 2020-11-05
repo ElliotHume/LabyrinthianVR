@@ -195,6 +195,7 @@ namespace AdVd.GlyphRecognition
 		}
 
 		Vector2 prevPos;
+		public Vector2 GetPrevPos() { return prevPos; }
 		bool RectEventPoint(Vector2 position, Camera pressEventCamera, out Vector2 localPoint){
 			RectTransform rt =  transform as RectTransform;
 			Rect r = rt.rect;
@@ -209,10 +210,10 @@ namespace AdVd.GlyphRecognition
 
 		public void OnBeginDrag (PointerEventData eventData)
 		{
-			//if (eventData.button!=PointerEventData.InputButton.Left) return;
+			if (eventData.button!=PointerEventData.InputButton.Left) return;
 			stroke=new List<Vector2>();
 			Vector2 localPoint;
-			//Debug.Log("Begin Drag");
+			Debug.Log("Begin Drag");
 			if (RectEventPoint(eventData.pressPosition, eventData.pressEventCamera, out localPoint)){
 				stroke.Add (prevPos=localPoint);
 				//Debug.Log("stroke added: "+localPoint.ToString());
@@ -226,7 +227,7 @@ namespace AdVd.GlyphRecognition
 
 		public void OnDrag (PointerEventData eventData)
 		{
-			//if (eventData.button!=PointerEventData.InputButton.Left) return;
+			if (eventData.button!=PointerEventData.InputButton.Left) return;
 			if (stroke!=null){
 				Vector2 currPos;
 				if (RectEventPoint(eventData.position, eventData.pressEventCamera, out currPos)){
@@ -262,9 +263,9 @@ namespace AdVd.GlyphRecognition
 
 		public void OnEndDrag (PointerEventData eventData)
 		{
-			//if (eventData.button!=PointerEventData.InputButton.Left) return;
+			if (eventData.button!=PointerEventData.InputButton.Left) return;
 			if (stroke!=null){
-				//Debug.Log("End Drag");
+				Debug.Log("End Drag");
 				if (stroke.Count<2){
 					stroke=null; 
 					if (OnPointDraw!=null) OnPointDraw(null);
@@ -275,7 +276,7 @@ namespace AdVd.GlyphRecognition
 				if (strokeList==null) strokeList=new List<Stroke>();
 				Stroke newStroke=new Stroke(stroke.ToArray());
 				strokeList.Add(newStroke);
-				//Debug.Log("StrokeList:   "+ strokeList);
+				Debug.Log("StrokeList:   "+ strokeList);
 				stroke=null;
 				if (OnStrokeDraw!=null) OnStrokeDraw(strokeList.ToArray());
 			} else {

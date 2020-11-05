@@ -1413,6 +1413,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4509454227241611164, guid: c3d3646a21160034081ae4ce205b8796,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3d3646a21160034081ae4ce205b8796, type: 3}
 --- !u!1001 &72876158
@@ -5271,6 +5276,11 @@ PrefabInstance:
     - target: {fileID: 4584229113192832, guid: a81125569266fd748ae453657259a0d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2311123420876794115, guid: a81125569266fd748ae453657259a0d7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a81125569266fd748ae453657259a0d7, type: 3}
@@ -11767,6 +11777,11 @@ PrefabInstance:
     - target: {fileID: 4389986547924232, guid: 8b5a478f9faf42f40b71f6a836f2db3b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443679064611248275, guid: 8b5a478f9faf42f40b71f6a836f2db3b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b5a478f9faf42f40b71f6a836f2db3b, type: 3}
@@ -25447,6 +25462,11 @@ PrefabInstance:
     - target: {fileID: 4532978935020594, guid: c30fcbe73b9f9d543998f5e784be6273, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803501025786652561, guid: c30fcbe73b9f9d543998f5e784be6273,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c30fcbe73b9f9d543998f5e784be6273, type: 3}

@@ -20,11 +20,6 @@ public class FireballExplosion : MonoBehaviour
         ownerGO = go;
         if (playerOwned) GetComponent<SphereCollider>().radius += 1f;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //Server call only, no call on client.
     //ServerCallback is similar to Server but doesn't generate a warning when called on client.

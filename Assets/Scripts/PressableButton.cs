@@ -18,6 +18,7 @@ public class PressableButton : XRBaseInteractable
     void Start()
     {
         SetMinMax();
+        StartCoroutine(TimeoutTimer());
     }
 
     // //Update is called once per frame

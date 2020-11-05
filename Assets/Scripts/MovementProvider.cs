@@ -103,6 +103,10 @@ public class MovementProvider : LocomotionProvider
             StartMove(new Vector3(0.5f, 0f, 0f));
         } else if (Input.GetKey("down")) {
             StartMove(new Vector3(-0.5f, 0f, 0f));
+        } else if (Input.GetKey("right")) {
+            StartMove(new Vector3(0f, 0f, 0.5f));
+        } else if (Input.GetKey("left")) {
+            StartMove(new Vector3(0f, 0f, -0.5f));
         }
 
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 position)) {
