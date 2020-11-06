@@ -512,7 +512,7 @@ public class Player : MonoBehaviour
     //  ------------- Magic Missile ------------------
     public void CastHeldMagicMissile(GameObject castingHand, bool directed){
         GameObject newMagicMissile = Instantiate(magicMissile, castingHand.transform.position, castingHand.transform.rotation);
-        newMagicMissile.GetComponent<MagicMissile>().Scale(spellAccuracy);
+        // TODO newMagicMissile.GetComponent<MagicMissile>().Scale(spellAccuracy);
         if (directed) newMagicMissile.GetComponent<MagicMissile>().LinkCastingHand(castingHand);
     }
 

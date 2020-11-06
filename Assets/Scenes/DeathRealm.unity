@@ -33903,7 +33903,7 @@ MonoBehaviour:
   player: {fileID: 1342402214}
   teleportAnchor: {fileID: 0}
   sceneChanger: 1
-  sceneName: SampleScene
+  sceneName: Zone0
   playerTriggered: 1
   onTeleport:
     m_PersistentCalls:
