@@ -79,7 +79,7 @@ If you plan on playing the game, please don't read this ツ so much fun is in th
 ![First zone of the Elemental Path](Images/ElementalZone0.PNG)
 ![Table of Spells](Images/Spell.PNG)
 ![First zone of the Arcane Path](Images/ArcaneZone0N.PNG)
-![Battlegrounds](Images/Battlegrounds.PNG)
+![Battlegrounds](Images/BattlegroundsV2.PNG)
 
 ### WIP zones: ###
 ![First zone of the Mortal Path](Images/MortalZone0.PNG)
