@@ -20,6 +20,6 @@ public class CustomEventListener : MonoBehaviour
     }
 
     public void Deactivate() {
-        events -= 1;
+        if ( events > 0) events -= 1;
     }
 }
