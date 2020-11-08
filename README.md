@@ -3,8 +3,8 @@
 #### “Knowledge comes at a price of skill, no information is given to the unworthy” ####
 
 ----
-
-### [Early Demo video! [Outdated levels]](https://drive.google.com/file/d/1xJ_BES61z12q9RlTr7zKJVLLXFjpBsIf/view?usp=sharing) ###
+### [Demo experience video [New level design!]](https://drive.google.com/file/d/16uk-74uikTGIiiO71wLbk3n_y62xsisW/view?usp=sharing) ###
+### [Early development video! [Outdated levels]](https://drive.google.com/file/d/1xJ_BES61z12q9RlTr7zKJVLLXFjpBsIf/view?usp=sharing) ###
 ### [First look at Combat](https://drive.google.com/file/d/1BV1-XuEmsrxDXvtg4RC3rzKAzQFefZKq/view?usp=sharing) ###
 ### [Video walkthrough of the first two levels](https://drive.google.com/file/d/1mNEqmbB7N3NgcfvjMQDKSJ-hcn0eGVX3/view?usp=sharing) ###
 ### [Spellcasting demo](https://drive.google.com/file/d/1jE3I2p1PMfhViooRWt6XInkQ_wLuQmcu/view?usp=sharing) ###
@@ -79,7 +79,7 @@ If you plan on playing the game, please don't read this ツ so much fun is in th
 ![First zone of the Elemental Path](Images/ElementalZone0.PNG)
 ![Table of Spells](Images/Spell.PNG)
 ![First zone of the Arcane Path](Images/ArcaneZone0N.PNG)
-![Battlegrounds](Images/Battlegrounds.PNG)
+![Battlegrounds](Images/BattlegroundsV2.PNG)
 
 ### WIP zones: ###
 ![First zone of the Mortal Path](Images/MortalZone0.PNG)
