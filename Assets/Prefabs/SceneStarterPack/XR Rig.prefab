@@ -9986,6 +9986,7 @@ MonoBehaviour:
     type: 3}
   drainSphere: {fileID: 7177035543809454239, guid: f103f95b39d29d54a971fae1be1c1c36,
     type: 3}
+  binding: {fileID: 4276297756262862713, guid: 67b14b1c63e45934aa8df08c63920e88, type: 3}
   marker: {fileID: 1010284327224261879, guid: cf57be46a86d8b843bed9fc38b2e1b1c, type: 3}
   sword: {fileID: 1530684633613018, guid: c30fcbe73b9f9d543998f5e784be6273, type: 3}
   flight: {fileID: 4215348494904648822, guid: ae7b73b610216e347ba9b07c7597c7cb, type: 3}

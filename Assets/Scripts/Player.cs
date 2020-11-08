@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public GameObject skeleton;
     public GameObject metalFan;
     public GameObject drainSphere;
+    public GameObject binding;
     public GameObject marker;
     public GameObject sword;
     public GameObject flight;
@@ -89,8 +90,9 @@ public class Player : MonoBehaviour
         handColours.Add("death", planarColor);
         handColours.Add("raiseskeleton", planarColor);
         handColours.Add("drainsphere", planarColor);
+        handColours.Add("binding", planarColor);
         handColours.Add("return", arcaneColor);
-        handColours.Add("marker", planarColor);
+        handColours.Add("marker", new Color(54/255f, 99/255f, 78/255f));
         handColours.Add("flight1", planarColor);
         handColours.Add("flight2", planarColor);
 
@@ -207,6 +209,7 @@ public class Player : MonoBehaviour
                 break;
             case "royalfire":
             case "return":
+            case "binding":
                 ps = rightHand ? r_arcaneParticles : l_arcaneParticles;
                 break;
             case "icespikes":
@@ -319,6 +322,9 @@ public class Player : MonoBehaviour
                         break;
                     case "drainsphere":
                         CastHeldDrainSphere(castingHand);
+                        break;
+                    case "binding":
+                        CastHeldBinding(castingHand);
                         break;
                     case "marker":
                         CastHeldMarker(castingHand);
@@ -690,6 +696,13 @@ public class Player : MonoBehaviour
     public void CastHeldDrainSphere(GameObject castingHand) {
         GameObject newDrainSphere = Instantiate(drainSphere, castingHand.transform.position + (castingHand.transform.forward * 3f), castingHand.transform.rotation);
         newDrainSphere.GetComponent<DrainSphere>().LinkCastingHand(castingHand);
+    }
+
+    //  ------------- Binding ------------------
+    public void CastHeldBinding(GameObject castingHand) {
+        GameObject newBinding = Instantiate(binding, castingHand.transform.position, castingHand.transform.rotation);
+        newBinding.GetComponent<Binding>().LinkCastingHand(castingHand);
+        newBinding.transform.SetParent(castingHand.transform);
     }
 
 
