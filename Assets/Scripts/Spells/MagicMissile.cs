@@ -10,6 +10,7 @@ public class MagicMissile : MonoBehaviour
     public ParticleSystem explosionParticles;
     public GameObject mesh;
     public AudioSource hitSound;
+    public string damageType = "arcane";
 
     private bool hitSomething = false, targetPlayer;
     public bool canHitPlayer = false;
@@ -70,7 +71,7 @@ public class MagicMissile : MonoBehaviour
                 if (player != null) player.GetComponent<Player>().WeaponHit(damage);
             } else if (other.tag == "Enemy" || other.tag == "Ghost") {
                 EnemyAI enemy = other.GetComponent<EnemyAI>();
-                if (enemy != null) enemy.TakeDamage("arcane", damage);
+                if (enemy != null) enemy.TakeDamage(damageType, damage);
             }
         }
     }

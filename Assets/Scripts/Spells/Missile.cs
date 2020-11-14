@@ -38,7 +38,7 @@ public class Missile : MonoBehaviour
     }
 
     public virtual void OnTriggerEnter(Collider other) {
-        if (other.tag != "Player" || canHitPlayer) {
+        if (active && (other.tag != "Player" || canHitPlayer)) {
             Destroy(GetComponent<Collider>());
             Destroy(gameObject, decayTime);
             active = false;

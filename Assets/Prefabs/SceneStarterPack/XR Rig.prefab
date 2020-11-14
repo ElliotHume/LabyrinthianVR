@@ -9990,6 +9990,8 @@ MonoBehaviour:
   marker: {fileID: 1010284327224261879, guid: cf57be46a86d8b843bed9fc38b2e1b1c, type: 3}
   sword: {fileID: 1530684633613018, guid: c30fcbe73b9f9d543998f5e784be6273, type: 3}
   flight: {fileID: 4215348494904648822, guid: ae7b73b610216e347ba9b07c7597c7cb, type: 3}
+  wargodswand: {fileID: 8554065962575834914, guid: 93b69c5b393a35a4cb10e9473d416ede,
+    type: 3}
   hammers: []
   maxHammers: 2
   shields: []

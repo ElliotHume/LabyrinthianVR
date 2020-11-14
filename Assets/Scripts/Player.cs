@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     public GameObject marker;
     public GameObject sword;
     public GameObject flight;
+    public GameObject wargodswand;
 
     public List<GameObject> hammers;
     public int maxHammers = 1;
@@ -95,6 +96,7 @@ public class Player : MonoBehaviour
         handColours.Add("marker", new Color(54/255f, 99/255f, 78/255f));
         handColours.Add("flight1", planarColor);
         handColours.Add("flight2", planarColor);
+        handColours.Add("wargodswand", new Color(1f, 0, 0.3f));
 
         rightHand = GameObject.Find("RightHand Controller");
         Debug.Log("right Hand GameObject: "+ rightHand);
@@ -129,6 +131,8 @@ public class Player : MonoBehaviour
             Instantiate(hammer, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("r")) {
             Instantiate(drainSphere, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } else if (Input.GetKeyDown("g")) {
+            CastHeldBinding(rightHand);
         } if (Input.GetKeyDown("3")) {
             ReleaseSpellCast("right");
         }
@@ -189,6 +193,7 @@ public class Player : MonoBehaviour
         GameObject handObject = null;
         switch (spell) {
             case "fireball":
+            case "wargodswand":
                 ps = rightHand ? r_fireParticles : l_fireParticles;
                 break;
             case "shield":
@@ -337,6 +342,9 @@ public class Player : MonoBehaviour
                         break;
                     case "flight2":
                         CastHeldFlight(false);
+                        break;
+                    case "wargodswand":
+                        CastHeldWarGodsWand(castingHand);
                         break;
                 }
             } catch (System.Exception e) {
@@ -635,12 +643,12 @@ public class Player : MonoBehaviour
     IEnumerator MidasHand(string hand) {
         if (hand == "right") {
             print("Try set midas hand right");
-            rightHandRenderer.material = goldMaterial;
+            SetHandGlow("midastouch", hand);
             yield return new WaitForSeconds(5f);
             rightHandRenderer.material = baseMaterial;
         } else {
             print("Try set midas hand left");
-            leftHandRenderer.material = goldMaterial;
+            SetHandGlow("midastouch", hand);
             yield return new WaitForSeconds(5f);
             leftHandRenderer.material = baseMaterial;
         }
@@ -744,6 +752,11 @@ public class Player : MonoBehaviour
         ToggleSpellParticles(true,"flight2", false);
         ToggleSpellParticles(false,"flight1", false);
         gameObject.GetComponent<MovementProvider>().ToggleFlight(false);
+    }
+
+    //  ------------- War Gods Wand ------------------
+    public void CastHeldWarGodsWand(GameObject castingHand) {
+        GameObject newWGW = Instantiate(wargodswand, castingHand.transform.position, castingHand.transform.rotation);
     }
 
 

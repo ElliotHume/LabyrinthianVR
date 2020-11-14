@@ -36,7 +36,7 @@ TagManager:
   - PlayerPassthrough
   - Ground
   - Enemy
-  - 
+  - PassthroughInteractable
   - 
   - 
   - 

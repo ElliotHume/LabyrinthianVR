@@ -7,8 +7,12 @@ public class MetalFan : MonoBehaviour
 {
     public Missile[] spikes;
     public AudioSource castSound;
-    
     bool released = false;
+    XRGrabInteractable grabInteractable;
+
+    void Start() {
+        grabInteractable = GetComponent<XRGrabInteractable>();
+    }
 
     public void Release() {
         if(!released) {
@@ -19,6 +23,7 @@ public class MetalFan : MonoBehaviour
             }
             released = true;
             
+            grabInteractable.colliders.Clear();
             Destroy(gameObject, 15f);
         }
     }

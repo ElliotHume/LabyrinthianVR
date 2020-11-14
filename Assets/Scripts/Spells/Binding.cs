@@ -15,6 +15,7 @@ public class Binding : MonoBehaviour
     bool hasBoundObject = false;
     GameObject boundObject;
     Transform oldParent;
+    Vector3 objectGrabOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class Binding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (boundObject != null) boundObject.transform.position = anchor.position;
+        if (boundObject != null) boundObject.transform.position = anchor.position; //+ objectGrabOffset;
 
         if (handController != null) {
             handController.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool goAway);
@@ -57,6 +58,7 @@ public class Binding : MonoBehaviour
         Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
         if (rb != null && !hasBoundObject) {
             boundObject = other.gameObject;
+            objectGrabOffset = anchor.position - other.ClosestPoint(anchor.position);
             hasBoundObject = true;
         }
     }
