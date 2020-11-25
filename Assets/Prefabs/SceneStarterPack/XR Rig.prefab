@@ -9954,6 +9954,8 @@ MonoBehaviour:
   l_missileEmitter: {fileID: 8808269201707936132}
   fireball: {fileID: 4829775223747024804, guid: 33a9e2918ecbec64094063a1cf353be8,
     type: 3}
+  bluefire: {fileID: 6425106007566321175, guid: cd2b01fe540b8524abaeda46f45f7b86,
+    type: 3}
   shield: {fileID: 2091421368820422775, guid: 2c0ab74351a24504f8003c9e18b1f4b4, type: 3}
   windslash: {fileID: 8799331950200331671, guid: cf70b0eab6d6f9a408517493d01cff13,
     type: 3}
@@ -10691,7 +10693,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8464667461502596298}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -10702,7 +10704,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 4ef086b664d833a48ad84c2f924e0f12, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10803,7 +10805,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8464667461626728570}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -10814,7 +10816,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 4ef086b664d833a48ad84c2f924e0f12, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     // SPELL PREFABS
     public GameObject fireball;
+    public GameObject bluefire;
     public GameObject shield;
     public GameObject windslash;
     public GameObject lightning;
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour
 
         // hand colours
         handColours.Add("fireball", new Color(1f, 0, 0));
+        handColours.Add("bluefire", new Color(1f, 0.1f, 0.2f));
 		handColours.Add("shield", new Color(113/255f, 199/255f, 1f));
 		handColours.Add("windslash", new Color(26/255f, 1f, 0));
 		handColours.Add("lightning", new Color(1f, 247/255f, 103/255f));
@@ -219,6 +221,7 @@ public class Player : MonoBehaviour
                 break;
             case "icespikes":
             case "icespray":
+            case "bluefire":
                 ps = rightHand ? r_iceParticles : l_iceParticles;
                 break;
             case "magicmissile":
@@ -267,6 +270,9 @@ public class Player : MonoBehaviour
                 switch (heldSpell) {
                     case "fireball":
                         CastHeldFireball(castingHand);
+                        break;
+                    case "bluefire":
+                        CastHeldBlueFire(castingHand);
                         break;
                     case "shield":
                         CastHeldShield(castingHand);
@@ -413,6 +419,13 @@ public class Player : MonoBehaviour
         newFireball.GetComponent<Fireball>().Scale(spellAccuracy);
     }
 
+
+
+    //  ------------- BLUE FIRE ------------------
+    public void CastHeldBlueFire(GameObject castingHand) {
+        GameObject newBlueFire = Instantiate(bluefire, castingHand.transform.position, castingHand.transform.rotation);
+        newBlueFire.GetComponent<BasicProjectile>().Scale(spellAccuracy);
+    }
 
 
 
