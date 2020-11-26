@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         } else if (Input.GetKeyDown("q")) {
             Instantiate(hammer, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("r")) {
-            Instantiate(drainSphere, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+            Instantiate(magicMissile, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("g")) {
             CastHeldBinding(rightHand);
         } if (Input.GetKeyDown("3")) {
@@ -424,6 +424,7 @@ public class Player : MonoBehaviour
     //  ------------- BLUE FIRE ------------------
     public void CastHeldBlueFire(GameObject castingHand) {
         GameObject newBlueFire = Instantiate(bluefire, castingHand.transform.position, castingHand.transform.rotation);
+        newBlueFire.GetComponent<BasicProjectile>().SetOwner(gameObject);
         newBlueFire.GetComponent<BasicProjectile>().Scale(spellAccuracy);
     }
 
@@ -435,7 +436,7 @@ public class Player : MonoBehaviour
 
     //  ------------- SHIELD ------------------
     public void CastHeldShield(GameObject castingHand) {
-        GameObject newShield = Instantiate(shield, castingHand.transform.position + (castingHand.transform.forward * 0.5f), castingHand.transform.rotation * Quaternion.Euler(90f, 0f, 90f));
+        GameObject newShield = Instantiate(shield, castingHand.transform.position + (castingHand.transform.forward * 0.5f), castingHand.transform.rotation);
 
         shields.Add(newShield);
         if (shields.Count > maxShields) {

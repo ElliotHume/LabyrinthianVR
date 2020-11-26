@@ -24363,10 +24363,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6430175851297102827}
-  - component: {fileID: 6393479396793179441}
   - component: {fileID: 6479680360465328733}
   - component: {fileID: 6398619242056639251}
-  - component: {fileID: 6393667135230433765}
   - component: {fileID: 6425717610528852725}
   - component: {fileID: 6425717610528852726}
   - component: {fileID: 6425717610528852727}
@@ -24403,35 +24401,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6393479396793179441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6425106007566321175}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12ba759cd568c0e47a7018ab70867a0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotate: 0
-  rotateAmount: 45
-  bounce: 0
-  bounceForce: 10
-  speed: 23
-  accuracy: 100
-  fireRate: 5
-  muzzlePrefab: {fileID: 1040091274170476, guid: 4dc3813479a19d149be60c7c1cea13e9,
-    type: 3}
-  hitPrefab: {fileID: 1282465575348918, guid: b077b8f66a284634cb92797eb3bc985b, type: 3}
-  trails:
-  - {fileID: 6425008047721639097}
-  - {fileID: 6425164569094334499}
-  - {fileID: 6426402012317216619}
-  - {fileID: 6424550092856700885}
-  - {fileID: 6426368412216458479}
-  - {fileID: 6426442090756620449}
 --- !u!54 &6479680360465328733
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24461,41 +24430,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6393667135230433765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6425106007566321175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e272d634f40434b85fbf756732714d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 1
-  speed: 1
-  duration: 1
-  loop: 1
-  prewarm: 0
-  lights: 0
-  trails: 0
-  changeColor: 1
-  newMaxColor: {r: 0.13725491, g: 0.4431373, b: 1, a: 1}
-  newMinColor: {r: 1, g: 0.18382353, b: 0.97748494, a: 1}
-  ParticleSystems:
-  - {fileID: 6424820962457485659}
-  - {fileID: 6424442472874960999}
-  - {fileID: 6425225159367715063}
-  - {fileID: 6424641601601211819}
-  - {fileID: 6424505292608999231}
-  - {fileID: 6425164569094334499}
-  - {fileID: 6426368412216458479}
-  - {fileID: 6426402012317216619}
-  - {fileID: 6426442090756620449}
-  - {fileID: 6424550092856700885}
-  - {fileID: 6425008047721639097}
-  ActiveParticleSystems: 0101010101010101000001
 --- !u!114 &6425717610528852725
 MonoBehaviour:
   m_ObjectHideFlags: 0

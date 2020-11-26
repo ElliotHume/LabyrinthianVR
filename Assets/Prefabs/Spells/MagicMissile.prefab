@@ -4885,6 +4885,7 @@ GameObject:
   - component: {fileID: 3617122140062368576}
   - component: {fileID: 3617122140062368577}
   - component: {fileID: -8169123650922074598}
+  - component: {fileID: 5655701885720789521}
   m_Layer: 12
   m_Name: MagicMissile
   m_TagString: Missile
@@ -4926,6 +4927,7 @@ MonoBehaviour:
   explosionParticles: {fileID: 554472375}
   mesh: {fileID: 6580605326325308700}
   hitSound: {fileID: 3617122140062368577}
+  damageType: arcane
   canHitPlayer: 0
 --- !u!54 &3617122140062368575
 Rigidbody:
@@ -5148,6 +5150,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5655701885720789521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705728218406855877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: magicmissile
+  type: missile
+  damagetype: arcane
 --- !u!1 &4321724458850608553
 GameObject:
   m_ObjectHideFlags: 0

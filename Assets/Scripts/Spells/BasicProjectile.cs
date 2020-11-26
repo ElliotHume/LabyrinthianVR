@@ -14,7 +14,7 @@ public class BasicProjectile : MonoBehaviour
 
 
     bool hitSomething = false, targetPlayer;
-    GameObject player, hand;
+    GameObject player, hand, owner = null;
     CharacterController playerController;
 
     void Start() {
@@ -32,6 +32,10 @@ public class BasicProjectile : MonoBehaviour
                 transform.position += transform.forward * Time.deltaTime * speed;
             }
         }
+    }
+
+    public void SetOwner(GameObject go) {
+        owner = go;
     }
 
     public void TargetPlayer() {
@@ -55,7 +59,7 @@ public class BasicProjectile : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.tag != "Player" || canHitPlayer) {
+        if ((other.tag != "Player" || canHitPlayer) && other.gameObject != owner) {
             Destroy(GetComponent<Collider>());
             Destroy(gameObject, 1f);
             if (loopSound != null && loopSound.isPlaying) loopSound.Stop();

@@ -14120,6 +14120,7 @@ GameObject:
   - component: {fileID: 7474280869514221873}
   - component: {fileID: 2491994681248425315}
   - component: {fileID: 2080311162796534342}
+  - component: {fileID: -1866176606425469320}
   m_Layer: 12
   m_Name: Fireball
   m_TagString: Missile
@@ -14334,3 +14335,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1866176606425469320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829775223747024804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: fireball
+  type: missile
+  damagetype: fire

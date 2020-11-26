@@ -11,6 +11,7 @@ public class Shield : MonoBehaviour
     private Vector3 startPosition;
 
     public GameObject owner;
+    public Material material;
 
     public AudioClip emergeClip;
     public AudioClip breakClip;
@@ -43,6 +44,21 @@ public class Shield : MonoBehaviour
         Destroy(GetComponent<MeshCollider>());
         GetComponent<AudioSource>().clip = breakClip;
         GetComponent<AudioSource>().Play();
+        StartCoroutine(Flash());
         Destroy(gameObject, 1f);
+    }
+
+    IEnumerator Flash() {
+        float duration = 1f;
+        float currentTime = 0f;
+        Color baseColour = material.color;
+        while (currentTime < duration) {
+            float lerp = currentTime / duration;
+            float sinLerp = Mathf.Sin(lerp * Mathf.PI * 0.5f) * 4f;
+            material.color = Color.Lerp(Color.white, baseColour, sinLerp);
+            currentTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        transform.position = finalPosition;
     }
 }

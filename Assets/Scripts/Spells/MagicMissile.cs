@@ -71,7 +71,9 @@ public class MagicMissile : MonoBehaviour
                 if (player != null) player.GetComponent<Player>().WeaponHit(damage);
             } else if (other.tag == "Enemy" || other.tag == "Ghost") {
                 EnemyAI enemy = other.GetComponent<EnemyAI>();
+                CasterAI ci = other.GetComponent<CasterAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
+                if (ci != null) ci.TakeDamage(damageType, damage);
             }
         }
     }
