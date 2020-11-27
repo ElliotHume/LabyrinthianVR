@@ -133,6 +133,10 @@ public class Player : MonoBehaviour
             Instantiate(hammer, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("r")) {
             Instantiate(magicMissile, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } else if (Input.GetKeyDown("t")) {
+            Instantiate(drainSphere, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } else if (Input.GetKeyDown("y")) {
+            Instantiate(royalFireball, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("g")) {
             CastHeldBinding(rightHand);
         } if (Input.GetKeyDown("3")) {

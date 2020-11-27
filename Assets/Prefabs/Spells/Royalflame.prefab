@@ -9640,6 +9640,7 @@ GameObject:
   - component: {fileID: -3618487931740468213}
   - component: {fileID: 1037273212268580700}
   - component: {fileID: 1508435579}
+  - component: {fileID: 5492167916301180343}
   m_Layer: 11
   m_Name: Royalflame
   m_TagString: Magic
@@ -9997,6 +9998,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5492167916301180343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68290325394088080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: royalflame
+  type: AoE
+  damagetype: arcane
+  spellRadius: 6
 --- !u!1 &74130151647055560
 GameObject:
   m_ObjectHideFlags: 0

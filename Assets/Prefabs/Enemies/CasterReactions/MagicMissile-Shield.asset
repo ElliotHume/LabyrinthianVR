@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: MagicMissile-Shield
   m_EditorClassIdentifier: 
   spell: magicmissile
-  reactionChance: 0.75
+  reactionChance: 0.5
   blockTime: 2
+  animationTime: 0
   castType: missile
   reactionSpell: {fileID: 2091421368820422775, guid: 2c0ab74351a24504f8003c9e18b1f4b4,
     type: 3}

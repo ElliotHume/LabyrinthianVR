@@ -70,7 +70,7 @@ public class EnemyAI : MonoBehaviour
         // If in sight range, check if the target is obscured
         if (targetInSightRange || targetInAttackRange) {
             RaycastHit raycastHit;
-            if( Physics.SphereCast(transform.position, 1f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
+            if( Physics.SphereCast(transform.position+transform.up, 1f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, sightBlockingMask) ) {
                 canSeeTarget = raycastHit.transform.gameObject.tag == "Player";
             }
         }

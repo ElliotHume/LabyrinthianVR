@@ -9641,6 +9641,7 @@ GameObject:
   - component: {fileID: 6107685858268511223}
   - component: {fileID: -6668537229257342431}
   - component: {fileID: 3433324903504644224}
+  - component: {fileID: -9083113873926555519}
   m_Layer: 12
   m_Name: Royalfireball
   m_TagString: Missile
@@ -9755,10 +9756,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f46041c21c3c34fbae3c95acacb5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  travelTime: 3
-  maxHeight: 4
   royalFire: {fileID: 68290325394088080, guid: dd4f9efbc8b308241839938157438594, type: 3}
-  ownerGO: {fileID: 0}
+  grabInteractable: {fileID: 0}
 --- !u!82 &3433324903504644224
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9855,3 +9854,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-9083113873926555519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105898572971341154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: royalfire
+  type: projectile
+  damagetype: arcane
+  spellRadius: 1

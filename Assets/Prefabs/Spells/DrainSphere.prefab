@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7177035543560968237}
   - component: {fileID: 7177035543560968239}
   - component: {fileID: 7177035543560968236}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4828,7 +4828,8 @@ GameObject:
   - component: {fileID: 7177035543809454229}
   - component: {fileID: 7177035543809454228}
   - component: {fileID: 1061049742}
-  m_Layer: 12
+  - component: {fileID: 7234169237017144395}
+  m_Layer: 11
   m_Name: DrainSphere
   m_TagString: Magic
   m_Icon: {fileID: 0}
@@ -5136,3 +5137,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7234169237017144395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7177035543809454239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: drainsphere
+  type: AoE
+  damagetype: planar
+  spellRadius: 2.5

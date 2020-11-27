@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Fireball-Bluefire
   m_EditorClassIdentifier: 
   spell: fireball
-  reactionChance: 1
+  reactionChance: 0.2
   blockTime: 1
+  animationTime: 0
   castType: missile
   reactionSpell: {fileID: 6425106007566321175, guid: cd2b01fe540b8524abaeda46f45f7b86,
     type: 3}
