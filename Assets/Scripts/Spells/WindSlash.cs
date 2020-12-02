@@ -6,6 +6,7 @@ using UnityEngine;
 public class WindSlash : MonoBehaviour
 {
     public int damage = 20;
+    public string damageType = "wind";
     public float speed = 25f;
     public float duration = 1f;
 
@@ -58,7 +59,9 @@ public class WindSlash : MonoBehaviour
             Destroy(gameObject);
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.TakeDamage("wind", damage);
+            CasterAI caster = other.GetComponent<CasterAI>();
+            if (enemy != null) enemy.TakeDamage(damageType, damage);
+            if (caster != null) caster.TakeDamage(damageType, damage);
         }
     }
 

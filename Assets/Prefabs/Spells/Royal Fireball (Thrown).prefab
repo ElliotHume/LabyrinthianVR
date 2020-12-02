@@ -4828,6 +4828,7 @@ GameObject:
   - component: {fileID: 1145060201741285439}
   - component: {fileID: 1145060201741285432}
   - component: {fileID: 1145060201741285433}
+  - component: {fileID: -3622935151266766499}
   m_Layer: 9
   m_Name: Royal Fireball (Thrown)
   m_TagString: Magic
@@ -5112,9 +5113,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f46041c21c3c34fbae3c95acacb5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  travelTime: 0
-  maxHeight: 0
   royalFire: {fileID: 68290325394088080, guid: dd4f9efbc8b308241839938157438594, type: 3}
+  grabInteractable: {fileID: 0}
+--- !u!114 &-3622935151266766499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145060201741285434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: royalfireball
+  type: throwable
+  damageType: arcane
+  spellRadius: 0.5
 --- !u!1 &1145060202587834875
 GameObject:
   m_ObjectHideFlags: 0

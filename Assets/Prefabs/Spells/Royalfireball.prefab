@@ -9868,5 +9868,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: royalfire
   type: projectile
-  damagetype: arcane
+  damageType: arcane
   spellRadius: 1

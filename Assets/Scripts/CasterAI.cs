@@ -25,6 +25,7 @@ public class CasterAI : MonoBehaviour
     bool currentlyAttacking = false, blocking = false, takingDamage = false;
     public Transform castingAnchorPoint, shieldAnchorPoint;
     CasterReaction reaction;
+    Vector3 moveDirection;
 
     //States
     public float sightRange = 10f, attackRange = 3f, damageAnimationTime = 2f;
@@ -37,7 +38,7 @@ public class CasterAI : MonoBehaviour
     public List<CasterReaction> reactions;
     public List<string> weaknesses;
     public List<float> weaknessMultipliers;
-    public List<CasterWeapon> missileWeapons, boltWeapons, shieldWeapons;
+    public List<CasterWeapon> missileWeapons, boltWeapons, shieldWeapons, summonWeapons, throwWeapons;
     public UnityEvent onDeath;
 
 
@@ -184,7 +185,7 @@ public class CasterAI : MonoBehaviour
     void Dash(int dashType) {
         Debug.Log("Start Dash");
         anim.SetTrigger("Jump");
-        Vector3 moveDirection = Vector3.zero;
+        moveDirection = Vector3.zero;
         switch(dashType) {
             case 0:
                 // When evading, goes to the left 60% of the time
@@ -201,12 +202,14 @@ public class CasterAI : MonoBehaviour
                 moveDirection = c > 0.75f ? transform.forward : c > 0.5 ? -transform.forward : c > 0.25 ? transform.right : -transform.right;
                 break;
         }
-
-        StartCoroutine(Jump(moveDirection));
     }
 
-    IEnumerator Jump(Vector3 direction) {
-        yield return new WaitForSeconds(2f);
+    public void Jump() {
+        StartCoroutine(JumpProcess(moveDirection));
+    }
+
+    IEnumerator JumpProcess(Vector3 direction) {
+        //yield return new WaitForSeconds(2f);
 
         float currentTime = 0f, duration = 1f;
         while (currentTime < duration) {
@@ -258,21 +261,23 @@ public class CasterAI : MonoBehaviour
             CasterWeapon weapon = null;
             switch (attackPattern[currentAttackIndex]) {
                 case AttackPatternActions.Missile:
-                    weapon = missileWeapons[Random.Range(0, missileWeapons.Count-1)];
+                    weapon = missileWeapons[Random.Range(0, missileWeapons.Count)];
                     break;
                 case AttackPatternActions.Bolt:
-                    weapon = boltWeapons[Random.Range(0, boltWeapons.Count-1)];
+                    weapon = boltWeapons[Random.Range(0, boltWeapons.Count)];
                     break;
                 case AttackPatternActions.Shield:
-                    weapon = shieldWeapons[Random.Range(0, shieldWeapons.Count-1)];
+                    weapon = shieldWeapons[Random.Range(0, shieldWeapons.Count)];
                     break;
                 case AttackPatternActions.Dash:
                     Dash(3);
                     Invoke(nameof(ResetAttack), 5f);
                     break;
                 case AttackPatternActions.Summon:
+                    weapon = summonWeapons[Random.Range(0, summonWeapons.Count)];
                     break;
                 case AttackPatternActions.Throw:
+                    weapon = throwWeapons[Random.Range(0, throwWeapons.Count)];
                     break;
             }
 
@@ -288,6 +293,7 @@ public class CasterAI : MonoBehaviour
     }
 
     IEnumerator CastWeapon(CasterWeapon weapon) {
+        weapon.PlayWindupParticles();
         yield return new WaitForSeconds(weapon.animationTime);
         weapon.Fire(gameObject);
         yield return new WaitForSeconds(weapon.cooldown);

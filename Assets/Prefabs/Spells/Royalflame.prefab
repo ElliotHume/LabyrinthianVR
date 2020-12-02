@@ -9680,6 +9680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePerTick: 0.1
+  damageType: arcane
   hitSound: {fileID: 1037273212268580700}
 --- !u!54 &-9187748574439438256
 Rigidbody:
@@ -10012,7 +10013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: royalflame
   type: AoE
-  damagetype: arcane
+  damageType: arcane
   spellRadius: 6
 --- !u!1 &74130151647055560
 GameObject:

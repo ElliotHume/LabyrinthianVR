@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HolyFire : MonoBehaviour
 {
+    public string damageType = "planar";
     public float damagePerTick = 0.1f;
     public AudioSource hitSound;
     public bool hitPlayer = false;
@@ -29,7 +30,9 @@ public class HolyFire : MonoBehaviour
         if (other.tag == "Enemy" || other.tag == "Ghost") {
             if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.TakeDamage("planar", damagePerTick);
+            CasterAI caster = other.GetComponent<CasterAI>();
+            if (enemy != null) enemy.TakeDamage(damageType, damagePerTick);
+            if (caster != null) caster.TakeDamage(damageType, damagePerTick);
         } else if (other.tag == "Player" && hitPlayer) {
             if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
             Player player = other.gameObject.GetComponent<Player>();

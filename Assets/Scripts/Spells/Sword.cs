@@ -35,7 +35,9 @@ public class Sword : MonoBehaviour
                 if (si != null) si.Trigger("sword");
             } else if (collision.gameObject.tag == "Enemy" || (collision.gameObject.tag == "Ghost" && (damageType == "planar" || damageType == "arcane"))) {
                 EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+                CasterAI caster = collision.gameObject.GetComponent<CasterAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
+                if (caster != null) caster.TakeDamage(damageType, damage);
                 if (HitSound) HitSound.Play();
             } else if (collision.gameObject.name.Contains("Hammer") && damageType != "mortal") {
                 grabInteractable.colliders.Clear();

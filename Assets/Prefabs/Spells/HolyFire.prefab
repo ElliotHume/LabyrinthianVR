@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3969910692901234526}
   - component: {fileID: 3969910692901234527}
   - component: {fileID: 3969910692901234528}
+  - component: {fileID: -3303875209346608583}
   m_Layer: 12
   m_Name: HolyFire
   m_TagString: Magic
@@ -112,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6720ef3374af4f45a173f15ff5b78e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageType: planar
   damagePerTick: 0.1
   hitSound: {fileID: 3969910692901234528}
   hitPlayer: 1
@@ -307,6 +309,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3303875209346608583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969910692901234529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: holyfire
+  type: AoE
+  damageType: fire
+  spellRadius: 2
 --- !u!1 &3969910693112555570
 GameObject:
   m_ObjectHideFlags: 0

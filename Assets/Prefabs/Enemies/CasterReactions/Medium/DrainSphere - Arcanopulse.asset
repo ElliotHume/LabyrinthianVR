@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e690b5467068943a99c1b7c6e6e7a7, type: 3}
+  m_Name: DrainSphere - Arcanopulse
+  m_EditorClassIdentifier: 
+  spell: drainsphere
+  reactionChance: 0.1
+  blockTime: 5
+  animationTime: 3
+  castType: explosion
+  reactionSpell: {fileID: 8005883269175210359, guid: 0e62feca24334c74592ed5b0afd9e990,
+    type: 3}

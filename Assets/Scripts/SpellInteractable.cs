@@ -17,17 +17,6 @@ public class SpellInteractable : MonoBehaviour
     public Vector3 slideVector = Vector3.zero;
 
     public UnityEvent OnPress;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public virtual void Trigger(string spell) {
         if (spell == triggerSpell) {

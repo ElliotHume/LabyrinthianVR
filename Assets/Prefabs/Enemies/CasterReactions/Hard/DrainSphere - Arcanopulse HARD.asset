@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0e690b5467068943a99c1b7c6e6e7a7, type: 3}
-  m_Name: RoyalFlame - Dash
+  m_Name: DrainSphere - Arcanopulse HARD
   m_EditorClassIdentifier: 
-  spell: royalflame
+  spell: drainsphere
   reactionChance: 0.8
-  blockTime: 6
-  animationTime: 0
-  castType: dash
-  reactionSpell: {fileID: 0}
+  blockTime: 5
+  animationTime: 3
+  castType: explosion
+  reactionSpell: {fileID: 8005883269175210359, guid: 0e62feca24334c74592ed5b0afd9e990,
+    type: 3}

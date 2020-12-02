@@ -6,6 +6,7 @@ using UnityEngine;
 public class LightningExplosion : MonoBehaviour
 {
     public float damage = 10f;
+    public string damageType = "lightning";
 
     void Start() {
         Destroy(gameObject, 1f);
@@ -25,7 +26,15 @@ public class LightningExplosion : MonoBehaviour
             if (si != null) si.Trigger("lightning");
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.TakeDamage("lightning", damage);
+            CasterAI caster = other.GetComponent<CasterAI>();
+            if (enemy != null) enemy.TakeDamage(damageType, damage);
+            if (caster != null) caster.TakeDamage(damageType, damage);
+        } else if (other.tag == "Player") {
+            Player player = other.GetComponent<Player>();
+            if (player != null) player.GetComponent<Player>().WeaponHit(damage);
+        } else if (other.tag == "Shield") {
+            Shield s = other.GetComponent<Shield>();
+            if(s != null) s.Break();
         }
     }
 }

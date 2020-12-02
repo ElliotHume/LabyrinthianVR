@@ -16,7 +16,7 @@ public class Royalfireball : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag != "Player") {
             GameObject newExplosion = Instantiate(royalFire, transform.position, Quaternion.identity);
-            grabInteractable.colliders.Clear();
+            if (grabInteractable != null) grabInteractable.colliders.Clear();
             Destroy(gameObject);
         }
     }

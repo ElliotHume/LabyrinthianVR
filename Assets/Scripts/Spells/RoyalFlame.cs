@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoyalFlame : MonoBehaviour
 {
     public float damagePerTick = 0.1f;
+    public string damageType = "arcane";
     public AudioSource hitSound;
 
     // Start is called before the first frame update
@@ -25,7 +26,9 @@ public class RoyalFlame : MonoBehaviour
         if (other.tag == "Enemy" || other.tag == "Ghost") {
             if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
             EnemyAI enemy = other.GetComponent<EnemyAI>();
-            if (enemy != null) enemy.TakeDamage("arcane", damagePerTick);
+            CasterAI caster = other.GetComponent<CasterAI>();
+            if (enemy != null) enemy.TakeDamage(damageType, damagePerTick);
+            if (caster != null) caster.TakeDamage(damageType, damagePerTick);
         } else if (other.tag == "Player") {
             if (hitSound != null && !hitSound.isPlaying) hitSound.Play();
             Player player = other.gameObject.GetComponent<Player>();

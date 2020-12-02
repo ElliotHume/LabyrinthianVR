@@ -9963,7 +9963,7 @@ MonoBehaviour:
     type: 3}
   arcanePulse: {fileID: 8005883269175210359, guid: 0e62feca24334c74592ed5b0afd9e990,
     type: 3}
-  iceSpikeProjectile: {fileID: 2964162197209181304, guid: 1a73b49924b38f5488fc5cecaa0127e1,
+  iceSpikes: {fileID: 8000668027657550155, guid: ed5ab66456db9f44ba1fb2c8dd47ee93,
     type: 3}
   iceSpray: {fileID: 6836790295150975013, guid: cc4711bdab5632641b61fed9d4c3700d,
     type: 3}

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3979623718172417390}
   - component: {fileID: 1558135841308804889}
   - component: {fileID: 4578793040994042662}
+  - component: {fileID: 2569591409183417791}
   m_Layer: 13
   m_Name: PlayerShield
   m_TagString: Shield
@@ -213,6 +214,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2569591409183417791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091421368820422775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: shield
+  type: summon
+  damageType: none
+  spellRadius: 1
 --- !u!1 &7640963821603740646
 GameObject:
   m_ObjectHideFlags: 0

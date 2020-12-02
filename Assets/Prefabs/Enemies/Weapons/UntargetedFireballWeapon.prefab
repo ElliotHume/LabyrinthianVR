@@ -48,3 +48,4 @@ MonoBehaviour:
   animationTime: 1.5
   cooldown: 3
   castAnimationType: 7
+  targeted: 0

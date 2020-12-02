@@ -24369,6 +24369,7 @@ GameObject:
   - component: {fileID: 6425717610528852726}
   - component: {fileID: 6425717610528852727}
   - component: {fileID: 6425717610528852728}
+  - component: {fileID: -1756154995607865966}
   m_Layer: 12
   m_Name: BlueFire
   m_TagString: Missile
@@ -24750,6 +24751,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1756154995607865966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6425106007566321175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: bluefire
+  type: missile
+  damageType: fire
+  spellRadius: 1
 --- !u!1 &6425164569094334499
 GameObject:
   m_ObjectHideFlags: 0

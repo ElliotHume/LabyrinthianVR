@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpellData : MonoBehaviour
 {
-    public string name, type, damagetype;
+    public string name, type, damageType;
     public float spellRadius = 1f;
 
     public Vector3 GetDirection() {

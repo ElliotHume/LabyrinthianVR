@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public GameObject windslash;
     public GameObject lightning;
     public GameObject arcanePulse;
-    public GameObject iceSpikeProjectile, iceSpray;
+    public GameObject iceSpikes, iceSpray;
     public GameObject fizzle;
     public GameObject royalFireball;
     public GameObject magicMissile;
@@ -374,8 +374,7 @@ public class Player : MonoBehaviour
     }
 
     public void WeaponHit(float damage) {
-        if (damage > 5f && damagedSound != null) damagedSound.Play();
-
+        if (damagedSound != null && !damagedSound.isPlaying) damagedSound.Play();
         playerManager.Damage(damage);
     }
 
@@ -510,9 +509,15 @@ public class Player : MonoBehaviour
     //  ------------- ICE SPIKES ------------------
     public void CastHeldIceSpikes(GameObject castingHand) {
         //Ice spikes should spawn at the feet
-        Quaternion dir = Quaternion.Euler(0, castingHand.transform.rotation.eulerAngles.y, 0);
-        Vector3 startPos = new Vector3(castingHand.transform.position.x, 0f, castingHand.transform.position.z) + castingHand.transform.forward*2f;
-        GameObject newIceSpikes = Instantiate(iceSpikeProjectile, startPos, dir);
+        // Get position of the casting ray that aims straight down
+        RaycastHit raycastHit;
+        Vector3 target = new Vector3(castingHand.transform.position.x, 0f, castingHand.transform.position.z);
+        if( Physics.Raycast( castingHand.transform.position, Vector3.down, out raycastHit, 50f, LayerMask.GetMask("Ground") ) ) {
+            print("Snapping to position: "+raycastHit.point+"   object: "+ raycastHit.collider.gameObject);
+            target = raycastHit.point;
+        }
+
+        GameObject newIceSpikes = Instantiate(iceSpikes, target, transform.rotation);
     }
 
 

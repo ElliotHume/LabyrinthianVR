@@ -85,7 +85,9 @@ public class BasicProjectile : MonoBehaviour
                 if (player != null) player.GetComponent<Player>().WeaponHit(damage);
             } else if (other.tag == "Enemy") {
                 EnemyAI enemy = other.GetComponent<EnemyAI>();
+                CasterAI caster = other.GetComponent<CasterAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
+                if (caster != null) caster.TakeDamage(damageType, damage);
             }
         }
     }

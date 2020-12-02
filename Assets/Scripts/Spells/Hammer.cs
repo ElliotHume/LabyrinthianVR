@@ -6,6 +6,7 @@ public class Hammer : MonoBehaviour
 {
     public AudioSource HitSound;
     public float damage = 10f, hitTimeout = 0.1f;
+    public string damageType = "mortal";
     bool onHitTimeout = false;
 
     // Start is called before the first frame update
@@ -36,7 +37,9 @@ public class Hammer : MonoBehaviour
                 if(s != null) s.Break();
             } else if (collision.gameObject.tag == "Enemy") {
                 EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
-                if (enemy != null) enemy.TakeDamage("mortal", damage);
+                CasterAI caster = collision.gameObject.GetComponent<CasterAI>();
+                if (enemy != null) enemy.TakeDamage(damageType, damage);
+                if (caster != null) caster.TakeDamage(damageType, damage);
                 if (HitSound) HitSound.Play();
             }
 

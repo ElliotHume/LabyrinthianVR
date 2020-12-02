@@ -5151,5 +5151,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: drainsphere
   type: AoE
-  damagetype: planar
+  damageType: planar
   spellRadius: 2.5

@@ -196,7 +196,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -946,7 +946,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4920,7 +4920,7 @@ Transform:
   m_GameObject: {fileID: 6836790294432838943}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.17688997, y: 0.17688997, z: 0.17688997}
+  m_LocalScale: {x: 0.04706865, y: 0.04706865, z: 0.04706865}
   m_Children: []
   m_Father: {fileID: 6836790295150975033}
   m_RootOrder: 0
@@ -5061,7 +5061,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5552,7 +5552,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 0
     angle: 20
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -5758,7 +5758,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 100
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -9715,10 +9715,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6836790295150975033}
-  - component: {fileID: 6836790295150975012}
   - component: {fileID: 2716826822466499448}
   - component: {fileID: 4650273024099997608}
   - component: {fileID: -7333291681966766761}
+  - component: {fileID: 6858565478726919191}
   m_Layer: 12
   m_Name: IceSpray
   m_TagString: Magic
@@ -9743,20 +9743,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6836790295150975012
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6836790295150975013}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2.5995378
-  m_Direction: 2
-  m_Center: {x: 0.000000059604645, y: 0, z: 1.2818131}
 --- !u!114 &2716826822466499448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9882,3 +9868,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &6858565478726919191
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6836790295150975013}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0e690b5467068943a99c1b7c6e6e7a7, type: 3}
-  m_Name: DrainSphere - Arcanopulse
+  m_Name: IceSpikes - Fireball EASY
   m_EditorClassIdentifier: 
-  spell: drainsphere
-  reactionChance: 0.8
-  blockTime: 5
-  animationTime: 3
-  castType: explosion
-  reactionSpell: {fileID: 8005883269175210359, guid: 0e62feca24334c74592ed5b0afd9e990,
+  spell: icespike
+  reactionChance: 0.5
+  blockTime: 3
+  animationTime: 0.1
+  castType: missile
+  reactionSpell: {fileID: 4829775223747024804, guid: 33a9e2918ecbec64094063a1cf353be8,
     type: 3}

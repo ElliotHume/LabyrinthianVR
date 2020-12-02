@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball-Bluefire
   m_EditorClassIdentifier: 
   spell: fireball
-  reactionChance: 0.2
+  reactionChance: 0.25
   blockTime: 1
   animationTime: 0
   castType: missile

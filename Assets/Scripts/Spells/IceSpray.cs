@@ -9,7 +9,7 @@ public class IceSpray : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 10.5f);
-        Destroy(GetComponent<CapsuleCollider>(), 5.5f);
+        Destroy(GetComponent<Collider>(), 5.5f);
     }
 
     // Update is called once per frame
@@ -28,10 +28,12 @@ public class IceSpray : MonoBehaviour
             Debug.Log("Freeze: "+other.gameObject);
         } else if (other.tag == "Enemy") {
             EnemyAI enemy = other.GetComponent<EnemyAI>();
+            CasterAI caster = other.GetComponent<CasterAI>();
             if (enemy != null) {
                 enemy.Slow(15f);
                 enemy.TakeDamage("ice", damagePerTick);
             }
+            if (caster != null) caster.TakeDamage("ice", damagePerTick);
         } else if (other.tag == "Missile") {
             Destroy(other.gameObject);
         }
