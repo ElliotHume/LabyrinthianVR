@@ -5168,6 +5168,7 @@ MonoBehaviour:
   damageType: arcane
   spellInteractorTriggerKey: magicmissile
   canHitPlayer: 0
+  canHitGhosts: 1
   destroyOnCollision:
   - {fileID: 6580605326325308700}
   - {fileID: 554472372}

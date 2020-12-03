@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceSpike - Fireball HARD
   m_EditorClassIdentifier: 
   spell: icespike
-  reactionChance: 0.1
+  reactionChance: 1
   blockTime: 3
   animationTime: 0.2
   castType: missile

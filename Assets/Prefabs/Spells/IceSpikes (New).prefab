@@ -4885,7 +4885,8 @@ GameObject:
   - component: {fileID: 7083420683898196402}
   - component: {fileID: 7083420683898196401}
   - component: {fileID: 1565101693}
-  m_Layer: 0
+  - component: {fileID: -8617984528152066399}
+  m_Layer: 12
   m_Name: IceSpikes (New)
   m_TagString: Magic
   m_Icon: {fileID: 0}
@@ -4955,7 +4956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb21f11aaf8e219438713c7128bb5a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: icespikes
+  name: icespike
   type: summon
   damageType: ice
   spellRadius: 3
@@ -5167,6 +5168,34 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.7, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-8617984528152066399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7083420683898196412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5488004b9fb6a4fb4bc88726958175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0
+  onBreak:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7083420683898196415}
+        m_TargetAssemblyTypeName: IceSpike, Assembly-CSharp
+        m_MethodName: Break
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7083420685347844593
 GameObject:
   m_ObjectHideFlags: 0
@@ -10048,6 +10077,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Trap_Spikes_01
       objectReference: {fileID: 0}
+    - target: {fileID: 134976, guid: 71b973d16356c61458cb853ecb1850ca, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 487932, guid: 71b973d16356c61458cb853ecb1850ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10135,6 +10168,10 @@ PrefabInstance:
     - target: {fileID: 134976, guid: 71b973d16356c61458cb853ecb1850ca, type: 3}
       propertyPath: m_Name
       value: SM_Env_Trap_Spikes_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 134976, guid: 71b973d16356c61458cb853ecb1850ca, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 487932, guid: 71b973d16356c61458cb853ecb1850ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10227,6 +10264,10 @@ PrefabInstance:
     - target: {fileID: 151658, guid: 44bfbfc639652f74db2267a0356edea2, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151658, guid: 44bfbfc639652f74db2267a0356edea2, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 424588, guid: 44bfbfc639652f74db2267a0356edea2, type: 3}
       propertyPath: m_LocalPosition.x

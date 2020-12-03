@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DrainSphere - Dash HARD
   m_EditorClassIdentifier: 
   spell: drainsphere
-  reactionChance: 0.8
+  reactionChance: 0.6
   blockTime: 6
   animationTime: 0
   castType: dash

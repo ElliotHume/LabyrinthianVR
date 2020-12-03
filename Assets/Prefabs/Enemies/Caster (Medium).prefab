@@ -48,7 +48,7 @@ MonoBehaviour:
   windupParticles: {fileID: 0}
   animationTime: 1
   cooldown: 3
-  castAnimationType: 0
+  castAnimationType: 2
   targeted: 1
   offsetForward: 0
 --- !u!1 &2456569625275480521
@@ -4083,6 +4083,7 @@ MonoBehaviour:
   sightRange: 10
   attackRange: 30
   damageAnimationTime: 2
+  actionCooldownTime: 1
   attackPattern: 000000000000000001000000020000000300000001000000010000000400000003000000020000000500000003000000
   reactions:
   - {fileID: 11400000, guid: a7aee3307693cf24996335c1899226c9, type: 2}

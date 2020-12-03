@@ -45,8 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellPrefab: {fileID: 2245226423690528453, guid: 650f8dd0e9db7394aabe082cc5412f4c,
     type: 3}
+  windupParticles: {fileID: 0}
   animationTime: 1
   cooldown: 3
-  castAnimationType: 0
+  castAnimationType: 2
   targeted: 1
-  offset: {x: 0, y: 0, z: 0}
+  offsetForward: 0

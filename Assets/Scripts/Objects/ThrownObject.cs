@@ -6,6 +6,7 @@ public class ThrownObject : MonoBehaviour
 {
     public float travelTime;
     public float maxHeight;
+    public bool spin = false;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -32,6 +33,8 @@ public class ThrownObject : MonoBehaviour
             transform.position = new Vector3(horizontal.x, vertical, horizontal.z);
 
             currentTime += Time.deltaTime;
+
+            if (spin) transform.Rotate(0,0,30*Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
         print("At End position: "+transform.position);

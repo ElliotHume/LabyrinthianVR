@@ -24452,6 +24452,7 @@ MonoBehaviour:
   damageType: fire
   spellInteractorTriggerKey: bluefire
   canHitPlayer: 0
+  canHitGhosts: 1
   destroyOnCollision:
   - {fileID: 6424820962457485659}
   - {fileID: 6424442472874960999}

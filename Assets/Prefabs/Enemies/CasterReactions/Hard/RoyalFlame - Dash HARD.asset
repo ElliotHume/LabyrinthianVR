@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoyalFlame - Dash HARD
   m_EditorClassIdentifier: 
   spell: royalflame
-  reactionChance: 0.1
+  reactionChance: 0.8
   blockTime: 6
   animationTime: 0
   castType: dash

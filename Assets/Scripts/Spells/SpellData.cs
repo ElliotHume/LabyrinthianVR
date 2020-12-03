@@ -13,6 +13,7 @@ public class SpellData : MonoBehaviour
 
     public GameObject GetObjectInPath() {
         RaycastHit raycastHit;
+        SphereCollider sc = GetComponent<SphereCollider>();
         if( Physics.SphereCast(transform.position+transform.forward, spellRadius, transform.forward, out raycastHit, 100f) ) {
             return raycastHit.transform.gameObject;
         }
@@ -25,7 +26,7 @@ public class SpellData : MonoBehaviour
         } else if (type == "AoE") {
             // Debug.Log("AoE check: "+ Vector3.Distance(target.transform.position, transform.position));
             return Vector3.Distance(target.transform.position, transform.position) <= spellRadius;
-        } else if (type == "seeker") {
+        } else if (type == "seeker" || type == "summon") {
             return true;
         }
 

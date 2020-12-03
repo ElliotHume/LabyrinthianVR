@@ -7,6 +7,7 @@ public class Hammer : MonoBehaviour
     public AudioSource HitSound;
     public float damage = 10f, hitTimeout = 0.1f;
     public string damageType = "mortal";
+    public bool canHitPlayer = false;
     bool onHitTimeout = false;
 
     // Start is called before the first frame update
@@ -14,12 +15,6 @@ public class Hammer : MonoBehaviour
     {
         HitSound = GetComponent<AudioSource>();
         StartCoroutine(HitBoxTimeout());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -41,6 +36,9 @@ public class Hammer : MonoBehaviour
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
                 if (caster != null) caster.TakeDamage(damageType, damage);
                 if (HitSound) HitSound.Play();
+            } else if (collision.gameObject.tag == "Player" && canHitPlayer) {
+                Player player = collision.gameObject.GetComponent<Player>();
+                if (player != null) player.WeaponHit(damage);
             }
 
             Rigidbody r = collision.gameObject.GetComponent<Rigidbody>();
@@ -48,6 +46,10 @@ public class Hammer : MonoBehaviour
 
             onHitTimeout = true;
         }
+    }
+
+    public void HitPlayer() {
+        canHitPlayer = true;
     }
 
     IEnumerator HitBoxTimeout() {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball-Bluefire HARD
   m_EditorClassIdentifier: 
   spell: fireball
-  reactionChance: 0.5
+  reactionChance: 1
   blockTime: 1
   animationTime: 0
   castType: missile

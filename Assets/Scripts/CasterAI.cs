@@ -26,11 +26,14 @@ public class CasterAI : MonoBehaviour
     public Transform castingAnchorPoint, shieldAnchorPoint;
     CasterReaction reaction;
     Vector3 moveDirection;
+    List<GameObject> detectedSpells;
+    CasterWeapon weapon;
 
     //States
-    public float sightRange = 10f, attackRange = 3f, damageAnimationTime = 2f;
+    public float sightRange = 10f, attackRange = 3f, damageAnimationTime = 2f, actionCooldownTime=0.2f;
     bool targetInSightRange, targetInAttackRange, canSeeTarget, walking = false, inCombat = false;
     int currentAttackIndex = 0;
+    float waitTime=0f;
 
     // Enemy Specific
     public enum AttackPatternActions {Missile = 0, Bolt = 1, Shield = 2, Dash = 3, Summon = 4, Throw = 5};
@@ -52,6 +55,7 @@ public class CasterAI : MonoBehaviour
         player = GameObject.Find("XR Rig");
         playerController = player.GetComponent<CharacterController>();
         maxHealth = health;
+        detectedSpells = new List<GameObject>();
     }
 
     void FixedUpdate()
@@ -86,13 +90,19 @@ public class CasterAI : MonoBehaviour
 
         // Check if the spells in the area will hit me
         bool willGetHit = (spellInArea != null) && spellInArea.WillHitObject(gameObject);
+        if (spellInArea != null) Debug.Log("Will I get hit by the incoming spell: "+willGetHit);
 
-        // Thinking logic
-        if (health > 0f && inCombat) {
-            if (willGetHit) {
-                Block(spellInArea);
-            } 
-            
+        // Check if waiting
+        if (waitTime > 0f && !currentlyAttacking && !blocking && !takingDamage) {
+            waitTime -= Time.deltaTime;
+            Debug.Log("Waiting...");
+        }
+        bool waiting = waitTime > 0f;
+
+        // Thinking Logic
+        if (health > 0f && willGetHit) {
+            Block(spellInArea);
+        } else if (health > 0f && inCombat && !waiting) {
             if ((!targetInAttackRange || (targetInAttackRange && !canSeeTarget)) && !currentlyAttacking && !blocking && !takingDamage) {
                 ChaseTarget();
             } else {
@@ -102,25 +112,22 @@ public class CasterAI : MonoBehaviour
     }
 
     SpellData DetectSpells() {
-        Collider[] spellColliders = Physics.OverlapSphere(transform.position+transform.forward*3f, 8f, whatIsSpell);
+        Collider[] spellColliders = Physics.OverlapSphere(transform.position+transform.forward*3f, 15f, whatIsSpell);
         if (spellColliders.Length > 0) {
             SpellData sd = spellColliders[0].gameObject.GetComponent<SpellData>();
-            Debug.Log("Found Spell: "+sd.name);
-            if (sd != null) return sd;
+            if (sd != null && !detectedSpells.Contains(spellColliders[0].gameObject)) {
+                Debug.Log("Found Spell: "+sd.name);
+                detectedSpells.Add(spellColliders[0].gameObject);
+                return sd;
+            }
+        } else {
+            detectedSpells.Clear();
         }
         return null;
-
-        // RaycastHit raycastHit;
-        // if( Physics.SphereCast(transform.position, 2f, (playerPos - (transform.position+transform.up)), out raycastHit, 100f, whatIsSpell) ) {
-        //     SpellData sd = raycastHit.transform.gameObject.GetComponent<SpellData>();
-        //     Debug.Log("Found Spell: "+sd.name);
-        //     if (sd != null) return sd;
-        // }
-        // return null;
     }
 
     void Block(SpellData spell) {
-        Debug.Log("Try to block");
+        Debug.Log("Try to block, can I? : "+!(currentlyAttacking || blocking || takingDamage));
 
         // Do not Block if currently attacking, blocking, or taking damage
         if (currentlyAttacking || blocking || takingDamage) return;
@@ -144,9 +151,10 @@ public class CasterAI : MonoBehaviour
             
             //Debug.Log("Blocking");
             blocking = true;
+            inCombat = true;
             
             StartCoroutine(React());
-            Invoke(nameof(ResetBlock), reaction.blockTime);
+            //Invoke(nameof(ResetBlock), reaction.blockTime);
         }
     }
 
@@ -170,12 +178,17 @@ public class CasterAI : MonoBehaviour
         if (reaction.animationTime > 0f) {
             yield return new WaitForSeconds(reaction.animationTime);
         }
+        blocking = false;
+        waitTime = reaction.blockTime + actionCooldownTime;
         
         // Spawn the counter spell at the appropriate anchor point
         if (reaction.reactionSpell != null) {
             Transform anchorPoint = reaction.castType == "missile" ? castingAnchorPoint : shieldAnchorPoint;
             Instantiate(reaction.reactionSpell, anchorPoint.position, anchorPoint.rotation);
         }
+
+        yield return new WaitForSeconds(reaction.blockTime);
+        ResetBlock();
     }
 
     // Dash type of 0 is evade
@@ -218,10 +231,10 @@ public class CasterAI : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        waitTime += actionCooldownTime;
     }
 
     void ResetBlock() {
-        blocking = false;
         anim.SetBool("Blocking", false);
     }
 
@@ -258,33 +271,34 @@ public class CasterAI : MonoBehaviour
             currentlyAttacking = true;
 
             // Attack actions(s)
-            CasterWeapon weapon = null;
+            CasterWeapon newWeapon = null;
             switch (attackPattern[currentAttackIndex]) {
                 case AttackPatternActions.Missile:
-                    weapon = missileWeapons[Random.Range(0, missileWeapons.Count)];
+                    newWeapon = missileWeapons[Random.Range(0, missileWeapons.Count)];
                     break;
                 case AttackPatternActions.Bolt:
-                    weapon = boltWeapons[Random.Range(0, boltWeapons.Count)];
+                    newWeapon = boltWeapons[Random.Range(0, boltWeapons.Count)];
                     break;
                 case AttackPatternActions.Shield:
-                    weapon = shieldWeapons[Random.Range(0, shieldWeapons.Count)];
+                    newWeapon = shieldWeapons[Random.Range(0, shieldWeapons.Count)];
                     break;
                 case AttackPatternActions.Dash:
                     Dash(3);
                     Invoke(nameof(ResetAttack), 5f);
                     break;
                 case AttackPatternActions.Summon:
-                    weapon = summonWeapons[Random.Range(0, summonWeapons.Count)];
+                    newWeapon = summonWeapons[Random.Range(0, summonWeapons.Count)];
                     break;
                 case AttackPatternActions.Throw:
-                    weapon = throwWeapons[Random.Range(0, throwWeapons.Count)];
+                    newWeapon = throwWeapons[Random.Range(0, throwWeapons.Count)];
                     break;
             }
 
-            if (weapon != null) {
+            if (newWeapon != null) {
+                weapon = newWeapon;
                 anim.SetInteger("CastType", weapon.castAnimationType);
                 anim.SetTrigger("Cast");
-                StartCoroutine(CastWeapon(weapon));
+                // StartCoroutine(CastWeapon(weapon));
             }
             
             currentAttackIndex += 1;
@@ -293,32 +307,54 @@ public class CasterAI : MonoBehaviour
     }
 
     IEnumerator CastWeapon(CasterWeapon weapon) {
-        weapon.PlayWindupParticles();
+        //weapon.PlayWindupParticles();
         yield return new WaitForSeconds(weapon.animationTime);
         weapon.Fire(gameObject);
         yield return new WaitForSeconds(weapon.cooldown);
         currentlyAttacking = false;
+        waitTime += weapon.cooldown + actionCooldownTime;
     }
 
     void ResetAttack() {
         currentlyAttacking = false;
     }
 
+    // Functions for animation events, only apply when currently attacking, because the animations can be shared with other actions
+    public void FireWeapon(){
+        if (currentlyAttacking) {
+            Debug.Log("Firing weapon");
+            weapon.Fire(gameObject);
+        }
+    }
+
+    public void InitParticles() {
+        if (currentlyAttacking) {
+            Debug.Log("Init weapon particles");
+            weapon.PlayWindupParticles();
+        }
+    }
+
+    public void FinishAttack() {
+        if (currentlyAttacking) {
+            Debug.Log("Finish attack");
+            currentlyAttacking = false;
+            waitTime += weapon.cooldown + actionCooldownTime;
+        }
+    }
+
     public void TakeDamage(float damage) {
         // Do not animate if damage is small (like a damage over time effect)
-        if (damage >= 5) {
-            // Trigger animation
-            if (!takingDamage) {
-                anim.SetTrigger("GetHit");
-                takingDamage = true;
-                Invoke("ResetDamage", damageAnimationTime);
-            }
+        // Trigger animation
+        if (!takingDamage && damage >= 5) {
+            anim.SetTrigger("GetHit");
+            takingDamage = true;
+            Invoke("ResetDamage", damageAnimationTime);
+        }
 
-            // Play hit sound, lerped pitch with the current health of the caster
-            if (hitSound) {
-                hitSound.pitch = Mathf.Lerp(2f,1f,health/maxHealth);
-                hitSound.Play();
-            }
+        // Play hit sound, lerped pitch with the current health of the caster
+        if (hitSound != null && !hitSound.isPlaying) {
+            hitSound.pitch = Mathf.Lerp(2f,1f,health/maxHealth);
+            hitSound.Play();
         }
 
         inCombat = true;

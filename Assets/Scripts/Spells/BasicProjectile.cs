@@ -8,7 +8,7 @@ public class BasicProjectile : MonoBehaviour
     public GameObject castFX, hitFX;
     public AudioSource hitSound, loopSound;
     public string damageType = "arcane", spellInteractorTriggerKey = "projectile";
-    public bool canHitPlayer = false;
+    public bool canHitPlayer = false, canHitGhosts = false;
     public List<GameObject> destroyOnCollision;
 
 
@@ -62,7 +62,7 @@ public class BasicProjectile : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if ((other.tag != "Player" || canHitPlayer) && other.gameObject != owner) {
+        if ((other.tag != "Player" || canHitPlayer) && other.gameObject != owner && (other.tag != "Ghost" || canHitGhosts)) {
             Destroy(GetComponent<Collider>());
             Destroy(gameObject, 1f);
             if (loopSound != null && loopSound.isPlaying) loopSound.Stop();
@@ -83,7 +83,7 @@ public class BasicProjectile : MonoBehaviour
                 if(s != null) s.Break();
             } else if (other.tag == "Player") {
                 if (player != null) player.GetComponent<Player>().WeaponHit(damage);
-            } else if (other.tag == "Enemy") {
+            } else if (other.tag == "Enemy" || other.tag == "Ghost") {
                 EnemyAI enemy = other.GetComponent<EnemyAI>();
                 CasterAI caster = other.GetComponent<CasterAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);

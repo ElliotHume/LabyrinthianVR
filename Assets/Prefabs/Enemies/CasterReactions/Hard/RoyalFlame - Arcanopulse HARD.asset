@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoyalFlame - Arcanopulse HARD
   m_EditorClassIdentifier: 
   spell: royalflame
-  reactionChance: 0.1
+  reactionChance: 1
   blockTime: 5
   animationTime: 3
   castType: explosion

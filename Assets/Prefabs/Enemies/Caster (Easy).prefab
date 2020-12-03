@@ -646,7 +646,8 @@ MonoBehaviour:
   sightRange: 10
   attackRange: 30
   damageAnimationTime: 2
-  attackPattern: 050000000500000001000000020000000300000001000000
+  actionCooldownTime: 2
+  attackPattern: 000000000000000001000000020000000300000001000000
   reactions:
   - {fileID: 11400000, guid: e2ae8bcfc04565745a2fa93f122174b6, type: 2}
   - {fileID: 11400000, guid: 19038390c8175af498bf0544dcb6b972, type: 2}
