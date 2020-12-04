@@ -2083,7 +2083,7 @@ GameObject:
   - component: {fileID: 3156968960866512962}
   - component: {fileID: 3156968960866512989}
   m_Layer: 0
-  m_Name: Metal Fan
+  m_Name: Magnoset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cc6eebd21a1da4ea17d5ce2ff519aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _glyph: {fileID: 11400000, guid: 14bbdc742b53e804694368e35b67334a, type: 2}
+  _glyph: {fileID: 11400000, guid: fa9619f12af44924390675791f6f2df5, type: 2}
 --- !u!1 &3156968960892330672
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,9 +2292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Metal Fan
-
-'
+  m_text: Magnoset
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2321,7 +2319,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.75
+  m_fontSize: 42.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3360,7 +3358,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3156968961302744746}
-  m_LocalRotation: {x: -0, y: -0.382684, z: -0, w: 0.92387927}
+  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 14, y: 5, z: -14}
   m_LocalScale: {x: 16, y: 10, z: 0.5}
   m_Children:

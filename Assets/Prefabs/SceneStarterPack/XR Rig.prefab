@@ -9986,6 +9986,8 @@ MonoBehaviour:
     type: 3}
   metalFan: {fileID: 5403026095920945731, guid: 607ec526bffd52a4b93ccf38e67ac160,
     type: 3}
+  magnoset: {fileID: 7360958815451030141, guid: 6993172eb9a9c4d49a25053ba09f85b1,
+    type: 3}
   drainSphere: {fileID: 7177035543809454239, guid: f103f95b39d29d54a971fae1be1c1c36,
     type: 3}
   binding: {fileID: 4276297756262862713, guid: 67b14b1c63e45934aa8df08c63920e88, type: 3}

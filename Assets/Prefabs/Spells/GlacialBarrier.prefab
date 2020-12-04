@@ -51,8 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7446143cb1619784ea4e0ea48f641111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iceSpikesPrefab: {fileID: 7083420683898196412, guid: 1b88c93186e629545a8de806d5d7845c,
-    type: 3}
+  prefab: {fileID: 7083420683898196412, guid: 1b88c93186e629545a8de806d5d7845c, type: 3}
   anchorPoints:
   - {fileID: 8000668027961846565}
   - {fileID: 8000668028921425263}

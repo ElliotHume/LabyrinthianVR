@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public GameObject seeDead;
     public GameObject skeleton;
     public GameObject metalFan;
+    public GameObject magnoset;
     public GameObject drainSphere;
     public GameObject binding;
     public GameObject marker;
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
         handColours.Add("earthwall", mortalColor);
         handColours.Add("midastouch", mortalColor);
         handColours.Add("metalfan", mortalColor);
+        handColours.Add("magnoset", mortalColor);
         handColours.Add("sword", new Color(54/255f, 99/255f, 78/255f));
         handColours.Add("farseer", planarColor);
         handColours.Add("seedead", planarColor);
@@ -130,13 +132,17 @@ public class Player : MonoBehaviour
         } else if (Input.GetKeyDown("e")) {
             Instantiate(arcanePulse, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("q")) {
-            Instantiate(hammer, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+            GameObject go = Instantiate(hammer, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+            go.GetComponent<Rigidbody>().useGravity = true;
         } else if (Input.GetKeyDown("r")) {
             Instantiate(magicMissile, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("t")) {
             Instantiate(drainSphere, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+        } else if (Input.GetKeyDown("m")) {
+            Instantiate(magnoset, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
         } else if (Input.GetKeyDown("y")) {
-            Instantiate(royalFireball, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+            GameObject go = Instantiate(royalFireball, Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.rotation);
+            go.GetComponent<Rigidbody>().useGravity = true;
         } else if (Input.GetKeyDown("g")) {
             CastHeldBinding(rightHand);
         } if (Input.GetKeyDown("3")) {
@@ -248,6 +254,7 @@ public class Player : MonoBehaviour
                 break;
             case "sword":
             case "marker":
+            case "magnoset":
                 ps = rightHand ? r_basicParticles : l_basicParticles;
                 break;
         }
@@ -335,6 +342,9 @@ public class Player : MonoBehaviour
                     case "metalfan":
                         CastHeldMetalFan(castingHand);
                         break;
+                    case "magnoset":
+                        CastHeldMagnoset(castingHand);
+                        break;
                     case "drainsphere":
                         CastHeldDrainSphere(castingHand);
                         break;
@@ -370,6 +380,19 @@ public class Player : MonoBehaviour
                 leftHandSpell = null;
                 leftHandRenderer.material = baseMaterial;
             }
+        }
+    }
+
+    public void NullifySpellCast(string hand) {
+        string heldSpell = (hand == "right") ? rightHandSpell : leftHandSpell;
+        if (hand == "right") {
+            ToggleSpellParticles(true, heldSpell, false);
+            rightHandSpell = null;
+            rightHandRenderer.material = baseMaterial;
+        } else {
+            ToggleSpellParticles(false, heldSpell, false);
+            leftHandSpell = null;
+            leftHandRenderer.material = baseMaterial;
         }
     }
 
@@ -689,6 +712,11 @@ public class Player : MonoBehaviour
     //  ------------- Metal Fan ------------------
     public void CastHeldMetalFan(GameObject castingHand) {
         GameObject newMetalFan = Instantiate(metalFan, castingHand.transform.position, castingHand.transform.rotation);
+    }
+
+    //  ------------- Magnoset ------------------
+    public void CastHeldMagnoset(GameObject castingHand) {
+        GameObject newMagnoset = Instantiate(magnoset, castingHand.transform.position, castingHand.transform.rotation);
     }
 
 

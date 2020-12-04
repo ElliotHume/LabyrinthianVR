@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
 
     public List<string> discoveredSpells;
     public List<string> discoveredScenes;
-    public float health = 100;
+    public float health = 100f;
     float maxHealth;
     public string previousScene;
 
@@ -16,11 +16,17 @@ public class PlayerManager : MonoBehaviour
     public Material damageMaterial;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        StartCoroutine(RegenHealth());
+        // StartCoroutine(RegenHealth());
         maxHealth = health;
+        health = 100f;
+    }
+
+    void FixedUpdate() {
+        health = Mathf.Clamp(health+(0.33f * Time.deltaTime), 0f, maxHealth);
+        ChangeDamageMaterial();
     }
 
     public void DiscoverScene(string scene) {
@@ -34,8 +40,6 @@ public class PlayerManager : MonoBehaviour
     public void Damage(float damage) {
         health -= damage;
 
-        ChangeDamageMaterial();
-
         if (health <= 0f) {
             // Send the player to the death realm
             LoadScene("DeathRealm");
@@ -48,7 +52,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void LoadScene(string sceneName) {
-        health = 100;
+        health = 100f;
         damageMaterial.color = baseColour;
 
         if (sceneName == "last") sceneName = previousScene;
@@ -58,7 +62,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void ReturnToLastScene() {
-        health = 100;
+        health = 100f;
         damageMaterial.color = baseColour;
 
         SceneManager.LoadScene(previousScene);
@@ -66,9 +70,10 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator RegenHealth() {
         while (true) {
-            yield return new WaitForSeconds(15);
-            health = Mathf.Clamp(health+15, 0, 100);
+            health = Mathf.Clamp(health+15f, 0f, maxHealth);
+            Debug.Log("Health: "+health);
             ChangeDamageMaterial();
+            yield return new WaitForSeconds(20f);
         }
     }
 }

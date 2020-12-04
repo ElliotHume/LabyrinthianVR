@@ -31,4 +31,9 @@ public class FloatingObject : MonoBehaviour
         bobs = true;
         rotates = true;
     }
+
+    public void StopMoving() {
+        bobs = false;
+        rotates = false;
+    }
 }

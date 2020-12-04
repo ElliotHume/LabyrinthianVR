@@ -48,35 +48,45 @@ public class RightHandManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player == null)
+        if (player == null) {
             try {
                 player = GameObject.Find("XR Rig").GetComponent<Player>();
             } catch {
                 // do nothing
             }
-
-        if (player != null && CheckIfActivated(controller) && !held){
-            //print("try cast");
-            held = true;
-            if (interactor.selectTarget == null) {
-                drawingSphere.SetActive(true);
-                if (castSuccess) {
-                    castingLine.SetActive(true);
+        } else {
+            if (player != null && CheckIfActivated(controller) && !held) {
+                //print("try cast");
+                held = true;
+                if (interactor.selectTarget == null) {
+                    drawingSphere.SetActive(true);
+                    if (castSuccess) {
+                        castingLine.SetActive(true);
+                    }
                 }
+                
             }
-            
-        }
 
-        if (player != null && !CheckIfActivated(controller) && held) {
-            held = false;
-            drawingSphere.SetActive(false);
-            castingLine.SetActive(false);
-            if (castSuccess) {
-                player.ReleaseSpellCast(handName);
+            if (player != null && !CheckIfActivated(controller) && held) {
+                held = false;
+                drawingSphere.SetActive(false);
+                castingLine.SetActive(false);
+                if (castSuccess) {
+                    player.ReleaseSpellCast(handName);
+                    castSuccess = false;
+                }
+                castSuccess = glyphRecognition.Cast();
+            }
+
+            if (player != null && CheckIfTriggered(controller) &&  held) {
+                held = false;
+                drawingSphere.SetActive(false);
+                castingLine.SetActive(false);
+                player.NullifySpellCast(handName);
                 castSuccess = false;
             }
-            castSuccess = glyphRecognition.Cast();
         }
+        
 
         //controller.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed);
         //if (pressed) player.CastFireball(0, 0f);

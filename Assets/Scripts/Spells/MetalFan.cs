@@ -24,7 +24,8 @@ public class MetalFan : MonoBehaviour
             released = true;
             
             grabInteractable.colliders.Clear();
-            Destroy(gameObject, 15f);
+            GetComponent<Rigidbody>().useGravity = true;
+            Destroy(gameObject, 6f);
         }
     }
 }

@@ -35727,11 +35727,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpellWall
       objectReference: {fileID: 0}
-    - target: {fileID: 3156968961302744746, guid: 250419593b767cd4381c6e7095f562fb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3156968961302744750, guid: 250419593b767cd4381c6e7095f562fb,
         type: 3}
       propertyPath: m_LocalPosition.x
