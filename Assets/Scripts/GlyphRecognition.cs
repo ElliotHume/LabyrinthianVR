@@ -14,7 +14,7 @@ public class GlyphRecognition : MonoBehaviour {
 
 	public StrokeGraphic targetGlyphGraphic, castedGlyphGraphic, currentGlyphGraphic, currentStrokeGraphic, storedGlyphGraphic;
 
-	float costThreshold = 0.175f;
+	public float costThreshold = 0.175f;
 	public float CostThreshold {get{ return costThreshold; } set{
 		costThreshold = value;
 		//Debug.Log(value);
@@ -35,6 +35,7 @@ public class GlyphRecognition : MonoBehaviour {
 	private CastDirection currentCast;
 
 	private bool stopStoredMorph = false;
+	UnityEngine.UI.Image img;
 
     // This should potentially be in a constants file, though I'm not sure how to do importing in c#
     private Dictionary<string, Color> glyphColours = new Dictionary<string, Color>();
@@ -46,7 +47,7 @@ public class GlyphRecognition : MonoBehaviour {
 		if (glyphInput.OnStrokeDraw!=this.OnStrokeDraw) glyphInput.OnStrokeDraw+=this.OnStrokeDraw;
 		if (glyphInput.OnPointDraw!=this.OnPointDraw) glyphInput.OnPointDraw+=this.OnPointDraw;
 
-		StartCoroutine(CleanScreen());
+		//StartCoroutine(CleanScreen());
 
         // Add Glyph Colour
         glyphColours.Add("fireball", new Color(1f, 0, 0));
@@ -78,10 +79,19 @@ public class GlyphRecognition : MonoBehaviour {
         } else if (Input.GetKey("tab")) {
             glyphInput.EndCustomDrag(glyphInput.GetPrevPos());
         }
+
+		// Clean screen
+		if (!groundCast) {
+			if (img == null) img = GetComponent<UnityEngine.UI.Image>();
+			if (img.color.a > 0f) {
+				float newAlpha = (img.color.a - 0.05f);
+				img.color = new Color(img.color.r, img.color.g, img.color.b, newAlpha);
+			}
+		}
 	}
 
 	public void InitCleanScreen(){
-		StartCoroutine(CleanScreen());
+		//StartCoroutine(CleanScreen());
 	}
 
 	IEnumerator CleanScreen() {
@@ -149,18 +159,15 @@ public class GlyphRecognition : MonoBehaviour {
 		targetGlyphGraphic.color = new Color(1f, 1f, 1f, 1f);
 
 		Clear(currentGlyphGraphic);
-		if (match != null) {
-			Debug.Log(match.Cost);
-		}
 		if (match == null || match.Cost > costThreshold) {
 			Clear(targetGlyphGraphic);
 			Clear(castedGlyphGraphic);
-			if (match != null) print("Error cost too high");
+			if (match != null) print("Error cost of "+match.Cost+" too high for match: "+match.target.ToString());
 			player.CastFizzle(hand);
 			return;
 		}
 		
-		// Debug.Log("match:  "+ match.target.ToString());
+		Debug.Log("Match found:  "+ match.target.ToString()+"   Cost: "+match.Cost);
 		// Debug.Log("Player:   "+player.name);
 		// Make sure glyph recognition finishes and clears the stroke list
 		// through any possible errors.
@@ -271,52 +278,8 @@ public class GlyphRecognition : MonoBehaviour {
 
 		//Debug.Log(castGlyph.target.ToString());
         //Debug.Log(castGlyph.Cost);
-		if (castGlyph.target.ToString() == "UpStroke" && castGlyph.Cost < 0.06) {
-			float direction = Vector2.Dot(Vector2.up, vectorStroke);
-
-			if (direction > 0) {
-				if (storedGlyph != null && IsClear(currentGlyphGraphic)) {
-					getStored();
-				} else {
-					Cast(previousGlyph, CastDirection.Forward);
-				}
-			} else {
-				Glyph newGlyph=Glyph.CreateGlyph(
-					previousGlyph,
-					glyphInput.sampleDistance
-				);
-				GlyphMatch match = Match(previousGlyph);
-				Clear(currentGlyphGraphic);
-
-				if (match != null && match.target.ToString() != "UpStroke" ) {
-					storedGlyph = previousGlyph;
-					Set(storedGlyphGraphic, newGlyph);
-					StartCoroutine(MorphStored (match));
-				} else
-                {
-					//player.CastFizzle();
-                }
-
-				glyphInput.ClearInput();
-				Debug.Log("Store");
-			}
-
-		} else if (castGlyph.target.ToString() == "CastLeft" && castGlyph.Cost < 0.1) {
-			if (storedGlyph != null && IsClear(currentGlyphGraphic)) {
-				getStored();
-			} else {
-				Cast(previousGlyph, CastDirection.Left);
-			}
-		} else if (castGlyph.target.ToString() == "CastRight" && castGlyph.Cost < 0.1) {
-			if (storedGlyph != null && IsClear(currentGlyphGraphic)) {
-				getStored();
-			} else {
-				Cast(previousGlyph, CastDirection.Right);
-			}
-		} else {
-			//Debug.Log("Stroke Drawn");
-			Set(currentGlyphGraphic,strokes);
-		}
+		//Debug.Log("Stroke Drawn");
+		Set(currentGlyphGraphic,strokes);
 	}
 
 	void OnPointDraw(Vector2[] points){
@@ -330,6 +293,7 @@ public class GlyphRecognition : MonoBehaviour {
 	}
 
 	public void ActivateGroundDraw(GameObject go) {
+		Debug.Log("Activate ground draw for "+gameObject);
 		groundCast = true;
 		groundPlane = go.GetComponent<GroundDrawingPlane>();
 	}

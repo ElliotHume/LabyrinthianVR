@@ -38,7 +38,7 @@ TagManager:
   - Ground
   - Enemy
   - PassthroughInteractable
-  - 
+  - SpellComponent
   - 
   - 
   - 

@@ -12,7 +12,7 @@ public class GroundDrawingPlane : MonoBehaviour
     public GlyphRecognition glyphRecognition;
 
     // Spell prefabs
-    public GameObject ascend, protection, hearthspell, domain; 
+    public GameObject ascend, protection, hearthbind, domain; 
 
     ContactPoint lastContactPoint;
     BoxCollider boxCollider;
@@ -83,6 +83,7 @@ public class GroundDrawingPlane : MonoBehaviour
         switch (component.effectName) {
             case "activate":
                 glyphRecognition.Cast();
+                component.Break();
                 break;
         }
     }
@@ -99,15 +100,26 @@ public class GroundDrawingPlane : MonoBehaviour
         }
         castAccuracy = accuracy;
 
+        GameObject spawnPrefab = null;
+        float verticalOffset = 0f;
         switch (spell) {
             case "ascend":
+                spawnPrefab = ascend;
+                verticalOffset = 1.8f;
                 break;
             case "protection":
+                spawnPrefab = protection;
                 break;
-            case "hearthspell":
+            case "hearthbind":
+                spawnPrefab = hearthbind;
                 break;
             case "domain":
+                spawnPrefab = domain;
                 break;
         }
+
+        Instantiate(spawnPrefab, transform.position+(transform.up * verticalOffset), transform.rotation);
+        glyphDrawInput.enabled = false;
+        Destroy(gameObject, 30f);
     }
 }

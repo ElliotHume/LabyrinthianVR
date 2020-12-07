@@ -9952,6 +9952,8 @@ MonoBehaviour:
   l_shieldSphere: {fileID: 7108477472713337835}
   l_arcanoSphere: {fileID: 7916385270544800917}
   l_missileEmitter: {fileID: 8808269201707936132}
+  groundCaster: {fileID: 1242969645148109710, guid: ba6c0bcc1f47c434ab1a3e684fa1b194,
+    type: 3}
   fireball: {fileID: 4829775223747024804, guid: 33a9e2918ecbec64094063a1cf353be8,
     type: 3}
   bluefire: {fileID: 6425106007566321175, guid: cd2b01fe540b8524abaeda46f45f7b86,
@@ -9995,6 +9997,8 @@ MonoBehaviour:
   sword: {fileID: 1530684633613018, guid: c30fcbe73b9f9d543998f5e784be6273, type: 3}
   flight: {fileID: 4215348494904648822, guid: ae7b73b610216e347ba9b07c7597c7cb, type: 3}
   wargodswand: {fileID: 8554065962575834914, guid: 93b69c5b393a35a4cb10e9473d416ede,
+    type: 3}
+  spellComponent: {fileID: 6862097259527826252, guid: a9d9c762b2ca9034999afd109f422f03,
     type: 3}
   hammers: []
   maxHammers: 2

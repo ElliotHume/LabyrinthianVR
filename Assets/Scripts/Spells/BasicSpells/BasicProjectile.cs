@@ -72,9 +72,6 @@ public class BasicProjectile : MonoBehaviour
                 Destroy(go);
             }
 
-            if (hitFX != null) Instantiate(hitFX, transform.position, transform.rotation * Quaternion.Euler(-90, 0, 0));
-            if (hitSound != null) hitSound.Play();
-
             if (other.tag == "Spell_Interactable") {
                 SpellInteractable si = other.GetComponent<SpellInteractable>();
                 if (si != null) si.Trigger(spellInteractorTriggerKey);
@@ -88,6 +85,11 @@ public class BasicProjectile : MonoBehaviour
                 CasterAI caster = other.GetComponent<CasterAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
                 if (caster != null) caster.TakeDamage(damageType, damage);
+            }
+
+            if (other.tag != "NullZone") {
+                if (hitFX != null) Instantiate(hitFX, transform.position, transform.rotation * Quaternion.Euler(-90, 0, 0));
+                if (hitSound != null) hitSound.Play();
             }
         }
     }

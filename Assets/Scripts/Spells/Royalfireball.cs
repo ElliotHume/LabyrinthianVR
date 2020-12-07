@@ -14,9 +14,9 @@ public class Royalfireball : MonoBehaviour
         if (grabInteractable == null) grabInteractable = GetComponent<XRGrabInteractable>();
     }
     
-    void OnCollisionEnter(Collision other) {
-        if (other.gameObject.tag != "Player") {
-            GameObject newExplosion = Instantiate(royalFire, transform.position, Quaternion.identity);
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag != "Player") {
+            if (collision.gameObject.tag != "NullZone") Instantiate(royalFire, transform.position, Quaternion.identity);
             if (grabInteractable != null) grabInteractable.colliders.Clear();
             Destroy(gameObject);
         }

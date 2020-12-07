@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public GameObject l_shieldSphere, l_arcanoSphere, l_missileEmitter;
 
     // SPELL PREFABS
+    public GameObject groundCaster;
     public GameObject fireball;
     public GameObject bluefire;
     public GameObject shield;
@@ -47,6 +48,9 @@ public class Player : MonoBehaviour
     public GameObject flight;
     public GameObject wargodswand;
 
+    // Spell Component prefabs
+    public GameObject spellComponent;
+
     public List<GameObject> hammers;
     public int maxHammers = 1;
     public List<GameObject> shields;
@@ -69,6 +73,7 @@ public class Player : MonoBehaviour
         Color arcaneColor = new Color(156/255f, 0f, 1f);
         Color mortalColor = new Color(165/255f, 145/255f, 0f);
         Color planarColor = new Color(1f, 1f, 1f);
+        Color basicColor = new Color(54/255f, 99/255f, 78/255f);
 
 
         // hand colours
@@ -89,7 +94,7 @@ public class Player : MonoBehaviour
         handColours.Add("midastouch", mortalColor);
         handColours.Add("metalfan", mortalColor);
         handColours.Add("magnoset", mortalColor);
-        handColours.Add("sword", new Color(54/255f, 99/255f, 78/255f));
+        handColours.Add("sword", basicColor);
         handColours.Add("farseer", planarColor);
         handColours.Add("seedead", planarColor);
         handColours.Add("death", planarColor);
@@ -97,10 +102,14 @@ public class Player : MonoBehaviour
         handColours.Add("drainsphere", planarColor);
         handColours.Add("binding", planarColor);
         handColours.Add("return", arcaneColor);
-        handColours.Add("marker", new Color(54/255f, 99/255f, 78/255f));
+        handColours.Add("marker", basicColor);
         handColours.Add("flight1", planarColor);
         handColours.Add("flight2", planarColor);
+        handColours.Add("groundcaster", planarColor);
         handColours.Add("wargodswand", new Color(1f, 0, 0.3f));
+
+        // spell component colours
+        handColours.Add("activate", basicColor);
 
         rightHand = GameObject.Find("RightHand Controller");
         Debug.Log("right Hand GameObject: "+ rightHand);
@@ -255,6 +264,8 @@ public class Player : MonoBehaviour
             case "sword":
             case "marker":
             case "magnoset":
+            case "activate":
+            case "groundcaster":
                 ps = rightHand ? r_basicParticles : l_basicParticles;
                 break;
         }
@@ -357,6 +368,12 @@ public class Player : MonoBehaviour
                     case "sword":
                         CastHeldSword(castingHand);
                         break;
+                    case "groundcaster":
+                        CastHeldGroundCaster(castingHand);
+                        break;
+                    case "activate":
+                        CastHeldSpellComponent(heldSpell, castingHand);
+                        break;
                     case "flight1":
                         CastHeldFlight(true);
                         break;
@@ -435,6 +452,27 @@ public class Player : MonoBehaviour
 
         ToggleSpellParticles((hand=="right"), spell);
         SetHandGlow(spell, hand);
+    }
+
+    //  ------------- GROUND CASTER ------------------
+    public void CastHeldGroundCaster(GameObject castingHand) {
+        // Should spawn at the feet
+        // Get position from a ray that aims straight down
+        RaycastHit raycastHit;
+        Vector3 target = new Vector3(castingHand.transform.position.x, 0f, castingHand.transform.position.z);
+        if( Physics.Raycast( castingHand.transform.position, Vector3.down, out raycastHit, 50f, LayerMask.GetMask("Ground") ) ) {
+            print("Snapping to position: "+raycastHit.point+"   object: "+ raycastHit.collider.gameObject);
+            target = raycastHit.point+new Vector3(0f,0.05f,0f);
+        }
+
+        GameObject newGroundCaster = Instantiate(groundCaster, target, transform.rotation);
+    }
+
+    //  ------------- SPELL COMPONENT ------------------
+    public void CastHeldSpellComponent(string componentName, GameObject castingHand) {
+        GameObject newComponent = Instantiate(spellComponent, castingHand.transform.position, castingHand.transform.rotation);
+        SpellComponent sp = newComponent.GetComponent<SpellComponent>();
+        if (sp != null) sp.Create(componentName);
     }
 
 
