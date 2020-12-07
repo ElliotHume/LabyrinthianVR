@@ -19,6 +19,7 @@ TagManager:
   - Weapon
   - NullZone
   - Ghost
+  - SpellComponent
   layers:
   - Default
   - TransparentFX

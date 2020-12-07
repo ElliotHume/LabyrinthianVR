@@ -26,6 +26,10 @@ public class GlyphRecognition : MonoBehaviour {
 
 	public GlyphMatch lastCast;
 
+	// Variables for if the glyph is on a ground plane
+	public bool groundCast = false;
+	GroundDrawingPlane groundPlane;
+
 	private enum CastDirection {Right, Left, Forward};
 
 	private CastDirection currentCast;
@@ -67,7 +71,7 @@ public class GlyphRecognition : MonoBehaviour {
 			} catch {
 				//Debug.Log("Cannot find player for Glyph Recognition");
 			}
-		}	
+		}
 
 		if (Input.GetKey("1")) {
             Cast();
@@ -163,7 +167,11 @@ public class GlyphRecognition : MonoBehaviour {
 		try {
 			StartCoroutine(Morph(match));
 			// glyphColours[match.target.ToString()])
-			player.PrepareSpell(match.target.ToString(), hand, 1f - match.Cost/costThreshold);
+			if (!groundCast) {
+				player.PrepareSpell(match.target.ToString(), hand, 1f - match.Cost/costThreshold);
+			} else {
+				groundPlane.CastSpell(match.target.ToString(), 1f - match.Cost/costThreshold);
+			}
 		}
 		catch (System.Exception e) {
 			Debug.LogError("Glyph recognition " + e + " occured. Clearing strokes.");
@@ -319,6 +327,11 @@ public class GlyphRecognition : MonoBehaviour {
 
 	public void ChangePlayer(GameObject p) {
 		player = p.GetComponent<Player>();
+	}
+
+	public void ActivateGroundDraw(GameObject go) {
+		groundCast = true;
+		groundPlane = go.GetComponent<GroundDrawingPlane>();
 	}
 }
 

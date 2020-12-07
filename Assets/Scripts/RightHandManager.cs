@@ -78,7 +78,7 @@ public class RightHandManager : MonoBehaviour
                 castSuccess = glyphRecognition.Cast();
             }
 
-            if (player != null && CheckIfTriggered(controller) &&  held) {
+            if (player != null && CheckIfTriggered(controller) && held) {
                 held = false;
                 drawingSphere.SetActive(false);
                 castingLine.SetActive(false);
