@@ -5,8 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Sword : MonoBehaviour
 {
-    public AudioSource HitSound;
-    public float damage = 5f, hitTimeout = 0.2f;
+    public AudioSource HitSound, activateSound, deactivateSound;
+    public float damage = 5f, hitTimeout = 2f;
     bool onHitTimeout = false;
     public string damageType;
 
@@ -14,16 +14,29 @@ public class Sword : MonoBehaviour
 
     public XRGrabInteractable grabInteractable;
 
+    public List<ParticleSystem> activateParticles;
+    float currentTimeout = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        HitSound = GetComponent<AudioSource>();
+        // HitSound = GetComponent<AudioSource>();
         if (grabInteractable == null) grabInteractable = GetComponent<XRGrabInteractable>();
-        //StartCoroutine(HitBoxTimeout());
+        // StartCoroutine(HitBoxTimeout());
     }
 
-    void Awake() {
-        StartCoroutine(HitBoxTimeout());
+    // void Awake() {
+    //     StartCoroutine(HitBoxTimeout());
+    // }
+
+    void FixedUpdate() {
+        if (onHitTimeout && currentTimeout > 0f) {
+            currentTimeout -= Time.deltaTime;
+        } else if (onHitTimeout) {
+            onHitTimeout = false;
+            currentTimeout = 0f;
+            ActivateGlow();
+        }
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -46,6 +59,8 @@ public class Sword : MonoBehaviour
             }
 
             onHitTimeout = true;
+            currentTimeout = hitTimeout;
+            DeactivateGlow();
         }
     }
 
@@ -71,12 +86,32 @@ public class Sword : MonoBehaviour
 
                 if (prefab != null) {
                     grabInteractable.colliders.Clear();
-                    Destroy(gameObject);
                     Instantiate(prefab, transform.position, transform.rotation);
+                    Destroy(gameObject);
                 }
             }
 
             onHitTimeout = true;
+            currentTimeout = hitTimeout;
+            DeactivateGlow();
+        }
+    }
+
+    void ActivateGlow() {
+        // Debug.Log("Activate glow");
+        if (activateSound != null) activateSound.Play();
+
+        foreach (ParticleSystem ps in activateParticles) {
+            ps.Play();
+        }
+    }
+
+    void DeactivateGlow(){
+        // Debug.Log("Deactivate glow");
+        if (deactivateSound != null && !HitSound.isPlaying) deactivateSound.Play();
+
+        foreach (ParticleSystem ps in activateParticles) {
+            ps.Stop();
         }
     }
 

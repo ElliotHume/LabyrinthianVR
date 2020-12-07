@@ -13,6 +13,7 @@ public class Royalfireball : MonoBehaviour
     void Start() {
         if (grabInteractable == null) grabInteractable = GetComponent<XRGrabInteractable>();
     }
+    
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag != "Player") {
             GameObject newExplosion = Instantiate(royalFire, transform.position, Quaternion.identity);

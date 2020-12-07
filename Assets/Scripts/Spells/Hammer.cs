@@ -1,20 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Hammer : MonoBehaviour
 {
-    public AudioSource HitSound;
+    public AudioSource HitSound, activateSound, deactivateSound;
     public float damage = 10f, hitTimeout = 0.1f;
     public string damageType = "mortal";
     public bool canHitPlayer = false;
-    bool onHitTimeout = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        HitSound = GetComponent<AudioSource>();
-        StartCoroutine(HitBoxTimeout());
+    public List<GameObject> activateGlowObjects;
+    public List<ParticleSystem> activateParticles;
+    public Material baseMaterial, glowMaterial;
+
+    bool onHitTimeout = false;
+    float currentTimeout = 0;
+
+    // // Start is called before the first frame update
+    // void Start()
+    // {
+    //     HitSound = GetComponent<AudioSource>();
+    //     //StartCoroutine(HitBoxTimeout());
+    // }
+
+    void FixedUpdate() {
+        if (onHitTimeout && currentTimeout > 0f) {
+            currentTimeout -= Time.deltaTime;
+        } else if (onHitTimeout) {
+            onHitTimeout = false;
+            currentTimeout = 0f;
+            ActivateGlow();
+        }
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -39,12 +56,41 @@ public class Hammer : MonoBehaviour
             } else if (collision.gameObject.tag == "Player" && canHitPlayer) {
                 Player player = collision.gameObject.GetComponent<Player>();
                 if (player != null) player.WeaponHit(damage);
+                if (HitSound) HitSound.Play();
             }
 
             Rigidbody r = collision.gameObject.GetComponent<Rigidbody>();
             if (r != null) r.AddExplosionForce(1500f, transform.position, 1f);
 
             onHitTimeout = true;
+            currentTimeout = hitTimeout;
+            DeactivateGlow();
+        }
+    }
+
+    void ActivateGlow() {
+        // Debug.Log("Activate glow");
+        if (activateSound != null) activateSound.Play();
+
+        foreach (GameObject obj in activateGlowObjects) {
+            obj.GetComponent<Renderer>().material = glowMaterial;
+        }
+
+        foreach (ParticleSystem ps in activateParticles) {
+            ps.Play();
+        }
+    }
+
+    void DeactivateGlow(){
+        // Debug.Log("Deactivate glow");
+        if (deactivateSound != null && !HitSound.isPlaying) deactivateSound.Play();
+
+        foreach (GameObject obj in activateGlowObjects) {
+            obj.GetComponent<Renderer>().material = baseMaterial;
+        }
+
+        foreach (ParticleSystem ps in activateParticles) {
+            ps.Stop();
         }
     }
 
