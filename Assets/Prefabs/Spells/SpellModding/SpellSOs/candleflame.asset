@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8267b7dee9bdaf43a1eeee80d9f585b, type: 3}
+  m_Name: candleflame
+  m_EditorClassIdentifier: 
+  c_name: candleflame
+  description: Produce a small flame, that puts off more heat that light
+  targetDistribution:
+    structure: -0.1
+    essence: 0
+    fire: 0.25
+    water: 0
+    earth: 0
+    air: 0
+    nature: 0
+  keyComponents:
+  - {fileID: 11400000, guid: 2f3fd06521e18874b81ad98b719b1e29, type: 2}
+  - {fileID: 11400000, guid: aa4e891d27a1fb84182f4df4efec9ae7, type: 2}
+  - {fileID: 11400000, guid: b6d7b62172fbdc9468582d2ce4df3103, type: 2}
+  errorThreshold: 3
