@@ -14,8 +14,9 @@ public class AuricaSpellComponent : ScriptableObject {
     public ManaDistribution CalculateDistributionChange(ManaDistribution givenDistribution, ManaDistribution aura){
         ManaDistribution calculatedDistribution = new ManaDistribution(givenDistribution.ToString());
         if (hasBasicDistribution) calculatedDistribution.AddBasicDist(basicDistribution);
-        if (hasAuricDistribution) calculatedDistribution.AddAuricDist(auricDistribution, aura);
-        if (hasFluxDistribution) calculatedDistribution.ApplyFluxDist(fluxDistribution);
+        // TODO: For now, there is no aura system or flux calculations
+        // if (hasAuricDistribution) calculatedDistribution.AddAuricDist(auricDistribution, aura);
+        // if (hasFluxDistribution) calculatedDistribution.ApplyFluxDist(fluxDistribution);
         return calculatedDistribution;
     }
 }

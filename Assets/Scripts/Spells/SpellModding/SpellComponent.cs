@@ -5,10 +5,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpellComponent : MonoBehaviour
 {
-    public string effectName;
+    public AuricaSpellComponent component;
     public float lifetime = 0f;
 
     public GameObject breakFX;
+    public List<AuricaSpellComponent> allComponents = new List<AuricaSpellComponent>();
     XRGrabInteractable grabInteractable;
 
     void Awake() {
@@ -23,7 +24,12 @@ public class SpellComponent : MonoBehaviour
     }
 
     public void Create(string newEffectName) {
-        effectName = newEffectName;
+        foreach (AuricaSpellComponent item in allComponents){
+            if (item.name == newEffectName) {
+                component = item;
+                break;
+            }
+        }
     }
 
 }

@@ -80,7 +80,7 @@ public class GroundDrawingPlane : MonoBehaviour
         // if you cant grab a spellcomponent from the object, stop the function
         if (component == null) return;
 
-        switch (component.effectName) {
+        switch (component.component.c_name) {
             case "activate":
                 glyphRecognition.Cast();
                 component.Break();
