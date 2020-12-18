@@ -36,6 +36,7 @@ public class Hammer : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) {
         if (!onHitTimeout){
+            bool hit = false;
             if (collision.gameObject.tag == "Spell_Interactable") {
                 SpellInteractable si = collision.gameObject.GetComponent<SpellInteractable>();
                 Breakable b = collision.gameObject.GetComponent<Breakable>();
@@ -44,27 +45,33 @@ public class Hammer : MonoBehaviour
                 if (si != null) si.Trigger("hammer");
                 if (ew != null) ew.Shatter(collision.GetContact(0));
                 if (b != null) b.Break();
+                hit = true;
             } else if (collision.gameObject.tag == "Shield") {
                 Shield s = collision.gameObject.GetComponent<Shield>();
                 if(s != null) s.Break();
+                hit = true;
             } else if (collision.gameObject.tag == "Enemy") {
                 EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
                 CasterAI caster = collision.gameObject.GetComponent<CasterAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
                 if (caster != null) caster.TakeDamage(damageType, damage);
                 if (HitSound) HitSound.Play();
+                hit = true;
             } else if (collision.gameObject.tag == "Player" && canHitPlayer) {
                 Player player = collision.gameObject.GetComponent<Player>();
                 if (player != null) player.WeaponHit(damage);
                 if (HitSound) HitSound.Play();
+                hit = true;
             }
 
             Rigidbody r = collision.gameObject.GetComponent<Rigidbody>();
             if (r != null) r.AddExplosionForce(1500f, transform.position, 1f);
 
-            onHitTimeout = true;
-            currentTimeout = hitTimeout;
-            DeactivateGlow();
+            if (hit) {
+                onHitTimeout = true;
+                currentTimeout = hitTimeout;
+                DeactivateGlow();
+            }
         }
     }
 

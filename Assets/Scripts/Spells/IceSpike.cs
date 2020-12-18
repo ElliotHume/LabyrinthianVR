@@ -29,8 +29,9 @@ public class IceSpike : MonoBehaviour
             if (enemy != null) enemy.TakeDamage("ice", damage);
             if (caster != null) caster.TakeDamage("ice", damage);
             Break();
-        } else if (collision.gameObject.tag == "Spell") {
+        } else if (collision.gameObject.tag == "Spell" || collision.gameObject.tag == "Missile") {
             SpellData sd = collision.gameObject.GetComponent<SpellData>();
+            Debug.Log("Hit by spell with type: "+sd.damageType);
             if (sd != null && sd.damageType == "fire") Break();
         } else if (collision.gameObject.tag == "Player") {
             Player p = collision.gameObject.GetComponent<Player>();

@@ -90,12 +90,12 @@ public class CasterAI : MonoBehaviour
 
         // Check if the spells in the area will hit me
         bool willGetHit = (spellInArea != null) && spellInArea.WillHitObject(gameObject);
-        if (spellInArea != null) Debug.Log("Will I get hit by the incoming spell: "+willGetHit);
+        // if (spellInArea != null) Debug.Log("Will I get hit by the incoming spell: "+willGetHit);
 
         // Check if waiting
         if (waitTime > 0f && !currentlyAttacking && !blocking && !takingDamage) {
             waitTime -= Time.deltaTime;
-            Debug.Log("Waiting...");
+            // Debug.Log("Waiting...");
         }
         bool waiting = waitTime > 0f;
 
@@ -116,7 +116,7 @@ public class CasterAI : MonoBehaviour
         if (spellColliders.Length > 0) {
             SpellData sd = spellColliders[0].gameObject.GetComponent<SpellData>();
             if (sd != null && !detectedSpells.Contains(spellColliders[0].gameObject)) {
-                Debug.Log("Found Spell: "+sd.name);
+                // Debug.Log("Found Spell: "+sd.name);
                 detectedSpells.Add(spellColliders[0].gameObject);
                 return sd;
             }
@@ -127,7 +127,7 @@ public class CasterAI : MonoBehaviour
     }
 
     void Block(SpellData spell) {
-        Debug.Log("Try to block, can I? : "+!(currentlyAttacking || blocking || takingDamage));
+        // Debug.Log("Try to block, can I? : "+!(currentlyAttacking || blocking || takingDamage));
 
         // Do not Block if currently attacking, blocking, or taking damage
         if (currentlyAttacking || blocking || takingDamage) return;
@@ -141,7 +141,7 @@ public class CasterAI : MonoBehaviour
                 reaction = r;
             }
         }
-        Debug.Log("Found reaction: "+doesReact);
+        // Debug.Log("Found reaction: "+doesReact);
 
         // if a reaction is found and rolls a succesful reaction
         if (doesReact) {
@@ -196,7 +196,7 @@ public class CasterAI : MonoBehaviour
     //              2 is retreat
     //              3 is random
     void Dash(int dashType) {
-        Debug.Log("Start Dash");
+        // Debug.Log("Start Dash");
         anim.SetTrigger("Jump");
         moveDirection = Vector3.zero;
         switch(dashType) {
@@ -322,21 +322,21 @@ public class CasterAI : MonoBehaviour
     // Functions for animation events, only apply when currently attacking, because the animations can be shared with other actions
     public void FireWeapon(){
         if (currentlyAttacking) {
-            Debug.Log("Firing weapon");
+            // Debug.Log("Firing weapon");
             weapon.Fire(gameObject);
         }
     }
 
     public void InitParticles() {
         if (currentlyAttacking) {
-            Debug.Log("Init weapon particles");
+            // Debug.Log("Init weapon particles");
             weapon.PlayWindupParticles();
         }
     }
 
     public void FinishAttack() {
         if (currentlyAttacking) {
-            Debug.Log("Finish attack");
+            // Debug.Log("Finish attack");
             currentlyAttacking = false;
             waitTime += weapon.cooldown + actionCooldownTime;
         }

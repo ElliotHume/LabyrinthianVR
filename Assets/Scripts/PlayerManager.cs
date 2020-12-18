@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager instance;
 
     public List<string> discoveredSpells;
     public List<string> discoveredScenes;
@@ -22,6 +23,13 @@ public class PlayerManager : MonoBehaviour
         // StartCoroutine(RegenHealth());
         maxHealth = health;
         health = 100f;
+
+        // SINGLETON
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+        } else {
+            instance = this;
+        }
     }
 
     void FixedUpdate() {

@@ -19,6 +19,12 @@ public class SpellComponentDisplayPanel : MonoBehaviour
         componentDisplay.Rebuild();
 
         componentGO.transform.position = anchor.position;
-        componentGO.GetComponent<Rigidbody>().useGravity = false;
+        Rigidbody rb = componentGO.GetComponent<Rigidbody>();
+        if (rb != null) {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+        
     }
 }

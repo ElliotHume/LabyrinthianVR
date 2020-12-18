@@ -15,9 +15,10 @@ public class AdvancedDrawingPlane : MonoBehaviour
     public GlyphRecognition glyphRecognition;
     public Player player;
     public ParticleSystem edgeParticles;
+    public GameObject spellDisplayPanel;
 
     public XRController controller;
-    public InputHelpers.Button drawButton; 
+    public InputHelpers.Button drawButton, showSpellsButton; 
     public float activationThreshold = 0.1f, planeOffsetForward = 0.15f;
 
     ContactPoint lastContactPoint;
@@ -54,6 +55,7 @@ public class AdvancedDrawingPlane : MonoBehaviour
                 meshRenderer.enabled = false;  
                 visible = false;
                 if (edgeParticles) edgeParticles.Stop();
+                if (spellDisplayPanel != null) spellDisplayPanel.SetActive(false);
             }
         } else {
             if (!visible && !interactor.isSelectActive) {
@@ -62,6 +64,14 @@ public class AdvancedDrawingPlane : MonoBehaviour
                 visible = true;
                 if (edgeParticles) edgeParticles.Play();
             }
+        }
+
+        InputHelpers.IsPressed(controller.inputDevice, showSpellsButton, out bool showSpells, activationThreshold);
+        string heldSpell = (handName == "right") ? player.rightHandSpell : player.leftHandSpell;
+        if ((showSpells || Input.GetKey("v") && (heldSpell == null || heldSpell == ""))) {
+            if (spellDisplayPanel != null) spellDisplayPanel.SetActive(true);
+        } else {
+            if (spellDisplayPanel != null) spellDisplayPanel.SetActive(false);
         }
 
         if (Input.GetKeyDown("4")) {

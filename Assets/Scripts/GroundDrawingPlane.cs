@@ -34,7 +34,7 @@ public class GroundDrawingPlane : MonoBehaviour
         if (collision.gameObject.tag == "Player") {
             ContactPoint contact = collision.contacts[0];
             Vector3 localSpacePoint = transform.InverseTransformPoint(contact.point);
-            Vector2 twospace = new Vector2(-localSpacePoint.x, localSpacePoint.y);
+            Vector2 twospace = new Vector2(localSpacePoint.x, localSpacePoint.z);
             try {
                 glyphDrawInput.BeginCustomDrag(twospace);
             } catch {
@@ -51,7 +51,7 @@ public class GroundDrawingPlane : MonoBehaviour
             ContactPoint contact = collision.contacts[0];
             lastContactPoint = contact;
             Vector3 localSpacePoint = transform.InverseTransformPoint(contact.point);
-            Vector2 twospace = new Vector2(-localSpacePoint.x, localSpacePoint.y);
+            Vector2 twospace = new Vector2(localSpacePoint.x, localSpacePoint.z);
             try {
                 glyphDrawInput.CustomDrag(twospace);
             } catch {
@@ -65,7 +65,7 @@ public class GroundDrawingPlane : MonoBehaviour
         if (collision.gameObject.tag == "Player") {
             ContactPoint contact = lastContactPoint;
             Vector3 localSpacePoint = transform.InverseTransformPoint(contact.point);
-            Vector2 twospace = new Vector2(-localSpacePoint.x, localSpacePoint.y);
+            Vector2 twospace = new Vector2(localSpacePoint.x, localSpacePoint.z);
             try {
                 glyphDrawInput.EndCustomDrag(twospace);
             } catch {
@@ -75,15 +75,17 @@ public class GroundDrawingPlane : MonoBehaviour
     }
 
     public void ProcessSpellComponent(GameObject g) {
-        SpellComponent component = g.GetComponent<SpellComponent>();
+        // Debug.Log("Processing component");
+        SpellComponent scomponent = g.GetComponent<SpellComponent>();
 
         // if you cant grab a spellcomponent from the object, stop the function
-        if (component == null) return;
+        if (scomponent == null) return;
 
-        switch (component.component.c_name) {
+        switch (scomponent.component.name) {
             case "activate":
+                Debug.Log("Activate ground circle");
                 glyphRecognition.Cast();
-                component.Break();
+                scomponent.Break();
                 break;
         }
     }

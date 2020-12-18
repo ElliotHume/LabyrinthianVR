@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6862097259527826261}
   - component: {fileID: 6862097259527826262}
   m_Layer: 17
-  m_Name: ActivateComponent
+  m_Name: SpellComponent
   m_TagString: SpellComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,9 +110,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13de37aacd6c2a40bc2721cbb8af5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectName: activate
+  component: {fileID: 11400000, guid: b575b8a1681a9924da0680776fcad0e9, type: 2}
   lifetime: 10
   breakFX: {fileID: 0}
+  allComponents:
+  - {fileID: 11400000, guid: b575b8a1681a9924da0680776fcad0e9, type: 2}
+  - {fileID: 11400000, guid: 2f3fd06521e18874b81ad98b719b1e29, type: 2}
+  - {fileID: 11400000, guid: aa4e891d27a1fb84182f4df4efec9ae7, type: 2}
+  - {fileID: 11400000, guid: b6d7b62172fbdc9468582d2ce4df3103, type: 2}
+  - {fileID: 11400000, guid: 729c9565224ff7a4ba7d416fa04f719e, type: 2}
 --- !u!54 &6862097259527826261
 Rigidbody:
   m_ObjectHideFlags: 0

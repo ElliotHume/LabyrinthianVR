@@ -35,6 +35,7 @@ public class Binding : MonoBehaviour
 
             if (letGo > 0.8f || Input.GetKeyDown("p")) {
                 boundObject.GetComponent<Rigidbody>().useGravity = true;
+                boundObject.GetComponent<Rigidbody>().isKinematic = false;
                 boundObject = null;
                 hasBoundObject = false;
 
@@ -56,7 +57,9 @@ public class Binding : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
-        if (rb != null && !hasBoundObject) {
+        if (rb != null && !hasBoundObject && other.gameObject.tag != "Enemy" && other.gameObject.tag != "Ghost" && other.gameObject.tag != "Arena") {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             boundObject = other.gameObject;
             objectGrabOffset = anchor.position - other.ClosestPoint(anchor.position);
             hasBoundObject = true;

@@ -41,26 +41,32 @@ public class Sword : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) {
         if (!onHitTimeout){
+            bool hit = false;
             //print("hitsomething");
             if (collision.gameObject.tag == "Spell_Interactable") {
                 SpellInteractable si = collision.gameObject.GetComponent<SpellInteractable>();
                 if (HitSound) HitSound.Play();
                 if (si != null) si.Trigger("sword");
+                hit = true;
             } else if (collision.gameObject.tag == "Enemy" || (collision.gameObject.tag == "Ghost" && (damageType == "planar" || damageType == "arcane"))) {
                 EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
                 CasterAI caster = collision.gameObject.GetComponent<CasterAI>();
                 if (enemy != null) enemy.TakeDamage(damageType, damage);
                 if (caster != null) caster.TakeDamage(damageType, damage);
                 if (HitSound) HitSound.Play();
+                hit = true;
             } else if (collision.gameObject.name.Contains("Hammer") && damageType != "mortal") {
                 grabInteractable.colliders.Clear();
                 Destroy(gameObject);
                 Instantiate(MortalSword, transform.position, transform.rotation);
             }
 
-            onHitTimeout = true;
-            currentTimeout = hitTimeout;
-            DeactivateGlow();
+            if (hit) {
+                onHitTimeout = true;
+                currentTimeout = hitTimeout;
+                DeactivateGlow();
+                hit = false;
+            }
         }
     }
 
@@ -71,6 +77,10 @@ public class Sword : MonoBehaviour
                 SpellInteractable si = other.gameObject.GetComponent<SpellInteractable>();
                 if (HitSound) HitSound.Play();
                 if (si != null) si.Trigger("sword");
+
+                onHitTimeout = true;
+                currentTimeout = hitTimeout;
+                DeactivateGlow();
             } else if (other.gameObject.layer == 12 || other.gameObject.layer == 11) {
                 GameObject prefab=null;
 
@@ -90,10 +100,6 @@ public class Sword : MonoBehaviour
                     Destroy(gameObject);
                 }
             }
-
-            onHitTimeout = true;
-            currentTimeout = hitTimeout;
-            DeactivateGlow();
         }
     }
 
