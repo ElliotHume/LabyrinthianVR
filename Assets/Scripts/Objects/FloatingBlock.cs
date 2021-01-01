@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class FloatingBlock : MonoBehaviour
 {
-    //private bool posX, negX, posZ, negZ;
+    public float bobbingHeight = 0.1f;
+    public float bobbingSpeed = 0.1f;
+
     private Vector3 resetPosition;
     private Vector3 Xdirection = new Vector3(1,0,0);
     private Vector3 Zdirection = new Vector3(0,0,1);
-
-    public Rigidbody rigidBody;
-    public float bobbingHeight = 0.1f;
-    public float bobbingSpeed = 0.1f;
+    private Rigidbody rigidBody;
     private Vector3 moveDirection;
     private bool moving = false;
-    void Start()
-    {
+
+    void Start() {
         resetPosition = transform.position;
-        if (!rigidBody) rigidBody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

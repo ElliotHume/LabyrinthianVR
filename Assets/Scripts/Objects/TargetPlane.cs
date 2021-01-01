@@ -9,24 +9,11 @@ public class TargetPlane : MonoBehaviour
     public string targetName;
     public UnityEvent OnEnter, OnExit;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// OnTriggerEnter is called when the Collider other enters the trigger.
     /// </summary>
     /// <param name="other">The other Collider involved in this collision.</param>
-    void OnTriggerEnter(Collider other)
-    {
+    void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == targetTag || other.gameObject.name == targetName) {
             OnEnter.Invoke();
 
