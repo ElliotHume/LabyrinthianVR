@@ -9837,7 +9837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
-  speed: 8
+  speed: 9
   castFX: {fileID: 0}
   hitFX: {fileID: 1685594889111544145, guid: aaf52835d85161c47a13d90f34ce01eb, type: 3}
   hitSound: {fileID: 0}
@@ -9845,6 +9845,7 @@ MonoBehaviour:
   damageType: fire
   spellInteractorTriggerKey: fireball
   canHitPlayer: 0
+  canHitGhosts: 0
   destroyOnCollision:
   - {fileID: 3096006561292592737}
   - {fileID: 297623273715331495}

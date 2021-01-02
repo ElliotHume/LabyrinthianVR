@@ -78,6 +78,7 @@ public class Player : MonoBehaviour
 
         // hand colours
         handColours.Add("fireball", new Color(1f, 0, 0));
+        handColours.Add("fireballdirected", new Color(1f, 0, 0));
         handColours.Add("bluefire", new Color(1f, 0.1f, 0.2f));
 		handColours.Add("shield", new Color(113/255f, 199/255f, 1f));
 		handColours.Add("windslash", new Color(26/255f, 1f, 0));
@@ -214,6 +215,7 @@ public class Player : MonoBehaviour
         GameObject handObject = null;
         switch (spell) {
             case "fireball":
+            case "fireballdirected":
             case "wargodswand":
                 ps = rightHand ? r_fireParticles : l_fireParticles;
                 break;
@@ -292,6 +294,9 @@ public class Player : MonoBehaviour
                 switch (heldSpell) {
                     case "fireball":
                         CastHeldFireball(castingHand);
+                        break;
+                    case "fireballdirected":
+                        CastHeldFireball(castingHand, true);
                         break;
                     case "bluefire":
                         CastHeldBlueFire(castingHand);
@@ -478,9 +483,10 @@ public class Player : MonoBehaviour
 
 
     //  ------------- FIREBALL ------------------
-    public void CastHeldFireball(GameObject castingHand) {
+    public void CastHeldFireball(GameObject castingHand, bool directed=false) {
         GameObject newFireball = Instantiate(fireball, castingHand.transform.position, castingHand.transform.rotation);
-        newFireball.GetComponent<Fireball>().Scale(spellAccuracy);
+        if (directed) newFireball.GetComponent<BasicProjectile>().LinkCastingHand(castingHand);
+        //newFireball.GetComponent<Fireball>().Scale(spellAccuracy);
     }
 
 

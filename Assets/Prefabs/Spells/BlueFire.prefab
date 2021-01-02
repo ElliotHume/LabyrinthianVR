@@ -24443,7 +24443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682895bffd80fcb488091217f9482b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 30
   speed: 8
   castFX: {fileID: 1040091274170476, guid: 4dc3813479a19d149be60c7c1cea13e9, type: 3}
   hitFX: {fileID: 1282465575348918, guid: b077b8f66a284634cb92797eb3bc985b, type: 3}
