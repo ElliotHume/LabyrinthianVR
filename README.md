@@ -81,6 +81,3 @@ If you plan on playing the game, please don't read this ツ so much fun is in th
 ![First zone of the Arcane Path](Images/ArcaneZone0N.PNG)
 ![Battlegrounds](Images/BattlegroundsV2.PNG)
 
-### WIP zones: ###
-![First zone of the Mortal Path](Images/MortalZone0.PNG)
-![First zone of the Planar Path](Images/PlanarZone0.PNG)
