@@ -1,6 +1,6 @@
 # Labyrinthian <img align="right" width="100" height="100" src="Images/Logo-transparent.png">
 
-#### “Knowledge comes at a price of skill, no information is given to the unworthy” ####
+### Personal project for learning Unity XR development ###
 
 ----
 ### [Demo experience video [New level design!]](https://drive.google.com/file/d/16uk-74uikTGIiiO71wLbk3n_y62xsisW/view?usp=sharing) ###
