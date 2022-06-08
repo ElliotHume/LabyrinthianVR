@@ -67,6 +67,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Assets/AssetImports/
-Assets/AdVdGlyphRecognition/
+Assets/AssetImportsRemoved/
+Assets/AdVdGlyphRecognitionRemoved/
 
